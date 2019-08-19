@@ -1,7 +1,7 @@
 <template>
   <div class="entry">
-    <router-view />
-    <van-tabbar v-model="active"
+    <van-tabbar v-model="tabbarNum"
+                v-show="tabbarShow"
                 active-color="#EE7B3D"
                 class="active_tab">
       <van-tabbar-item
@@ -9,16 +9,20 @@
         :key="index"
         @click="tab(index, item.name)"
       >
-        <span :class="currIndex == index ? active:''">{{item.title}}</span>
+        <span>{{item.title}}</span>
         <template slot="icon" slot-scope="props">
           <img :src="props.active ? item.active : item.normal">
         </template>
       </van-tabbar-item>
     </van-tabbar>
+
+    <router-view />
   </div>
 </template>
 
 <script>
+import router from '@/router'
+import { mapGetters, mapActions } from 'vuex'
 import { Tabbar, TabbarItem } from 'vant'
 export default {
   name: 'entry',
@@ -28,8 +32,6 @@ export default {
   },
   data () {
     return {
-      currIndex: 0,
-      active: 0,
       tabbars: [
         {
           name: 'home',
@@ -52,10 +54,29 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters([
+      'tabbarActive', 'tabbarShow'
+    ]),
+
+    tabbarNum: {
+      get () {
+        return this.tabbarActive
+      },
+      set (val) {
+        this.setTabbarActive(val)
+      }
+    }
+  },
   methods: {
+    ...mapActions([
+      'setTabbarActive'
+    ]),
+
     tab (index, val) {
-      this.currIndex = index
-      // this.$router.push(val)
+      router.disAnimation = true
+      this.setTabbarActive(index)
+      this.$router.replace(val)
     }
   }
 }

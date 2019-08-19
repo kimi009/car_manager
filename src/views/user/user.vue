@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-
+    user
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
 
 <style scoped lang="less">
 .user{
-  height: 100%;
+  height: calc(~"100% - 50px");
   background-color: #FFF;
 }
 </style>

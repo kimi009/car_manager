@@ -1,12 +1,12 @@
 <template>
-  <div class="user">
-
+  <div class="vehicles">
+    vehicles
   </div>
 </template>
 
 <script>
 export default {
-  name: 'user',
+  name: 'vehicles',
   data () {
     return {}
   }
@@ -14,8 +14,8 @@ export default {
 </script>
 
 <style scoped lang="less">
-.user{
-  height: 100%;
+.vehicles{
+  height: calc(~"100% - 50px");
   background-color: #FFF;
 }
 </style>

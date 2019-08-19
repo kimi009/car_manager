@@ -13,8 +13,9 @@ router.beforeEach((to, from, next) => {
   next()
 
   // 路由跳转动画
-  if (to.meta.disAnimation) {
+  if (to.meta.disAnimation || router.disAnimation) {
     Vue.prototype.$transition = null
+    router.disAnimation = false
   } else {
     Vue.prototype.$transition = 'fade-effect'
   }

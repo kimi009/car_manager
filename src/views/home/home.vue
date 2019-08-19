@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <div class="map-container">
+    <!-- <div class="map-container">
        <a-map></a-map>
-    </div>
-    <van-button type="primary" @click="getLocation">定位</van-button>
+    </div> -->
+    home
     <transition :name="$transition" mode="in-out">
         <router-view/>
     </transition>
@@ -39,9 +39,8 @@ export default {
 
 <style scoped lang="less">
 .home{
-  height: 100%;
-  background-color: silver;
-  font-size: 12px;
+  height: calc(~"100% - 50px");
+  background-color: #FFF;
   .map-container{
     .wh(100%, 100%);
   }
