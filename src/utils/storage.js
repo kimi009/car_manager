@@ -47,7 +47,7 @@ class Store {
     if (!this._store) return
     let kType = this.getType(_k)
     if (kType === 'string') {
-      res = this._store.removeItem(_k)
+      this._store.removeItem(_k)
     } else {
       console.log('key只能为字符串！')
     }

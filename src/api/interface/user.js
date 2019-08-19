@@ -1,25 +1,54 @@
-import axios from '../api' // 倒入 api
+import axios from '../api' // 导入 api
 
-// 单独倒出
-export const query = params => {
+// 获取短信验证码
+export const getCode = data => {
   return axios({
-    url: '/data/sk/101010100.html',
-    method: 'get',
-    params
+    url: '/api/app/employee/getCode',
+    method: 'post',
+    data
   })
 }
 
-// 测试
-export const test = params => {
+// 验证是否登录
+export const isLogin = data => {
   return axios({
-    url: '/test',
-    method: 'get',
-    params
+    url: '/api/app/employee/isLogin',
+    method: 'post',
+    data
   })
 }
 
-// 默认全部倒出
+// 登录
+export const login = data => {
+  return axios({
+    url: '/api/app/employee/login',
+    method: 'post',
+    data
+  })
+}
+
+// 登出
+export const logout = data => {
+  return axios({
+    url: '/api/app/employee/logout',
+    method: 'post',
+    data
+  })
+}
+
+// 获取用户信息
+export const userInfo = data => {
+  return axios({
+    url: '/api/app/employee/userInfo',
+    method: 'post',
+    data
+  })
+}
+
 export default {
-  query,
-  test
+  getCode,
+  isLogin,
+  login,
+  logout,
+  userInfo
 }

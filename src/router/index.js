@@ -13,29 +13,14 @@ const router = new Router({
   routes: [
     { path: '*', redirect: '/home', hidden: true },
     {
-      path: '/home',
-      component: () => import('@/views/home/index'),
+      path: 'entry',
+      component: () => import('@/views/entry'),
       children: [
         {
-          path: 'test',
-          component: () => import('@/views/test'),
-          meta: { disAnimation: false },
-          children: [
-            {
-              path: 'demo',
-              component: () => import('@/views/demo')
-            }
-          ]
-        },
-        {
-          path: 'demo',
-          component: () => import('@/views/demo')
+          path: '/home',
+          component: () => import('@/views/home/home')
         }
       ]
-    },
-    {
-      path: '/test',
-      component: () => import('@/views/test')
     }
   ]
 })

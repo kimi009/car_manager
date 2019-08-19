@@ -23,7 +23,6 @@ export default {
     }
   },
   mounted () {
-    // console.dir(Vue)
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))
     // })

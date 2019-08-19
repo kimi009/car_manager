@@ -10,14 +10,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/data': {
-          target: 'http://www.weather.com.cn',
-          changeOrigin: true
-      },
-      '/test': {
-        target: 'http://rap2api.taobao.org/app/mock/223070/',
+      '/api': {
+        target: 'http://rap2api.taobao.org/app/mock/222062',
+        // target: 'https://yfb.jchl.com/backend',
+        // target: 'http://47.107.84.151:8088/backend',
+        // target: 'http://10.10.24.241:8088/backend', // 本地
         changeOrigin: true
-      }
+    }
     },
 
     // Various Dev Server settings

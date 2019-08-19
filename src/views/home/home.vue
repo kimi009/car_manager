@@ -1,10 +1,9 @@
 <template>
   <div class="home">
-    <img @click="$router.push('/home/test')" src="../../assets/logo.png"><br>
-    {{msg}}
-    <van-button type="info" size="normal" class="text">信息按钮</van-button>
-    <van-rate v-model="value" />
-    <van-button loading type="danger" loading-text="加载中..." />
+    <div class="map-container">
+       <a-map></a-map>
+    </div>
+    <van-button type="primary" @click="getLocation">定位</van-button>
     <transition :name="$transition" mode="in-out">
         <router-view/>
     </transition>
@@ -12,21 +11,29 @@
 </template>
 
 <script>
-import { Button, Rate } from 'vant'
+import { Button } from 'vant'
+import AMap from '../../components/AMap/amap'
 export default {
   name: 'home',
   data () {
     return {
       msg: 'Welcome to Your Vue.js Frame',
-      value: 3
+      value: 3,
+      active: 0,
+      show: false,
+      psdValue: '12'
     }
   },
   components: {
     [Button.name]: Button,
-    [Rate.name]: Rate
+    AMap
   },
 
-  created () {}
+  created () {},
+
+  methods: {
+    getLocation () {}
+  }
 }
 </script>
 
@@ -35,10 +42,8 @@ export default {
   height: 100%;
   background-color: silver;
   font-size: 12px;
-  img{
-    width: 190px;
-    height: 190px;
-    margin: 50px 0 25px 0;
+  .map-container{
+    .wh(100%, 100%);
   }
 }
 
