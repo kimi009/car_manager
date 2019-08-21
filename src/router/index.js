@@ -30,6 +30,11 @@ const router = new Router({
           path: '/user',
           meta: {showTab: true, requiresAuth: true},
           component: () => import('@/views/user/user')
+        },
+        {
+          path: '/sign',
+          meta: {showTab: true, requiresAuth: true},
+          component: () => import('@/views/signContract/signContract')
         }
       ]
     },

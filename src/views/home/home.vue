@@ -120,7 +120,7 @@ import { Button } from 'vant'
 import AMap from '../../components/AMap/amap'
 export default {
   name: 'home',
-  data() {
+  data () {
     return {
       func: [
         {
@@ -162,10 +162,10 @@ export default {
     [Button.name]: Button,
     AMap
   },
-  created() {
+  created () {
   },
   methods: {
-    getLocation() { }
+    getLocation () { }
   }
 }
 </script>
