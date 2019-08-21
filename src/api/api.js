@@ -1,7 +1,8 @@
 import axios from 'axios' // 注意先安装哦
 import config from './config.js' // 倒入默认配置
 import qs from 'qs' // 序列化请求数据，视服务端的要求
-// import router from '../router/index'
+import { Toast } from 'vant'
+const interfaceConfig = require('./interfaceConfig.json')
 
 export default function $axios (options) {
   return new Promise((resolve, reject) => {
@@ -14,6 +15,14 @@ export default function $axios (options) {
     // request 拦截器
     instance.interceptors.request.use(
       config => {
+        // 等待框
+        if (!interfaceConfig[options.url] || !interfaceConfig[options.url].noShowLoading) {
+          Toast.loading({
+            mask: true,
+            message: '加载中...'
+          })
+        }
+
         // Tip: 1
         // 请求开始的时候可以结合 vuex 开启全屏的 loading 动画
 
@@ -24,6 +33,7 @@ export default function $axios (options) {
         // } else {
         //     // 重定向到登录页面
         // }
+        console.log('request', config.data)
 
         // Tip: 3
         // 根据请求方法，序列化传来的参数，根据后端需求是否序列化
@@ -41,10 +51,10 @@ export default function $axios (options) {
         console.log('request:', error)
 
         //  1.判断请求超时
-        if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
-          console.log('根据你设置的timeout/真的请求超时 判断请求现在超时了，你可以在这里加入超时的处理方案')
-          // return service.request(originalRequest);//例如再重复请求一次
-        }
+        // if (error.code === 'ECONNABORTED' && error.message.indexOf('timeout') !== -1) {
+        //   console.log('根据你设置的timeout/真的请求超时 判断请求现在超时了，你可以在这里加入超时的处理方案')
+        //   // return service.request(originalRequest);//例如再重复请求一次
+        // }
         //  2.需要重定向到错误页面
         const errorInfo = error.response
         console.log(errorInfo)
@@ -62,19 +72,42 @@ export default function $axios (options) {
     // response 拦截器
     instance.interceptors.response.use(
       response => {
-        let data
+        // 清除加载框
+        Toast.clear()
+
+        let res
         // IE9时response.data是undefined，因此需要使用response.request.responseText(Stringify后的字符串)
-        if (response.data === undefined) {
-          data = response.request.responseText
+        if (response.res === undefined) {
+          res = response.request.responseText
         } else {
-          data = response.data
+          res = response.res
         }
         // 根据返回的code值来做不同的处理（和后端约定）
-        switch (data.code) {
-          case '':
-            break
-          default:
+        if (typeof res === 'string') {
+          res = JSON.parse(res)
         }
+        console.log('response', res)
+
+        switch (res.code) {
+          case '0':
+            Toast({
+              message: '请求失败',
+              position: 'bottom'
+            })
+            return Promise.reject(res.message || 'Error')
+          case 700:
+            Toast({
+              message: res.message,
+              position: 'bottom'
+            })
+        }
+
+        // 未匹配接口
+        if (res.hasOwnProperty('isOk') && res.hasOwnProperty('errMsg')) {
+          const err = new Error(res.errMsg)
+          throw err
+        }
+
         // 若不是正确的返回code，且已经登录，就抛出错误
         // const err = new Error(data.description)
 
@@ -82,9 +115,12 @@ export default function $axios (options) {
         // err.response = response
 
         // throw err
-        return data
+        return res
       },
       err => {
+        // 清除加载框
+        Toast.clear()
+
         if (err && err.response) {
           switch (err.response.status) {
             case 400:

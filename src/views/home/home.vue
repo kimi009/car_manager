@@ -11,13 +11,105 @@
         <p class="car-num">
           <img src="../../assets/image/home/card.png"
                alt="">
-          <span></span>
+          <span>粤A65G65</span>
         </p>
-        <div class="rent"></div>
+        <div class="rent">
+          <p>本月租金（元）</p>
+          <p class="money">
+            <span>2,433.47</span>
+            <a href="javascript:;">查看租金</a>
+          </p>
+        </div>
         <p class="break">
           <span>本月违章</span>
           <span>无</span>
         </p>
+      </div>
+      <div class="right">
+        <p class="location">
+          <img src="@/assets/image/home/location.png"
+               alt="">
+          <span class="place">广州</span>
+          <span class="status">今日不限行</span>
+        </p>
+        <p class="weather">
+          雷阵雨 27~35 C
+        </p>
+        <p class="status">不适宜洗车</p>
+      </div>
+    </div>
+    <div class="func">
+      <div v-for="item in func"
+           :key="item.label">
+        <img :src="item.img"
+             alt="">
+        <p>{{item.label}}</p>
+      </div>
+    </div>
+    <p class="more">
+      <a href="javascript:;">查看更多</a>
+    </p>
+    <div class="ad">
+      <img src="@/assets/image/home/ad_1.png"
+           alt="">
+      <div class="line"></div>
+    </div>
+    <div class="news">
+      <p class="title">金财车友会</p>
+      <div>
+        <div class="item">
+          <p class="content">#惠用车开张 有奖闯关</p>
+          <p class="status"><img src="@/assets/image/home/hottest.png"
+                 alt="">246人参与</p>
+        </div>
+        <div class="item">
+          <p class="content">#惠用车开张 有奖闯关</p>
+          <p class="status"><img src="@/assets/image/home/hottest.png"
+                 alt="">246人参与</p>
+        </div>
+        <div class="item">
+          <p class="content">#惠用车开张 有奖闯关</p>
+          <p class="status"><img src="@/assets/image/home/hottest.png"
+                 alt="">246人参与</p>
+        </div>
+        <div class="item">
+          <p class="content">#惠用车开张 有奖闯关</p>
+          <p class="status"><img src="@/assets/image/home/hottest.png"
+                 alt="">246人参与</p>
+        </div>
+      </div>
+    </div>
+    <div class="selection">
+      <p class="title">每日精选</p>
+      <div class="selection-item">
+        <div class="left">
+          <p class="title">央行加大支持，债市依旧向好</p>
+          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+        </div>
+        <div class="right">
+          <img src="@/assets/image/home/selection_1.png"
+               alt="">
+        </div>
+      </div>
+      <div class="selection-item">
+        <div class="left">
+          <p class="title">央行加大支持，债市依旧向好</p>
+          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+        </div>
+        <div class="right">
+          <img src="@/assets/image/home/selection_1.png"
+               alt="">
+        </div>
+      </div>
+      <div class="selection-item">
+        <div class="left">
+          <p class="title">央行加大支持，债市依旧向好</p>
+          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+        </div>
+        <div class="right">
+          <img src="@/assets/image/home/selection_1.png"
+               alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -30,11 +122,40 @@ export default {
   name: 'home',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js Frame',
-      value: 3,
-      active: 0,
-      show: false,
-      psdValue: '12'
+      func: [
+        {
+          label: '加油',
+          img: require('@/assets/image/home/oil.png')
+        },
+        {
+          label: '发票',
+          img: require('@/assets/image/home/inv.png')
+        },
+        {
+          label: 'ETC',
+          img: require('@/assets/image/home/etc.png')
+        },
+        {
+          label: '违章',
+          img: require('@/assets/image/home/break.png')
+        },
+        {
+          label: '保养',
+          img: require('@/assets/image/home/fit.png')
+        },
+        {
+          label: '保险',
+          img: require('@/assets/image/home/safe.png')
+        },
+        {
+          label: '换车',
+          img: require('@/assets/image/home/change.png')
+        },
+        {
+          label: '停车',
+          img: require('@/assets/image/home/stop.png')
+        }
+      ]
     }
   },
   components: {
@@ -51,15 +172,225 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~'100% - 50px');
+  height: calc(~'100% - 55px');
   background-color: #fff;
-  padding: 0 15px;
+  padding: 12px 15px;
+  overflow: auto;
   .car-info {
     background: linear-gradient(
       -90deg,
-      rgba(98, 165, 241, 1),
-      rgba(68, 120, 233, 1)
+      rgba(68, 120, 233, 1),
+      rgba(98, 165, 241, 1)
     );
+    text-align: left;
+    border-radius: 4px;
+    padding: 18px 20px;
+    font-size: 13px;
+    color: #fff;
+    display: flex;
+    > .left {
+      width: calc(50% - 1px);
+      border-right: 0.5px solid #e5eefc;
+      > .car-num {
+        display: flex;
+        align-items: center;
+        > img {
+          width: 20px;
+          height: 20px;
+          margin-right: 7px;
+        }
+        > span {
+          color: #e5eefc;
+        }
+      }
+      > .rent {
+        margin-top: 12px;
+        margin-bottom: 20px;
+        > p {
+          color: #e5eefc;
+          margin-bottom: 7px;
+        }
+        > .money {
+          > span {
+            color: #fff;
+            font-size: 15px;
+          }
+          > a {
+            font-size: 10px;
+            padding: 4px 10px;
+            border: 1px solid #fff;
+            border-radius: 3px;
+            color: #fff;
+            transform: rotate(70deg);
+          }
+        }
+      }
+      > .break {
+        > span {
+          &:first-child {
+            color: #e5eefc;
+          }
+          &:first-child + span {
+            color: #fff;
+            margin-left: 20px;
+          }
+        }
+      }
+    }
+    > .right {
+      width: 50%;
+      padding-left: 28px;
+      font-size: 14px;
+      > .location {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        > img {
+          width: 13px;
+          height: 16px;
+        }
+        span {
+          color: #e5eefc;
+          &.place {
+            margin-left: 4px;
+          }
+          &.status {
+            margin-left: 8px;
+          }
+        }
+      }
+      > .weather {
+        margin-top: 14px;
+      }
+      > .status {
+        margin-top: 14px;
+      }
+    }
+  }
+  .func {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #333;
+    > div {
+      flex: 0 0 25%;
+      position: relative;
+      margin-top: 24px;
+      img {
+        transform: scale(0.5);
+      }
+      p {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+      }
+    }
+  }
+  .more {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+    margin-top: 16px;
+    > a {
+      padding-right: 16px;
+      background: url('~@/assets/image/home/more.png') right center no-repeat;
+      background-size: 6px 11px;
+    }
+  }
+  .ad {
+    margin-top: 14px;
+    width: 100%;
+    position: relative;
+    img {
+      width: 100%;
+    }
+    .line {
+      position: absolute;
+      width: 100vw;
+      background-color: #f5f5f5;
+      height: 10px;
+      left: -15px;
+      bottom: -18px;
+    }
+  }
+  .news {
+    text-align: left;
+    margin-top: 32px;
+    > .title {
+      font-size: 17px;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    > div {
+      display: flex;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      > .item {
+        width: 120px;
+        height: 74px;
+        position: relative;
+        background: url('~@/assets/image/home/bg1.png') center center no-repeat;
+        padding: 8px 12px;
+        background-size: 120px 74px;
+        margin-right: 8px;
+        border-radius: 2px;
+        flex: 0 0 33%;
+        > .content {
+          font-size: 14px;
+          color: #fff;
+          z-index: 99;
+        }
+        > .status {
+          display: flex;
+          align-items: center;
+          color: #fff;
+          font-size: 11px;
+          margin-top: 8px;
+          > img {
+            width: 34px;
+            height: 15px;
+          }
+        }
+      }
+    }
+  }
+  .selection {
+    text-align: left;
+    margin-top: 32px;
+    > .title {
+      font-size: 17px;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    > .selection-item {
+      display: flex;
+      border-bottom: 1px solid #eaeaea;
+      padding-bottom: 4px;
+      margin-bottom: 13px;
+      > .left {
+        > .title {
+          color: #333;
+          font-size: 15px;
+        }
+        > .content {
+          margin-top: 4px;
+          color: #666;
+          font-size: 13px;
+        }
+      }
+      > .right {
+        > img {
+          width: 110px;
+          height: 83px;
+        }
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+    }
   }
 }
 </style>

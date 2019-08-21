@@ -18,18 +18,29 @@ const router = new Router({
       children: [
         {
           path: '/home',
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/home/home')
         },
         {
           path: '/vehicles',
-          meta: { showTab: false },
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/vehicles/vehicles')
         },
         {
           path: '/user',
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/user/user')
         }
       ]
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/login/login')
+    },
+    {
+      path: '/guide',
+      meta: { requiresAuth: true },
+      component: () => import('@/views/guide/guide')
     },
     {
       path: '/rent',
