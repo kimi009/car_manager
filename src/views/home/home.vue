@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <!-- <div class="map-container">
+    <div class="map-container">
        <a-map></a-map>
     </div> -->
     <!-- <transition :name="$transition" mode="in-out">
