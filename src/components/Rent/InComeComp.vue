@@ -2,25 +2,25 @@
   <div class='in-come-comp'>
     <div class="row-item">
       <span>租金周期</span>
-      <span>{{rowItem.rentalCycle}}</span>
+      <span>{{rowItem.period}}</span>
     </div>
     <div class="row-item">
       <span>租金金额</span>
-      <span>{{rowItem.rentAmount}}</span>
+      <span>{{rowItem.amount}}</span>
     </div>
     <div class="row-item">
       <span>发放时间</span>
-      <span>{{rowItem.distributionTime}}</span>
+      <span>{{rowItem.releaseTime}}</span>
     </div>
     <div class="h-divide"></div>
     <div class="content-footer">
-      <span class="status">开票状态：{{rowItem.invoiceStatus === 1 ? '未开票' : '已开票'}}</span>
-      <span @click.stop="$emit('statusRowClick',rowItem.invoiceStatus)"
-            :class="['status', rowItem.invoiceStatus ===1 ? 'no-invoiced' : 'has-invoiced']">{{rowItem.invoiceStatus === 1 ? '开票' : '点击查看'}}</span>
+      <span class="status">开票状态：{{rowItem.invoiceState === 1 ? '未开票' : '已开票'}}</span>
+      <span @click.stop="$emit('statusRowClick',rowItem)"
+            :class="['status', rowItem.invoiceState ===1 ? 'no-invoiced' : 'has-invoiced']">{{rowItem.invoiceState === 1 ? '开票' : '点击查看'}}</span>
     </div>
-    <span v-if="rowItem.invoiceStatus === 2"
+    <span v-if="rowItem.invoiceState === 2"
           class="status"
-          style="display:block;text-align:left;margin-top:10px;">开票时间：{{rowItem.invoiceTime}}</span>
+          style="display:block;text-align:left;margin-top:10px;">开票时间：{{rowItem.invoiceDate}}</span>
   </div>
 </template>
 <script>
@@ -35,29 +35,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@import url("~@/styles/rentCommon");
 .in-come-comp {
   margin-top: 10px;
   padding: 15px 15px 20px 15px;
   background-color: #ffffff;
   border-radius: 3px;
-  .row-item {
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    span {
-      font-size: 15px;
-      &:nth-of-type(1) {
-        color: #666666;
-      }
-      &:nth-of-type(2) {
-        color: #333333;
-      }
-    }
-  }
-  .h-divide {
-    height: 0.9px;
-    background-color: #e5e5e5;
-  }
   .status {
     font-size: 13px;
     color: #999999;

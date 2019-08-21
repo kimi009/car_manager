@@ -1,7 +1,7 @@
 <template>
   <div class='my-income'
        :style="myIncomeStyle">
-    <div class="title">
+    <div class="list-title">
       <span>我的收益</span>
       <span v-if="isIndex"
             @click.stop="more">
@@ -16,6 +16,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import InComeComp from '@/components/Rent/InComeComp'
 import test from '@/utils/test'
 export default {
@@ -33,6 +34,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      myIncomeData: state => state.myIncomeData || {}
+    }),
     myIncomeStyle: function () {
       return !this.isIndex ? { padding: '15px' } : {}
     }
@@ -50,39 +54,19 @@ export default {
     more() {
       this.$router.push({ path: '/rent/list' })
     },
-    statusRowClick(status) {
-      if (status === 1) {
+    statusRowClick(item) {
+      if (item.invoiceState === 1) {
         this.$router.push({ path: '/payment' })
       } else {
-
+        window.location.href = item.invoiceUrl
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
+@import url('~@/styles/rentCommon');
 .my-income {
   background-color: #f4f4f4;
-  .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    span {
-      &:nth-child(1) {
-        font-size: 17px;
-        font-weight: bold;
-        color: #333333;
-      }
-      &:nth-child(2) {
-        font-size: 12px;
-        color: #999999;
-        img {
-          width: 6px;
-          height: 11px;
-          margin-left: 9px;
-        }
-      }
-    }
-  }
 }
 </style>

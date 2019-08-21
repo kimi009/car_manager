@@ -51,6 +51,10 @@ const router = new Router({
       component: () => import('@/views/rentNoSign/inComeList')
     },
     {
+      path: '/lease/list',
+      component: () => import('@/views/rentNoSign/leaseList')
+    },
+    {
       path: '/payment',
       component: () => import('@/views/payment')
     }

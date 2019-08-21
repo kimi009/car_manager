@@ -4,19 +4,23 @@ import qs from 'qs' // 序列化请求数据，视服务端的要求
 import { Toast } from 'vant'
 const interfaceConfig = require('./interfaceConfig.json')
 
-export default function $axios (options) {
+export default function $axios(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({
       baseURL: config.baseURL,
       headers: {},
-      transformResponse: [function (data) {}]
+      method: options.method || 'post',
+      transformResponse: [function(data) {}]
     })
 
     // request 拦截器
     instance.interceptors.request.use(
       config => {
         // 等待框
-        if (!interfaceConfig[options.url] || !interfaceConfig[options.url].noShowLoading) {
+        if (
+          !interfaceConfig[options.url] ||
+          !interfaceConfig[options.url].noShowLoading
+        ) {
           Toast.loading({
             mask: true,
             message: '加载中...'
@@ -37,9 +41,11 @@ export default function $axios (options) {
 
         // Tip: 3
         // 根据请求方法，序列化传来的参数，根据后端需求是否序列化
-        if (config.method.toLocaleLowerCase() === 'post' ||
-                    config.method.toLocaleLowerCase() === 'put' ||
-                    config.method.toLocaleLowerCase() === 'delete') {
+        if (
+          config.method.toLocaleLowerCase() === 'post' ||
+          config.method.toLocaleLowerCase() === 'put' ||
+          config.method.toLocaleLowerCase() === 'delete'
+        ) {
           config.data = qs.stringify(config.data)
         }
         return config
@@ -60,10 +66,10 @@ export default function $axios (options) {
         console.log(errorInfo)
         if (errorInfo) {
           // error =errorInfo.data//页面那边catch的时候就能拿到详细的错误信息,看最下边的Promise.reject
-        //   const errorStatus = errorInfo.status // 404 403 500 ... 等
-        //   router.push({
-        //     path: `/error/${errorStatus}`
-        //   })
+          //   const errorStatus = errorInfo.status // 404 403 500 ... 等
+          //   router.push({
+          //     path: `/error/${errorStatus}`
+          //   })
         }
         return Promise.reject(error) // 在调用的那边可以拿到(catch)你想返回的错误信息
       }
@@ -179,11 +185,11 @@ export default function $axios (options) {
 
     // 请求处理
     instance(options)
-      .then((res) => {
+      .then(res => {
         resolve(res)
         return false
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error)
       })
   })
