@@ -14,14 +14,17 @@ module.exports = {
         // target: 'http://rap2api.taobao.org/app/mock/222062',
         // target: 'https://yfb.jchl.com/backend',
         // target: 'http://47.107.84.151:8088/backend',
-        target: 'http://39.108.200.59/backend/',
+        target: 'http://39.108.200.59:10080/backend/',
         // target: 'http://10.10.24.241:8088/backend', // 本地
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api'
+        }
       }
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    // host: 'localhost', // can be overwritten by process.env.HOST
     port: 8081, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
