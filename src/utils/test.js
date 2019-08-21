@@ -1,39 +1,39 @@
 export default () => {
   return [
     {
-      rentalCycle: '2019年05月',
-      rentAmount: '2500元',
-      distributionTime: '2019-05-30',
-      invoiceStatus: 1,
-      invoiceTime: ''
+      period: '2019年05月',
+      amount: '2500元',
+      releaseTime: '2019-05-30',
+      invoiceState: 2,
+      invoiceDate: ''
     },
     {
-      rentalCycle: '2019年05月',
-      rentAmount: '2500元',
-      distributionTime: '2019-05-30',
-      invoiceStatus: 1,
-      invoiceTime: ''
+      period: '2019年05月',
+      amount: '2500元',
+      releaseTime: '2019-05-30',
+      invoiceState: 1,
+      invoiceDate: ''
     },
     {
-      rentalCycle: '2019年05月',
-      rentAmount: '2500元',
-      distributionTime: '2019-05-30',
-      invoiceStatus: 1,
-      invoiceTime: ''
+      period: '2019年05月',
+      amount: '2500元',
+      releaseTime: '2019-05-30',
+      invoiceState: 1,
+      invoiceDate: ''
     },
     {
-      rentalCycle: '2019年05月',
-      rentAmount: '2500元',
-      distributionTime: '2019-05-30',
-      invoiceStatus: 1,
-      invoiceTime: ''
+      period: '2019年05月',
+      amount: '2500元',
+      releaseTime: '2019-05-30',
+      invoiceState: 1,
+      invoiceDate: ''
     },
     {
-      rentalCycle: '2019年05月',
-      rentAmount: '2500元',
-      distributionTime: '2019-05-30',
-      invoiceStatus: 2,
-      invoiceTime: '2018-02-5'
+      period: '2019年05月',
+      amount: '2500元',
+      releaseTime: '2019-05-30',
+      invoiceState: 2,
+      invoiceDate: '2018-02-5'
     }
   ]
 }

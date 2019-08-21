@@ -136,7 +136,8 @@ export default {
   .rent-content {
     position: absolute;
     top: 130px;
-    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 55px 15px 15px;
     background-color: #f4f4f4;
     .title {

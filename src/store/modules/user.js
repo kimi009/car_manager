@@ -16,56 +16,69 @@ const user = {
   },
   actions: {
     // 判断是否登录
-    isLogin ({ commit }) {
+    isLogin({ commit }) {
       return new Promise((resolve, reject) => {
-        Vue.prototype.$api.isLogin().then(res => {
-          commit('SET_LOGIN_STATE', res.data.isLogin)
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
+        Vue.prototype.$api
+          .isLogin()
+          .then(res => {
+            res.data.isLogin = true
+            commit('SET_LOGIN_STATE', res.data.isLogin)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
     // 登录
-    login ({ commit }, params) {
+    login({ commit }, params) {
       return new Promise((resolve, reject) => {
-        Vue.prototype.$api.login(params).then(res => {
-          console.log(res)
-          commit('SET_LOGIN_STATE', res.data.isLogin)
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
+        Vue.prototype.$api
+          .login(params)
+          .then(res => {
+            console.log(res)
+            commit('SET_LOGIN_STATE', res.data.isLogin)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
     // 获取用户信息
-    getInfo ({ commit }) {
+    getInfo({ commit }) {
       return new Promise((resolve, reject) => {
         console.log('userInfo')
-        Vue.prototype.$api.userInfo().then(res => {
-          commit('SET_USER_INFO', res.data)
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
+        Vue.prototype.$api
+          .userInfo()
+          .then(res => {
+            commit('SET_USER_INFO', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     },
 
     // 登出
-    logout ({ commit, state }) {
+    logout({ commit, state }) {
       // 清除车辆信息
       lStorage.removeItem(lStorage.VEHICLE_INFO)
 
       return new Promise((resolve, reject) => {
-        Vue.prototype.$api.logout().then(res => {
-          commit('SET_LOGIN_STATE', false)
-          commit('SET_USER_INFO', '')
-          resolve(res)
-        }).catch(err => {
-          reject(err)
-        })
+        Vue.prototype.$api
+          .logout()
+          .then(res => {
+            commit('SET_LOGIN_STATE', false)
+            commit('SET_USER_INFO', '')
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     }
   }

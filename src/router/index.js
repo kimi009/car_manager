@@ -57,6 +57,10 @@ const router = new Router({
     {
       path: '/payment',
       component: () => import('@/views/payment')
+    },
+    {
+      path: '/previewPdf',
+      component: () => import('@/views/commonPage')
     }
   ]
 })

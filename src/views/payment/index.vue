@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+import payTax from '@/api/interface/payment'
 export default {
   name: 'index',
   data() {
@@ -37,14 +38,15 @@ export default {
 
   },
   methods: {
-    payment() {
+    async payment() {
       if (this.paymenting) {
         return
       }
       this.paymenting = true
-      setTimeout(() => {
-        this.isSuccess = true
-      }, 5000)
+      let res = await payTax({ employeeBillId: '' })
+      if (res.success) {
+        console.log(res)
+      }
     }
   }
 }

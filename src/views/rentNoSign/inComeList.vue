@@ -58,14 +58,15 @@ export default {
       if (item.invoiceState === 1) {
         this.$router.push({ path: '/payment' })
       } else {
-        window.location.href = item.invoiceUrl
+        const url = 'https://fapiao.yonyoucloud.com/ent-views/fpExtract/get_fapiao.html?pwd=RZAX&authCode=953e006a6ae1af5c6f5a41046b41bedc'
+        this.$router.push({ path: '/previewPdf', query: { url } })
       }
     }
   }
 }
 </script>
 <style lang="less" scoped>
-@import url('~@/styles/rentCommon');
+@import url("~@/styles/rentCommon");
 .my-income {
   background-color: #f4f4f4;
 }
