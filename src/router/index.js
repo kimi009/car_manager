@@ -44,22 +44,27 @@ const router = new Router({
     },
     {
       path: '/rent',
+      meta: { requiresAuth: true },
       component: () => import('@/views/rentNoSign')
     },
     {
       path: '/rent/list',
+      meta: { requiresAuth: true },
       component: () => import('@/views/rentNoSign/inComeList')
     },
     {
       path: '/lease/list',
+      meta: { requiresAuth: true },
       component: () => import('@/views/rentNoSign/leaseList')
     },
     {
       path: '/payment',
+      meta: { requiresAuth: true },
       component: () => import('@/views/payment')
     },
     {
       path: '/previewPdf',
+      meta: { requiresAuth: true },
       component: () => import('@/views/commonPage')
     }
   ]

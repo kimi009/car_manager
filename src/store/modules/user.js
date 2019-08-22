@@ -38,6 +38,7 @@ const user = {
           .then(res => {
             console.log(res)
             commit('SET_LOGIN_STATE', res.data.isLogin)
+            commit('SET_USER_INFO', res.data)
             resolve(res)
           })
           .catch(err => {

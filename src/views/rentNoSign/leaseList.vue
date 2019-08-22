@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import LeaseComp from '@/components/Rent/LeaseComp'
 export default {
   name: 'leaseList',
@@ -31,32 +32,18 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      myLeases: state => state.rent.myLeases || []
+    }),
     leaseStyle: function () {
       return !this.isIndex ? { padding: '15px' } : { 'margin-top': '22px' }
     }
   },
   created() {
-    this.datas = [{
-      carRentalCompany: '飞机我放假哦文件分类算法介绍了',
-      licensePlate: '反倒是',
-      vehicleBrand: '发生的',
-      startDate: '2019-01-01',
-      endDate: '2019-02-03',
-      monthlyRent: 'fswefse',
-      rentDuration: 'fwefwf',
-      rentState: 'fwew'
-    }, {
-      carRentalCompany: '飞机我放假哦文件分类算法介绍了',
-      licensePlate: '反倒是',
-      vehicleBrand: '发生的',
-      startDate: '2019-01-01',
-      endDate: '2019-02-03',
-      monthlyRent: 'fswefse',
-      rentDuration: 'fwefwf',
-      rentState: 'fwew'
-    }]
     if (this.isIndex) {
-      this.datas = this.datas.slice(0, 1)
+      this.datas = this.myLeases.slice(0, 1)
+    } else {
+      this.datas = [...this.myLeases]
     }
   },
   methods: {

@@ -1,6 +1,6 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 
-// const api = Vue.prototype.$api
+const api = Vue.prototype.$api
 
 const rent = {
   state: {
@@ -17,16 +17,10 @@ const rent = {
   },
   actions: {
     async initIncomeData({ commit }, params) {
-      // let res = await api.getMyIncome(params)
-      // if (res.success === 'true') {
-      //   commit('INIT_INCOME_DATA', res.data)
-      // }
-      let t = await new Promise(resolve => {
-        setTimeout(() => {
-          resolve({ test: 1 })
-        })
-      })
-      commit('INIT_INCOME_DATA', t)
+      let res = await api.getMyIncome(params)
+      if (res.success === 'true') {
+        commit('INIT_INCOME_DATA', res.data)
+      }
     },
     async initMyLeaseList({ commit }, params) {
       // let res = await api.getRentList(params)

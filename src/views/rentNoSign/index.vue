@@ -5,19 +5,19 @@
       <div class="rent-header-right">
         <span>方欣科技</span>
         <div>
-          <span>张美</span>
+          <span>{{userInfo.userName}}</span>
           <span>实名认证</span>
         </div>
       </div>
     </div>
     <div class="rent-des">
       <div class="item">
-        <span>{{myIncomeData.nextMonthIncome || '2500'}}元</span>
+        <span>{{myIncomeData.nextMonthIncome}}元</span>
         <span>预计下月收益</span>
       </div>
       <div class="divide"></div>
       <div class="item">
-        <span>{{myIncomeData.totalIncome || '2500'}}元</span>
+        <span>{{myIncomeData.totalIncome}}元</span>
         <span>累计收益</span>
       </div>
     </div>
@@ -44,12 +44,13 @@ export default {
   },
   computed: {
     ...mapState({
-      myIncomeData: state => state.myIncomeData || {}
+      userInfo: state => state.user.userInfo,
+      myIncomeData: state => state.rent.myIncomeData || {}
     })
   },
   methods: {
     initData() {
-      this.$store.dispatch('initIncomeData', { userId: '' })
+      this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
       this.$store.dispatch('initMyLeaseList', {})
     }
   }

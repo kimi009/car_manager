@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     ...mapState({
-      myIncomeData: state => state.myIncomeData || {}
+      myIncomeData: state => state.rent.myIncomeData || {}
     }),
     myIncomeStyle: function () {
       return !this.isIndex ? { padding: '15px' } : {}

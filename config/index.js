@@ -16,10 +16,7 @@ module.exports = {
         // target: 'http://47.107.84.151:8088/backend',
         target: 'http://39.108.200.59:10080/backend/',
         // target: 'http://10.10.24.241:8088/backend', // 本地
-        changeOrigin: true,
-        pathRewrite: {
-          '^/api': '/api'
-        }
+        changeOrigin: true
       }
     },
 
