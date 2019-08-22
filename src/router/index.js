@@ -29,22 +29,7 @@ const router = new Router({
         {
           path: '/user',
           meta: { showTab: true, requiresAuth: false },
-          component: () => import('@/views/user/user'),
-          children: [
-            {
-              path: '/user/mayCar/carList',
-              componnet: () => import('@/views/user/mayCar/carList')
-            },
-            {
-              path: '/mayCar/carInfo',
-              componnet: () => import('@/views/user/mayCar/carInfo')
-            },
-            {
-              path: '/mayCar/carUpdata',
-              componnet: () => import('@/views/user/mayCar/carUpdata')
-
-            }
-          ]
+          component: () => import('@/views/user/user')
         }
       ]
     },
@@ -86,14 +71,14 @@ const router = new Router({
       component: () => import('@/views/payment')
     },
     {
-      path: '/paySucceed',
-      meta: { requiresAuth: true },
-      component: () => import('@/views/payment/succeed')
-    },
-    {
       path: '/previewPdf',
       meta: { requiresAuth: true },
       component: () => import('@/views/commonPage')
+    },
+    {
+      path: '/carList',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayCar/carList')
     }
   ]
 })

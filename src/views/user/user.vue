@@ -73,7 +73,7 @@
       <van-cell class="group"
                 title="我的车辆"
                 :icon="icon_list.car"
-                to="/carlist"
+                to="/carList"
                 is-link />
       <van-cell class="group"
                 title="我的租约"
