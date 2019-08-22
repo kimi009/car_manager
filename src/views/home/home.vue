@@ -218,7 +218,7 @@ export default {
           > a {
             font-size: 10px;
             padding: 4px 10px;
-            border: 1px solid #fff;
+            border: 0.5px solid #fff;
             border-radius: 3px;
             color: #fff;
             transform: rotate(70deg);
@@ -367,7 +367,7 @@ export default {
     }
     > .selection-item {
       display: flex;
-      border-bottom: 1px solid #eaeaea;
+      border-bottom: 0.5px solid #eaeaea;
       padding-bottom: 4px;
       margin-bottom: 13px;
       > .left {
