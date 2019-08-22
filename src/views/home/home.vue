@@ -29,11 +29,11 @@
         <p class="location">
           <img src="@/assets/image/home/location.png"
                alt="">
-          <span class="place">广州</span>
+          <span class="place">{{cityInfo.city}}</span>
           <span class="status">今日不限行</span>
         </p>
         <p class="weather">
-          雷阵雨 27~35 C
+          {{cityInfo.weather}} {{cityInfo.temperature}} C
         </p>
         <p class="status">不适宜洗车</p>
       </div>
@@ -177,6 +177,7 @@ export default {
   },
   computed: {
     ...mapState({
+      cityInfo: state => state.cityInfo.city || {},
       userInfo: state => state.user.userInfo || {},
       vehicleInfo: state => state.vehicles.vehicleInfo || {}
     })
@@ -184,7 +185,8 @@ export default {
   methods: {
     initData() {
       // this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
-      this.$store.dispatch('initCityData', { lon: '116.39277', lat: '39.933748' })
+      this.$store.dispatch('initCityData', { lon: '113.280637', lat: '23.125178' })
+      this.$store.dispatch('initLimitRowCity', {})
     },
     getLocation() { },
     itemClickHandler(item) {
