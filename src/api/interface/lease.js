@@ -53,6 +53,21 @@ export const rentAgreement = data => {
     data
   })
 }
+// 获取我的收益
+const getMyIncome = data => {
+  return axios({
+    url: '/api/app/rent/querymyincome',
+    data
+  })
+}
+
+// 获取租约列表
+const getRentList = data => {
+  return axios({
+    url: '/api/app/rent/list',
+    data
+  })
+}
 
 export default {
   getLeaseInfo,
@@ -60,5 +75,7 @@ export default {
   carRentalState,
   rentalCarState,
   rentDetail,
-  rentAgreement
+  rentAgreement,
+  getMyIncome,
+  getRentList
 }

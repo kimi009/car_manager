@@ -18,15 +18,17 @@ const router = new Router({
       children: [
         {
           path: '/home',
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/home/home')
         },
         {
           path: '/vehicles',
-          meta: { showTab: false },
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/vehicles/vehicles')
         },
         {
           path: '/user',
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/user/user')
         }
       ]
@@ -38,6 +40,35 @@ const router = new Router({
     {
       path: '/stationDetail',
       component: () => import('@/views/station/stationDetail')
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/login/login')
+    },
+    {
+      path: '/guide',
+      meta: { requiresAuth: true },
+      component: () => import('@/views/guide/guide')
+    },
+    {
+      path: '/rent',
+      component: () => import('@/views/rentNoSign')
+    },
+     {
+      path: '/rent/list',
+      component: () => import('@/views/rentNoSign/inComeList')
+    },
+    {
+      path: '/lease/list',
+      component: () => import('@/views/rentNoSign/leaseList')
+    },
+    {
+      path: '/payment',
+      component: () => import('@/views/payment')
+    },
+    {
+      path: '/previewPdf',
+      component: () => import('@/views/commonPage')
     }
   ]
 })
