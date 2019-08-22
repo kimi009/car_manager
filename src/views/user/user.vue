@@ -73,7 +73,7 @@
       <van-cell class="group"
                 title="我的车辆"
                 :icon="icon_list.car"
-                to="/mayCar/carList"
+                to="/carList"
                 is-link />
       <van-cell class="group"
                 title="我的租约"
@@ -118,7 +118,6 @@ export default {
     [Toast.name]: Toast,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup
-    // [MayCar.name]: MayCar
   },
   data() {
     return {

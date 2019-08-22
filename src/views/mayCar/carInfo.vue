@@ -72,7 +72,6 @@
         <van-col span="16">
           <span>正常</span>
         </van-col>
-
       </van-row>
     </div>
   </div>

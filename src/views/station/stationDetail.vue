@@ -3,8 +3,8 @@
     <div class="name">
       <img src="@/assets/image/station/station.png"
            alt="">
-      <p>科学城加油站</p>
-      <p class="star">
+      <p>{{stationDetail.name}}</p>
+      <!-- <p class="star">
         <van-rate v-model="rate"
                   disabled-color="#FF9656"
                   size="12px"
@@ -14,7 +14,7 @@
           <van-icon name="like"
                     :color="'#FF9656'"
                     size="10px" />1234</span>
-      </p>
+      </p> -->
     </div>
     <div class="oil">
       <div class="left"
@@ -29,12 +29,12 @@
         <div class="jincai">
           <p>金财价</p>
           <span>
-            <span>￥</span>5.82</span>
+            <span>￥</span>{{stationDetail.price.showPrice}}</span>
         </div>
         <div class="custom">
           <p>加油价</p>
           <span>
-            <span>￥</span>5.82</span>
+            <span>￥</span>{{stationDetail.price.showPrice}}</span>
         </div>
         <div class="other">
           <p>指导价</p>
@@ -45,15 +45,15 @@
     </div>
     <div class="location">
       <p class="title">油站地址</p>
-      <span>科学大道中82号</span>
+      <span>{{stationDetail.address}}</span>
       <p class="distance">
-        <span>距离4.9km</span>
+        <span>距离{{stationDetail.distance}}km</span>
         <a href="javascript:;">
           <van-icon name="location-o"
                     size="14px" />导航过去</a>
       </p>
     </div>
-    <div class="comment">
+    <!-- <div class="comment">
       <p class="title">评论列表（共计4000条评论）</p>
       <div>
         <div class="item">
@@ -68,7 +68,7 @@
       <p class="more">
         <a href="javascript:;">查看更多</a>
       </p>
-    </div>
+    </div> -->
     <div class="button">
       <a href="javascript:;">立即加油</a>
     </div>
@@ -90,23 +90,42 @@ export default {
     return {
       rate: 5,
       condition: {
-        oil: '92#',
+        oil: '93#',
         brand: 'a',
         sort: 'a',
         map: 'a'
       },
       showActionSheet: false,
       oilOption: [
-        { name: '#92', value: 0 },
-        { name: '#95', value: 1 },
-        { name: '#97', value: 2 }
-      ]
+        { name: '90#', value: 0 },
+        { name: '93#', value: 1 },
+        { name: '97#', value: 2 }
+      ],
+      stationDetail: {}
     }
+  },
+  created() {
+    console.log(this.$route.query.item)
+    this.stationDetail = this.$route.query.item
+    this.stationDetail.price.showPrice = this.stationDetail.price.e93
   },
   methods: {
     onSelect(item) {
       this.showActionSheet = false
       this.condition.oil = item.name
+      switch (item.value) {
+        case 0:
+          this.stationDetail.price.showPrice = this.stationDetail.price.e90
+          break
+        case 1:
+          this.stationDetail.price.showPrice = this.stationDetail.price.e93
+          break
+        case 2:
+          this.stationDetail.price.showPrice = this.stationDetail.price.e97
+          break
+        default:
+          break
+      }
     }
   }
 }
@@ -116,6 +135,7 @@ export default {
 .station-detail {
   background-color: #f5f5f5;
   overflow: auto;
+  min-height: 100vh;
   > .name {
     background: #fff url('~@/assets/image/station/bg.png') center top no-repeat;
     background-size: 100% auto;
@@ -200,7 +220,7 @@ export default {
   > .location {
     background: #fff;
     text-align: left;
-    padding: 20px 15px;
+    padding: 20px 15px 52px 15px;
     position: relative;
     margin-bottom: 10px;
     > .title {
@@ -212,6 +232,8 @@ export default {
     > span {
       font-size: 14px;
       color: #333;
+      // width: 50%;
+      display: inline-block;
     }
     > .distance {
       position: absolute;

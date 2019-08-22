@@ -1,8 +1,9 @@
 <template>
   <div class="mayCar">
+    <div class="mayCarTitla"></div>
     <span>我的车辆列表</span>
     <van-cell-group>
-      <van-cell value="内容"
+      <van-cell value=""
                 is-link>
         <template slot="title">
           <span class="custom-title">车牌号：粤ACD1234</span>
@@ -19,19 +20,24 @@
 </template>
 
 <script>
-import { Cell } from 'vant'
+import { Cell, CellGroup } from 'vant'
 export default {
   name: 'carList',
-  data() {
-    return {
-      list: []
-    }
-  },
   components: {
-    [Cell.name]: Cell
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup
   }
+
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.mayCar {
+  height: calc(~"100% - 50px");
+  .mayCarTitla {
+    width: 100%;
+    height: 20%;
+    font-size: 12px;
+  }
+}
 </style>
