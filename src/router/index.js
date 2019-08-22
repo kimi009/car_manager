@@ -46,6 +46,14 @@ const router = new Router({
       ]
     },
     {
+      path: '/stationList',
+      component: () => import('@/views/station/stationList')
+    },
+    {
+      path: '/stationDetail',
+      component: () => import('@/views/station/stationDetail')
+    },
+    {
       path: '/login',
       component: () => import('@/views/login/login')
     },
@@ -58,7 +66,7 @@ const router = new Router({
       path: '/rent',
       component: () => import('@/views/rentNoSign')
     },
-    {
+     {
       path: '/rent/list',
       component: () => import('@/views/rentNoSign/inComeList')
     },
@@ -69,6 +77,10 @@ const router = new Router({
     {
       path: '/payment',
       component: () => import('@/views/payment')
+    },
+    {
+      path: '/previewPdf',
+      component: () => import('@/views/commonPage')
     }
   ]
 })

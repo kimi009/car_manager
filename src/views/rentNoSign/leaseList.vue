@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     leaseStyle: function () {
-      return !this.isIndex ? { padding: '15px' } : {}
+      return !this.isIndex ? { padding: '15px' } : { 'margin-top': '22px' }
     }
   },
   created() {
