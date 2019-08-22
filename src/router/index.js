@@ -29,7 +29,19 @@ const router = new Router({
         {
           path: '/user',
           meta: { showTab: true, requiresAuth: true },
-          component: () => import('@/views/user/user')
+          component: () => import('@/views/user/user'),
+          children:[
+            {
+              path:'/mayCar/carList',
+              componnet:import('@/views/user/mayCar/carList')
+            },{
+              path:'/mayCar/carInfo',
+              componnet:import('@/views/user/mayCar/carInfo')
+            },{
+              path:'/mayCar/carUpdata',
+              componnet:import('@/views/user/mayCar/carUpdata')
+            }
+          ]
         }
       ]
     },

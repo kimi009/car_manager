@@ -55,7 +55,7 @@
     </van-row>
     <van-cell-group>
       <van-cell class="group" title="我的银行卡" :icon="icon_list.bankCard" is-link />
-      <van-cell class="group" title="我的车辆" :icon="icon_list.car" is-link />
+      <van-cell class="group" title="我的车辆" :icon="icon_list.car" to="/mayCar/carList" is-link />
       <van-cell class="group" title="我的租约" :icon="icon_list.lease" is-link />
       <van-cell class="group" title="我的订单" :icon="icon_list.order" is-link />
       <van-cell class="group" title="我的发票" :icon="icon_list.invoice" is-link />
@@ -63,11 +63,17 @@
       <van-cell class="group" title="关于惠用车" :icon="icon_list.about" is-link />
       <van-cell class="group" title="联系我们" :icon="icon_list.contact" is-link />
     </van-cell-group>
+    <!--以下为组件信息-->
+    <MayCar
+      v-if="showMyCar === true"
+      :carData='carData'
+    ></MayCar>
   </div>
 </template>
 
 <script>
 import { Row, Col, Button, Toast, Cell, CellGroup } from 'vant'
+
 export default {
   name: 'user',
   components: {
@@ -76,7 +82,8 @@ export default {
     [Button.name]: Button,
     [Toast.name]: Toast,
     [Cell.name]: Cell,
-    [CellGroup.name]: CellGroup
+    [CellGroup.name]: CellGroup,
+    [MayCar.name]: MayCar
   },
   data () {
     return {
@@ -89,7 +96,15 @@ export default {
         integration: require('../../assets/image/user/integration.png'),
         about: require('../../assets/image/user/about.png'),
         contact: require('../../assets/image/user/contact.png')
-      }
+      },
+      showMyCar: false,
+      carData:{}
+    }
+  },
+  methods:{
+    // 请求我的车辆信息
+    requestCar(){
+
     }
   }
 }

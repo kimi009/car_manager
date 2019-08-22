@@ -2,7 +2,12 @@
   <div class="mayCar">
     <span>我的车辆列表</span>
     <van-cell-group >
-      <van-cell class="group" title="我的车" :icon="icon_list.bankCard" is-link />
+      <van-cell value="内容" is-link>
+      <template slot="title">
+        <span class="custom-title">车牌号：粤ACD1234</span>
+        <span>车辆状态：<span>异常</span> </span>   <span>出租状态：<span></span> </span>
+      </template>
+    </van-cell>
     </van-cell-group>
   </div>
 </template>
@@ -10,7 +15,7 @@
 <script>
   import {Cell} from 'vant'
   export default {
-    name: "index",
+    name: "carList",
     data(){
       return{
         list:[]
