@@ -20,12 +20,7 @@
 
 <script>
 export default {
-  name: 'carUpdata',
-  data() {
-    return {
-    }
-  }
-
+  name: 'carUpdata'
 }
 </script>
 
