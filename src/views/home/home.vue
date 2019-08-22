@@ -175,6 +175,7 @@ export default {
   methods: {
     initData() {
       // this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
+      this.$store.dispatch('initCityData', { lon: '116.39277', lat: '39.933748' })
     },
     getLocation() { }
   }
