@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="map-container">
-       <a-map></a-map>
+      <a-map></a-map>
     </div>
     <!-- <transition :name="$transition" mode="in-out">
         <router-view/>
@@ -190,7 +190,7 @@ export default {
     display: flex;
     > .left {
       width: calc(50% - 1px);
-      border-right: 0.5px solid #e5eefc;
+      border-right: 1px solid #e5eefc;
       > .car-num {
         display: flex;
         align-items: center;
@@ -216,12 +216,14 @@ export default {
             font-size: 15px;
           }
           > a {
+            .zoom-font(0.77);
             font-size: 10px;
-            padding: 4px 10px;
-            border: 0.5px solid #fff;
+            padding: 4px 13px;
+            border: 1px solid #fff;
             border-radius: 3px;
             color: #fff;
-            transform: rotate(70deg);
+            display: inline-block;
+            margin-left: 12px;
           }
         }
       }
@@ -367,7 +369,7 @@ export default {
     }
     > .selection-item {
       display: flex;
-      border-bottom: 0.5px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
       padding-bottom: 4px;
       margin-bottom: 13px;
       > .left {

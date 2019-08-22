@@ -21,6 +21,7 @@ const user = {
         Vue.prototype.$api
           .isLogin()
           .then(res => {
+            // res.data.isLogin = true
             commit('SET_LOGIN_STATE', res.data.isLogin)
             resolve(res)
           })

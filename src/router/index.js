@@ -54,7 +54,7 @@ const router = new Router({
       path: '/rent',
       component: () => import('@/views/rentNoSign')
     },
-     {
+    {
       path: '/rent/list',
       component: () => import('@/views/rentNoSign/inComeList')
     },

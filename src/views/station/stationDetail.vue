@@ -69,6 +69,9 @@
         <a href="javascript:;">查看更多</a>
       </p>
     </div>
+    <div class="button">
+      <a href="javascript:;">立即加油</a>
+    </div>
     <van-action-sheet v-model="showActionSheet"
                       :actions="oilOption"
                       @select="onSelect" />
@@ -159,7 +162,7 @@ export default {
     display: flex;
     > .left {
       padding: 0 30px;
-      border-right: 0.5px solid #e2e2e2;
+      border-right: 1px solid #e2e2e2;
       > p {
         font-size: 14px;
         color: #333;
@@ -223,7 +226,7 @@ export default {
       }
       > a {
         display: inline-block;
-        border: 0.5px solid #ff7d32;
+        border: 1px solid #ff7d32;
         color: #f17712;
         font-size: 12px;
         padding: 6px 7px 7px 8px;
@@ -238,6 +241,7 @@ export default {
     background-color: #fff;
     padding: 16px;
     overflow: auto;
+    margin-bottom: 14px;
     > .title {
       font-size: 16px;
       color: #333;
@@ -247,7 +251,7 @@ export default {
     > div {
       > .item {
         padding-bottom: 16px;
-        border-bottom: 0.5px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
         margin-top: 16px;
         > .title {
           font-size: 15px;
@@ -267,9 +271,21 @@ export default {
       margin-top: 16px;
       > a {
         padding-right: 16px;
-        background: url('~@/assets/image/home/more.png') right center no-repeat;
+        background: url('~@/assets/image/home/more.png') right 0px no-repeat;
         background-size: 6px 11px;
       }
+    }
+  }
+  > .button {
+    padding: 0 15px;
+    > a {
+      color: #fff;
+      background-color: #f17712;
+      font-size: 16px;
+      display: block;
+      padding: 12px 0;
+      border-radius: 3px;
+      margin-bottom: 13px;
     }
   }
 }
