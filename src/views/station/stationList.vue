@@ -112,8 +112,8 @@ export default {
       // "lat":"39.933748",//经度
       // "page":1 //页数
       let reqParams = {
-        lon: '116.39277',
-        lat: '39.933748',
+        lon: '113.280637',
+        lat: '23.125178',
         page: 1
       }
       this.$store.dispatch('initOilStation', reqParams)

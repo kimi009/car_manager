@@ -16,8 +16,9 @@
         <div class="rent">
           <p>本月租金（元）</p>
           <p class="money">
-            <span>{{vehicleInfo.income}}</span>
-            <a href="javascript:;">查看租金</a>
+            <span>{{vehicleInfo.income || 0}}</span>
+            <a href="javascript:;"
+               @click="viewRent">查看租金</a>
           </p>
         </div>
         <p class="break">
@@ -174,6 +175,9 @@ export default {
   },
   created() {
     this.initData()
+    setTimeout(() => {
+      console.log(179, this.vehicleInfo)
+    }, 5000)
   },
   computed: {
     ...mapState({
@@ -182,9 +186,13 @@ export default {
       vehicleInfo: state => state.vehicles.vehicleInfo || {}
     })
   },
+  watch: {
+    cityInfo: function () {
+      this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
+    }
+  },
   methods: {
     initData() {
-      // this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
       this.$store.dispatch('initCityData', { lon: '113.280637', lat: '23.125178' })
       this.$store.dispatch('initLimitRowCity', {})
     },
@@ -197,6 +205,9 @@ export default {
         default:
           break
       }
+    },
+    viewRent() {
+      this.$router.push({ path: '/rent' })
     }
   }
 }

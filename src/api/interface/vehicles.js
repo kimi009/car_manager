@@ -20,9 +20,11 @@ export const vehicleLicense = data => {
 
 // 查询最新租约车辆收益
 export const queryNewIncome = data => {
+  console.log(23, data)
   return axios({
-    url: '/api/app/fent/queryNewestIncome',
-    data
+    url: '/api/app/rent/queryNewestIncome',
+    data,
+    isSerializeToJson: true
   })
 }
 

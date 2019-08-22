@@ -13,7 +13,7 @@ const vehicles = {
     async initVehicleInfo({ commit }, params) {
       let res = await Vue.prototype.$api.queryNewIncome(params)
       if (res.success) {
-        commit('INIT_VEHICLE_INFO', res.body)
+        commit('INIT_VEHICLE_INFO', res.data)
       }
     }
   }

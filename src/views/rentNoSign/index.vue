@@ -3,10 +3,10 @@
     <div class="rent-header">
       <img src="@/assets/image/rent/avatar.png" />
       <div class="rent-header-right">
-        <span>方欣科技</span>
+        <span>{{userInfo.enterpriseName}}</span>
         <div>
           <span>{{userInfo.userName}}</span>
-          <span>实名认证</span>
+          <span>{{userInfo.idNumber ? '实名认证' : '未认证'}}</span>
         </div>
       </div>
     </div>
@@ -50,8 +50,9 @@ export default {
   },
   methods: {
     initData() {
+      console.log('rent init')
       this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
-      this.$store.dispatch('initMyLeaseList', {})
+      this.$store.dispatch('initMyLeaseList', { userId: this.userInfo.userId })
     }
   }
 }
