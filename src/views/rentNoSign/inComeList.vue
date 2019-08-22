@@ -1,5 +1,5 @@
 <template>
-  <div class='my-income'
+  <div v-if="myIncomeData.incomeList.length" class='my-income'
        :style="myIncomeStyle">
     <div class="list-title">
       <span>我的收益</span>
@@ -9,7 +9,7 @@
         <img src="@/assets/image/rent/arrow-right.png" />
       </span>
     </div>
-    <in-come-comp v-for="item in myInComes"
+    <in-come-comp v-for="item in myIncomeData.incomeList"
                   :key="item.id"
                   :rowItem="item"
                   @statusRowClick="statusRowClick" />

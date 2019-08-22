@@ -48,7 +48,8 @@
       <span>{{stationDetail.address}}</span>
       <p class="distance">
         <span>距离{{stationDetail.distance}}km</span>
-        <a href="javascript:;">
+        <a href="javascript:;"
+           @click="toLocation">
           <van-icon name="location-o"
                     size="14px" />导航过去</a>
       </p>
@@ -126,6 +127,14 @@ export default {
         default:
           break
       }
+    },
+    toLocation() {
+      this.$router.push({
+        path: '/preview',
+        query: {
+          url: `https://m.amap.com/navi/?start=116.403124,39.940693&dest=${this.stationDetail.position}&destName=${this.stationDetail.name}&naviBy=car&key=6b04810a078afef84e3a302955848c43`
+        }
+      })
     }
   }
 }

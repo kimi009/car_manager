@@ -40,7 +40,7 @@
           <p class="comment">{{item.fwlsmc}}</p>
         </div>
         <p class="mount">
-          <span class="actual">¥{{item.price.showPrice}}</span>
+          <span class="actual">¥{{item.price.e93}}</span>
           <!-- <span class="custom">¥{{item.price.e93}}</span> -->
         </p>
         <p class="distance">
@@ -95,48 +95,6 @@ export default {
         { text: '地图模式', value: 'a' },
         { text: '地图模式', value: 'b' },
         { text: '地图模式', value: 'c' }
-      ],
-      oliStation: [
-        {
-          'id': '49617',
-          'name': '中石化北二环加油站',
-          'area': 'xicheng',
-          'areaname': '北京市 西城区',
-          'address': '北京市西城区德胜门西大街与东教场胡同交叉口,西南角,北京市国立公证处附近',
-          'brandname': '中石化',
-          'type': '直营店',
-          'discount': '打折加油站',
-          'exhaust': '京Ⅴ',
-          'position': '116.3623955069,39.9412782585',
-          'fwlsmc': '银联卡,信用卡支付,加油卡,便利店,卫生间,银联卡充值,移动二维码业务,加油卡充值业务,出租车数据采集',
-          'distance': '2631',
-          'price': {
-            'e90': '-',
-            'e93': '6.71',
-            'e97': '7.15',
-            'e0': '6.39'
-          }
-        },
-        {
-          'id': '48337',
-          'name': '中石化平安大街加油站 ',
-          'area': 'xicheng',
-          'areaname': '北京市 西城区',
-          'address': '北京市西城区西什口库大街与地安门西大街交叉口,向东,路南,北海公园附近',
-          'brandname': '中石化',
-          'type': '直营店',
-          'discount': '打折加油站',
-          'exhaust': '京Ⅴ',
-          'position': '116.3800835835,39.9267137547',
-          'fwlsmc': '银联卡,加油卡,便利店,柴油自助加油,发卡充值网点,银联卡充值,移动二维码业务,加油卡充值业务,出租车数据采集',
-          'distance': '605',
-          'price': {
-            'e90': '-',
-            'e93': '6.71',
-            'e97': '7.15',
-            'e0': '6.39'
-          }
-        }
       ]
     }
   },
@@ -145,7 +103,7 @@ export default {
   },
   computed: {
     ...mapState({
-      // oliStation: state => state.cityInfo.oliStation
+      oliStation: state => state.cityInfo.oliStation
     })
   },
   methods: {
@@ -154,8 +112,8 @@ export default {
       // "lat":"39.933748",//经度
       // "page":1 //页数
       let reqParams = {
-        lon: '116.39277',
-        lat: '39.933748',
+        lon: '113.280637',
+        lat: '23.125178',
         page: 1
       }
       this.$store.dispatch('initOilStation', reqParams)

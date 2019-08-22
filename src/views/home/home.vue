@@ -16,8 +16,9 @@
         <div class="rent">
           <p>本月租金（元）</p>
           <p class="money">
-            <span>{{vehicleInfo.income}}</span>
-            <a href="javascript:;">查看租金</a>
+            <span>{{vehicleInfo.income || 0}}</span>
+            <a href="javascript:;"
+               @click="viewRent">查看租金</a>
           </p>
         </div>
         <p class="break">
@@ -29,18 +30,19 @@
         <p class="location">
           <img src="@/assets/image/home/location.png"
                alt="">
-          <span class="place">广州</span>
+          <span class="place">{{cityInfo.city}}</span>
           <span class="status">今日不限行</span>
         </p>
         <p class="weather">
-          雷阵雨 27~35 C
+          {{cityInfo.weather}} {{cityInfo.temperature}} C
         </p>
         <p class="status">不适宜洗车</p>
       </div>
     </div>
     <div class="func">
       <div v-for="item in func"
-           :key="item.label">
+           :key="item.label"
+           @click="itemClickHandler(item)">
         <img :src="item.img"
              alt="">
         <p>{{item.label}}</p>
@@ -125,34 +127,42 @@ export default {
     return {
       func: [
         {
+          id: 1,
           label: '加油',
           img: require('@/assets/image/home/oil.png')
         },
         {
+          id: 2,
           label: '发票',
           img: require('@/assets/image/home/inv.png')
         },
         {
+          id: 3,
           label: 'ETC',
           img: require('@/assets/image/home/etc.png')
         },
         {
+          id: 4,
           label: '违章',
           img: require('@/assets/image/home/break.png')
         },
         {
+          id: 5,
           label: '保养',
           img: require('@/assets/image/home/fit.png')
         },
         {
+          id: 6,
           label: '保险',
           img: require('@/assets/image/home/safe.png')
         },
         {
+          id: 7,
           label: '换车',
           img: require('@/assets/image/home/change.png')
         },
         {
+          id: 8,
           label: '停车',
           img: require('@/assets/image/home/stop.png')
         }
@@ -165,19 +175,40 @@ export default {
   },
   created() {
     this.initData()
+    setTimeout(() => {
+      console.log(179, this.vehicleInfo)
+    }, 5000)
   },
   computed: {
     ...mapState({
+      cityInfo: state => state.cityInfo.city || {},
       userInfo: state => state.user.userInfo || {},
       vehicleInfo: state => state.vehicles.vehicleInfo || {}
     })
   },
+  watch: {
+    cityInfo: function () {
+      this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
+    }
+  },
   methods: {
     initData() {
-      // this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
-      this.$store.dispatch('initCityData', { lon: '116.39277', lat: '39.933748' })
+      this.$store.dispatch('initCityData', { lon: '113.280637', lat: '23.125178' })
+      this.$store.dispatch('initLimitRowCity', {})
     },
-    getLocation() { }
+    getLocation() { },
+    itemClickHandler(item) {
+      switch (item.id) {
+        case 1:
+          this.$router.push({ path: '/stationList' })
+          break
+        default:
+          break
+      }
+    },
+    viewRent() {
+      this.$router.push({ path: '/rent' })
+    }
   }
 }
 </script>

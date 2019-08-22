@@ -1,14 +1,17 @@
 import axios from 'axios' // 注意先安装哦
 import config from './config.js' // 倒入默认配置
-import qs from 'qs' // 序列化请求数据，视服务端的要求
+// import qs from 'qs' // 序列化请求数据，视服务端的要求
 import { Toast } from 'vant'
+import GenerateGuid from '../utils/generateGuid'
 const interfaceConfig = require('./interfaceConfig.json')
 
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({
-      baseURL: config.baseURL,
-      headers: {},
+      baseURL: options.baseURL || config.baseURL,
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+      },
       method: options.method || 'post',
       transformResponse: [function(data) {}]
     })
@@ -41,13 +44,18 @@ export default function $axios(options) {
 
         // Tip: 3
         // 根据请求方法，序列化传来的参数，根据后端需求是否序列化
-        if (
-          config.method.toLocaleLowerCase() === 'post' ||
-          config.method.toLocaleLowerCase() === 'put' ||
-          config.method.toLocaleLowerCase() === 'delete'
-        ) {
-          config.data = qs.stringify(config.data)
+        if (options.isNeedRequestId) {
+          config.url += `&requestId=${GenerateGuid(32)}`
+        } else {
+          // if (
+          //   config.method.toLocaleLowerCase() === 'post' ||
+          //   config.method.toLocaleLowerCase() === 'put' ||
+          //   config.method.toLocaleLowerCase() === 'delete'
+          // ) {
+          //   config.data = qs.stringify(config.data)
+          // }
         }
+
         return config
       },
       error => {

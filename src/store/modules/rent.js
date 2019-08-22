@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-const api = Vue.prototype.$api
-
 const rent = {
   state: {
     myIncomeData: {},
@@ -17,17 +15,16 @@ const rent = {
   },
   actions: {
     async initIncomeData({ commit }, params) {
-      let res = await api.getMyIncome(params)
-      if (res.success === 'true') {
+      let res = await Vue.prototype.$api.getMyIncome(params)
+      if (res.success) {
         commit('INIT_INCOME_DATA', res.data)
       }
     },
     async initMyLeaseList({ commit }, params) {
-      // let res = await api.getRentList(params)
-      // if (res.success) {
-      // commit('INIT_LEASE_DATA', res.data)
-      // }
-      commit('INIT_LEASE_DATA', [])
+      let res = await Vue.prototype.$api.getRentList(params)
+      if (res.success) {
+        commit('INIT_LEASE_DATA', res.data)
+      }
     }
   }
 }
