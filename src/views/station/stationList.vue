@@ -14,7 +14,8 @@
       <van-dropdown-menu>
         <van-dropdown-item class="oil"
                            v-model="condition.oil"
-                           :options="oilOption" />
+                           :options="oilOption"
+                           @change="changeOilOption" />
         <van-dropdown-item v-model="condition.brand"
                            :options="brandOption" />
         <van-dropdown-item v-model="condition.sort"
@@ -24,50 +25,30 @@
       </van-dropdown-menu>
     </div>
     <div class="list">
-      <div class="item">
+      <div class="item"
+           v-for="item in oliStation"
+           :key="item.Id"
+           @click="toDetail(item)">
         <img src="@/assets/image/station/station.png"
              alt="">
         <div>
-          <p class="name">科学城加油站</p>
+          <p class="name">{{item.name}}</p>
           <van-rate v-model="rate"
                     disabled-color="#FF9656"
                     size="12px"
                     disabled />
-          <p class="comment">加油站员工长得帅...</p>
+          <p class="comment">{{item.fwlsmc}}</p>
         </div>
         <p class="mount">
-          <span class="actual">¥5.82</span>
-          <span class="custom">¥6.23</span>
+          <span class="actual">¥{{item.price.showPrice}}</span>
+          <!-- <span class="custom">¥{{item.price.e93}}</span> -->
         </p>
         <p class="distance">
-          <span class="">距离4.9km</span>
-          <span class="count">
+          <span class="">距离{{item.distance}}km</span>
+          <!-- <span class="count">
             <van-icon name="like"
                       :color="'#FF9656'"
-                      size="10px" />1234</span>
-        </p>
-      </div>
-      <div class="item">
-        <img src="@/assets/image/station/station.png"
-             alt="">
-        <div>
-          <p class="name">科学城加油站</p>
-          <van-rate v-model="rate"
-                    disabled-color="#FF9656"
-                    size="12px"
-                    disabled />
-          <p class="comment">加油站员工长得帅...</p>
-        </div>
-        <p class="mount">
-          <span class="actual">¥5.82</span>
-          <span class="custom">¥6.23</span>
-        </p>
-        <p class="distance">
-          <span class="">距离4.9km</span>
-          <span class="count">
-            <van-icon name="like"
-                      :color="'#FF9656'"
-                      size="10px" />1234</span>
+                      size="10px" />1234</span> -->
         </p>
       </div>
     </div>
@@ -89,15 +70,15 @@ export default {
     return {
       value: '',
       condition: {
-        oil: 0,
+        oil: 1,
         brand: 'a',
         sort: 'a',
         map: 'a'
       },
       rate: 3,
       oilOption: [
-        { text: '#92', value: 0 },
-        { text: '#95', value: 1 },
+        { text: '#90', value: 0 },
+        { text: '#93', value: 1 },
         { text: '#97', value: 2 }
       ],
       brandOption: [
@@ -114,6 +95,48 @@ export default {
         { text: '地图模式', value: 'a' },
         { text: '地图模式', value: 'b' },
         { text: '地图模式', value: 'c' }
+      ],
+      oliStation: [
+        {
+          'id': '49617',
+          'name': '中石化北二环加油站',
+          'area': 'xicheng',
+          'areaname': '北京市 西城区',
+          'address': '北京市西城区德胜门西大街与东教场胡同交叉口,西南角,北京市国立公证处附近',
+          'brandname': '中石化',
+          'type': '直营店',
+          'discount': '打折加油站',
+          'exhaust': '京Ⅴ',
+          'position': '116.3623955069,39.9412782585',
+          'fwlsmc': '银联卡,信用卡支付,加油卡,便利店,卫生间,银联卡充值,移动二维码业务,加油卡充值业务,出租车数据采集',
+          'distance': '2631',
+          'price': {
+            'e90': '-',
+            'e93': '6.71',
+            'e97': '7.15',
+            'e0': '6.39'
+          }
+        },
+        {
+          'id': '48337',
+          'name': '中石化平安大街加油站 ',
+          'area': 'xicheng',
+          'areaname': '北京市 西城区',
+          'address': '北京市西城区西什口库大街与地安门西大街交叉口,向东,路南,北海公园附近',
+          'brandname': '中石化',
+          'type': '直营店',
+          'discount': '打折加油站',
+          'exhaust': '京Ⅴ',
+          'position': '116.3800835835,39.9267137547',
+          'fwlsmc': '银联卡,加油卡,便利店,柴油自助加油,发卡充值网点,银联卡充值,移动二维码业务,加油卡充值业务,出租车数据采集',
+          'distance': '605',
+          'price': {
+            'e90': '-',
+            'e93': '6.71',
+            'e97': '7.15',
+            'e0': '6.39'
+          }
+        }
       ]
     }
   },
@@ -138,7 +161,36 @@ export default {
       this.$store.dispatch('initOilStation', reqParams)
     },
     onSearch() {
-
+    },
+    toDetail(item) {
+      console.log(item)
+      this.$router.push({
+        path: '/stationDetail',
+        query: {
+          item: item
+        }
+      })
+    },
+    changeOilOption(value) {
+      switch (value) {
+        case 0:
+          this.oliStation.forEach(item => {
+            item.price.showPrice = item.price.e90
+          })
+          break
+        case 1:
+          this.oliStation.forEach(item => {
+            item.price.showPrice = item.price.e93
+          })
+          break
+        case 2:
+          this.oliStation.forEach(item => {
+            item.price.showPrice = item.price.e97
+          })
+          break
+        default:
+          break
+      }
     }
   }
 }
@@ -180,6 +232,7 @@ export default {
         height: 82px;
       }
       > div {
+        flex: 1 1 auto;
         text-align: left;
         margin-left: 12px;
         > .van-rate {
@@ -195,6 +248,10 @@ export default {
         > .comment {
           font-size: 13px;
           color: #666;
+          overflow: hidden; /*超出部分隐藏*/
+          text-overflow: ellipsis; /* 超出部分显示省略号 */
+          white-space: nowrap; /*规定段落中的文本不进行换行 */
+          width: 200px;
         }
       }
       > .mount {
