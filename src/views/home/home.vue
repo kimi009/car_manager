@@ -201,7 +201,7 @@ export default {
     display: flex;
     > .left {
       width: calc(50% - 1px);
-      border-right: 0.5px solid #e5eefc;
+      border-right: 1px solid #e5eefc;
       > .car-num {
         display: flex;
         align-items: center;
@@ -227,12 +227,14 @@ export default {
             font-size: 15px;
           }
           > a {
+            .zoom-font(0.77);
             font-size: 10px;
-            padding: 4px 10px;
+            padding: 4px 13px;
             border: 1px solid #fff;
             border-radius: 3px;
             color: #fff;
-            transform: rotate(70deg);
+            display: inline-block;
+            margin-left: 12px;
           }
         }
       }

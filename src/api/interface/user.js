@@ -44,11 +44,37 @@ export const userInfo = data => {
     data
   })
 }
-
+// 我的车辆车辆列表
+export const carList = data => {
+  return axios({
+    url: '/api/app/car/list',
+    method: 'get',
+    data
+  })
+}
+// 车辆详情
+export const carInfo= data => {
+  return axios({
+    url: '/api/app/car/info',
+    method: 'post',
+    data
+  })
+}
+// 修改车辆信息
+export const carUpdata= data => {
+  return axios({
+    url: '/api/app/car/permit/updata',
+    method: 'post',
+    data
+  })
+}
 export default {
   getCode,
   isLogin,
   login,
   logout,
-  userInfo
+  userInfo,
+  carList,
+  carInfo,
+  carUpdata
 }
