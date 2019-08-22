@@ -7,6 +7,7 @@ import carRental from './modules/carRental'
 import certificate from './modules/certificate'
 import tabbar from './modules/tabbar'
 import rent from './modules/rent'
+import vehicles from './modules/vehicles'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
     carRental,
     certificate,
     tabbar,
-    rent
+    rent,
+    vehicles
   },
   getters
 })

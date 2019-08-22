@@ -18,7 +18,16 @@ export const vehicleLicense = data => {
   })
 }
 
+// 查询最新租约车辆收益
+export const queryNewIncome = data => {
+  return axios({
+    url: '/api/app/fent/queryNewestIncome',
+    data
+  })
+}
+
 export default {
   getVehicleInfo,
-  vehicleLicense
+  vehicleLicense,
+  queryNewIncome
 }

@@ -152,7 +152,7 @@ export default {
     > .item {
       display: flex;
       margin: 16px;
-      border-bottom: 0.5px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
       padding-bottom: 13px;
       position: relative;
       > img {

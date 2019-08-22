@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="map-container">
-       <a-map></a-map>
+      <a-map></a-map>
     </div>
     <!-- <transition :name="$transition" mode="in-out">
         <router-view/>
@@ -11,12 +11,12 @@
         <p class="car-num">
           <img src="../../assets/image/home/card.png"
                alt="">
-          <span>粤A65G65</span>
+          <span>{{vehicleInfo.cph}}</span>
         </p>
         <div class="rent">
           <p>本月租金（元）</p>
           <p class="money">
-            <span>2,433.47</span>
+            <span>{{vehicleInfo.income}}</span>
             <a href="javascript:;">查看租金</a>
           </p>
         </div>
@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { Button } from 'vant'
 import AMap from '../../components/AMap/amap'
 export default {
@@ -163,8 +164,18 @@ export default {
     AMap
   },
   created() {
+    this.initData()
+  },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo || {},
+      vehicleInfo: state => state.vehicles.vehicleInfo || {}
+    })
   },
   methods: {
+    initData() {
+      // this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
+    },
     getLocation() { }
   }
 }
@@ -172,7 +183,7 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~'100% - 55px');
+  height: calc(~"100% - 55px");
   background-color: #fff;
   padding: 12px 15px;
   overflow: auto;
@@ -190,7 +201,7 @@ export default {
     display: flex;
     > .left {
       width: calc(50% - 1px);
-      border-right: 0.5px solid #e5eefc;
+      border-right: 1px solid #e5eefc;
       > .car-num {
         display: flex;
         align-items: center;
@@ -216,12 +227,14 @@ export default {
             font-size: 15px;
           }
           > a {
+            .zoom-font(0.77);
             font-size: 10px;
-            padding: 4px 10px;
-            border: 0.5px solid #fff;
+            padding: 4px 13px;
+            border: 1px solid #fff;
             border-radius: 3px;
             color: #fff;
-            transform: rotate(70deg);
+            display: inline-block;
+            margin-left: 12px;
           }
         }
       }
@@ -294,7 +307,7 @@ export default {
     margin-top: 16px;
     > a {
       padding-right: 16px;
-      background: url('~@/assets/image/home/more.png') right center no-repeat;
+      background: url("~@/assets/image/home/more.png") right center no-repeat;
       background-size: 6px 11px;
     }
   }
@@ -331,7 +344,7 @@ export default {
         width: 120px;
         height: 74px;
         position: relative;
-        background: url('~@/assets/image/home/bg1.png') center center no-repeat;
+        background: url("~@/assets/image/home/bg1.png") center center no-repeat;
         padding: 8px 12px;
         background-size: 120px 74px;
         margin-right: 8px;
@@ -367,7 +380,7 @@ export default {
     }
     > .selection-item {
       display: flex;
-      border-bottom: 0.5px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
       padding-bottom: 4px;
       margin-bottom: 13px;
       > .left {

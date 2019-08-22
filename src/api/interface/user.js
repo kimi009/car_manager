@@ -53,7 +53,7 @@ export const carList = data => {
   })
 }
 // 车辆详情
-export const carInfo= data => {
+export const carInfo = data => {
   return axios({
     url: '/api/app/car/info',
     method: 'post',
@@ -61,7 +61,7 @@ export const carInfo= data => {
   })
 }
 // 修改车辆信息
-export const carUpdata= data => {
+export const carUpdata = data => {
   return axios({
     url: '/api/app/car/permit/updata',
     method: 'post',

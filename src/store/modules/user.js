@@ -21,6 +21,7 @@ const user = {
         Vue.prototype.$api
           .isLogin()
           .then(res => {
+            // res.data.isLogin = true
             commit('SET_LOGIN_STATE', res.data.isLogin)
             resolve(res)
           })
@@ -38,6 +39,7 @@ const user = {
           .then(res => {
             console.log(res)
             commit('SET_LOGIN_STATE', res.data.isLogin)
+            commit('SET_USER_INFO', res.data)
             resolve(res)
           })
           .catch(err => {
