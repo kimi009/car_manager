@@ -75,6 +75,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { Search, DropdownMenu, DropdownItem, Rate, Icon } from 'vant'
 export default {
   components: {
@@ -116,7 +117,26 @@ export default {
       ]
     }
   },
+  created() {
+    this.initData()
+  },
+  computed: {
+    ...mapState({
+      // oliStation: state => state.cityInfo.oliStation
+    })
+  },
   methods: {
+    initData() {
+      // "lon":"116.39277",//纬度
+      // "lat":"39.933748",//经度
+      // "page":1 //页数
+      let reqParams = {
+        lon: '116.39277',
+        lat: '39.933748',
+        page: 1
+      }
+      this.$store.dispatch('initOilStation', reqParams)
+    },
     onSearch() {
 
     }
