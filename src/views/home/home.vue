@@ -40,7 +40,8 @@
     </div>
     <div class="func">
       <div v-for="item in func"
-           :key="item.label">
+           :key="item.label"
+           @click="itemClickHandler(item)">
         <img :src="item.img"
              alt="">
         <p>{{item.label}}</p>
@@ -125,34 +126,42 @@ export default {
     return {
       func: [
         {
+          id: 1,
           label: '加油',
           img: require('@/assets/image/home/oil.png')
         },
         {
+          id: 2,
           label: '发票',
           img: require('@/assets/image/home/inv.png')
         },
         {
+          id: 3,
           label: 'ETC',
           img: require('@/assets/image/home/etc.png')
         },
         {
+          id: 4,
           label: '违章',
           img: require('@/assets/image/home/break.png')
         },
         {
+          id: 5,
           label: '保养',
           img: require('@/assets/image/home/fit.png')
         },
         {
+          id: 6,
           label: '保险',
           img: require('@/assets/image/home/safe.png')
         },
         {
+          id: 7,
           label: '换车',
           img: require('@/assets/image/home/change.png')
         },
         {
+          id: 8,
           label: '停车',
           img: require('@/assets/image/home/stop.png')
         }
@@ -177,7 +186,16 @@ export default {
       // this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
       this.$store.dispatch('initCityData', { lon: '116.39277', lat: '39.933748' })
     },
-    getLocation() { }
+    getLocation() { },
+    itemClickHandler(item) {
+      switch (item.id) {
+        case 1:
+          this.$router.push({ path: '/stationList' })
+          break
+        default:
+          break
+      }
+    }
   }
 }
 </script>

@@ -18,8 +18,8 @@ module.exports = {
         // target: 'http://10.10.24.241:8088/backend', // 本地
         changeOrigin: true
       },
-      '/outer': {
-        target: 'http://10.10.14.79:8891/',
+      '/tpapi': {
+        target: 'http://dapi.jchl.com/',
         changeOrigin: true
       }
     },

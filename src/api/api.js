@@ -7,8 +7,10 @@ const interfaceConfig = require('./interfaceConfig.json')
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
     const instance = axios.create({
-      baseURL: config.baseURL,
-      headers: {},
+      baseURL: options.baseURL || config.baseURL,
+      headers: {
+        'Content-Type': 'application/json'
+      },
       method: options.method || 'post',
       transformResponse: [function(data) {}]
     })

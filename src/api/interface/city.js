@@ -1,25 +1,30 @@
 import axios from '../api'
-
+import GenerateGuid from './../../utils/generateGuid'
 const appId = '10002033'
 // 根据经纬度获取城市信息以及天气预报
 const getCityInfo = data => {
+  const requestId = GenerateGuid(32)
   return axios({
-    url: `/outer/weather/query?appId=${appId}`,
+    baseURL: 'http://dapi.jchl.com',
+    url: `/tpapi/front/weather/query?appId=${appId}&requestId=${requestId}`,
     data
   })
 }
 // 根据经纬度获取周边油站信息
 const getOilStation = data => {
+  const requestId = GenerateGuid(32)
   return axios({
-    url: `/outer/oilStation/query?appId=${appId}`,
+    baseURL: 'http://dapi.jchl.com',
+    url: `/tpapi/front/oilStation/query?appId=${appId}&requestId=${requestId}`,
     data
   })
 }
 
 // 获取尾号限行的城市
 const getLimitRowCity = data => {
+  const requestId = GenerateGuid(32)
   return axios({
-    url: `/outer/vehicle/limitRowCity?appId=${appId}`,
+    url: `/outer/vehicle/limitRowCity?appId=${appId}&requestId=${requestId}`,
     data
   })
 }

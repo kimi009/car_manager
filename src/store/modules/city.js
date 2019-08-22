@@ -16,6 +16,7 @@ const cityInfo = {
   },
   actions: {
     async initCityData({ commit }, params) {
+      console.log(19, params)
       let res = await Vue.prototype.$api.getCityInfo(params)
       console.log(res)
     },
