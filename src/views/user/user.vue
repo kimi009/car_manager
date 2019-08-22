@@ -55,7 +55,7 @@
     </van-row>
     <van-cell-group>
       <van-cell class="group" title="我的银行卡" :icon="icon_list.bankCard" is-link />
-      <van-cell class="group" title="我的车辆" :icon="icon_list.car" to="/mayCar/carList" is-link />
+      <van-cell class="group" title="我的车辆" :icon="icon_list.car" to="/user/mayCar/carList" is-link />
       <van-cell class="group" title="我的租约" :icon="icon_list.lease" is-link />
       <van-cell class="group" title="我的订单" :icon="icon_list.order" is-link />
       <van-cell class="group" title="我的发票" :icon="icon_list.invoice" is-link />
@@ -83,7 +83,6 @@ export default {
     [Toast.name]: Toast,
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup,
-    [MayCar.name]: MayCar
   },
   data () {
     return {

@@ -28,18 +28,20 @@ const router = new Router({
         },
         {
           path: '/user',
-          meta: { showTab: true, requiresAuth: true },
+          meta: { showTab: true, requiresAuth: false },
           component: () => import('@/views/user/user'),
-          children:[
+          children: [
             {
-              path:'/mayCar/carList',
-              componnet:import('@/views/user/mayCar/carList')
-            },{
-              path:'/mayCar/carInfo',
-              componnet:import('@/views/user/mayCar/carInfo')
-            },{
-              path:'/mayCar/carUpdata',
-              componnet:import('@/views/user/mayCar/carUpdata')
+              path: '/user/mayCar/carList',
+              componnet: () => import('@/views/user/mayCar/carList')
+            },
+            {
+              path: '/mayCar/carInfo',
+              componnet: () => import('@/views/user/mayCar/carInfo')
+            },
+            {
+              path: '/mayCar/carUpdata',
+              componnet: () => import('@/views/user/mayCar/carUpdata')
             }
           ]
         }
@@ -66,7 +68,7 @@ const router = new Router({
       path: '/rent',
       component: () => import('@/views/rentNoSign')
     },
-     {
+    {
       path: '/rent/list',
       component: () => import('@/views/rentNoSign/inComeList')
     },

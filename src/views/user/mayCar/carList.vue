@@ -13,20 +13,21 @@
 </template>
 
 <script>
-  import {Cell} from 'vant'
-  export default {
-    name: "carList",
-    data(){
-      return{
-        list:[]
-      }
-    },
-    components:{
-      [Cell.name]: Cell,
+import { Row, Col, Button, Toast, Cell, CellGroup } from 'vant'
+export default {
+  name: "carList",
+  components:{
+    [Cell.name]: Cell,
+  },
+  data(){
+    return{
+      list:[]
     }
-  }
+  },
+
+}
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

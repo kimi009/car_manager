@@ -29,7 +29,6 @@
         <van-col span="8"><span>审核状态：</span></van-col> <van-col span="16"><span>待审核</span></van-col>
         <van-col span="8"><span>出租状态：</span></van-col> <van-col span="16"><span>已出租</span></van-col>
         <van-col span="8"><span>车辆状态：</span></van-col> <van-col span="16"><span>正常</span></van-col>
-
       </van-row>
     </div>
   </div>
