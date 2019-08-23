@@ -93,6 +93,26 @@ const router = new Router({
       path: '/carUpdata',
       meta: { showTab: false, requiresAuth: false },
       component: () => import('@/views/mayCar/carUpdata')
+    },
+    {
+      path: '/leaseList',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayLease/leaseList')
+    },
+    {
+      path: '/leaseInfo',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayLease/leaseInfo')
+    },
+    {
+      path: '/mayFund',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayFund/mayFund')
+    },
+    {
+      path: '/mayPersonal',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayPersonal/mayPersonal')
     }
   ]
 })

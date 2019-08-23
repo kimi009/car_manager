@@ -134,6 +134,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.carInfo{
+  background-color: white;
+}
 .carInfotitel {
   display: block;
   width: 100%;

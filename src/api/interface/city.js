@@ -5,7 +5,6 @@ const getCityInfo = data => {
   return axios({
     url: `/tpapi/front/weather/query?appId=${appId}`,
     data,
-    isSerializeToJson: true,
     isNeedRequestId: true
   })
 }
@@ -14,7 +13,6 @@ const getOilStation = data => {
   return axios({
     url: `/tpapi/front/oilStation/query?appId=${appId}`,
     data,
-    isSerializeToJson: true,
     isNeedRequestId: true
   })
 }
@@ -24,7 +22,6 @@ const getLimitRowCity = data => {
   return axios({
     url: `/tpapi/front/vehicle/limitRowCity?appId=${appId}`,
     data,
-    isSerializeToJson: true,
     isNeedRequestId: true
   })
 }
@@ -34,8 +31,8 @@ const getLimitRow = data => {
   return axios({
     url: `/tpapi/front/vehicle/limitRow?appId=${appId}`,
     data,
-    isSerializeToJson: true,
-    isNeedRequestId: true
+    isNeedRequestId: true,
+    noShowLoading: true
   })
 }
 

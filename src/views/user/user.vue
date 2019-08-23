@@ -5,8 +5,10 @@
                class="wrap">
         <van-col span="6"
                  class="avatar">
-          <img src="../../assets/image/user/head.png"
-               alt="">
+          <router-link to="/mayPersonal">
+            <img src="../../assets/image/user/head.png"
+                 alt="">
+          </router-link>
         </van-col>
         <van-col span="11"
                  class="head-list">
@@ -29,6 +31,7 @@
     </div>
     <van-row type="flex"
              class="account">
+
       <van-col span="8"
                class="account-list">
         <van-row class="icon">
@@ -38,9 +41,12 @@
         <van-row class="text">帐户余额(元）</van-row>
         <van-row class="num">8888.8</van-row>
         <van-row class="cash-button">
-          <div>提现</div>
+          <router-link to="/mayFund">
+            <div>提现</div>
+          </router-link>
         </van-row>
       </van-col>
+
       <van-col span="8"
                class="account-list">
         <van-row class="icon">
@@ -77,6 +83,7 @@
                 is-link />
       <van-cell class="group"
                 title="我的租约"
+                to="/leaseList"
                 :icon="icon_list.lease"
                 is-link />
       <van-cell class="group"
@@ -146,7 +153,7 @@ export default {
 
 <style scoped lang="less">
 .user {
-  height: calc(~'100% - 50px');
+  height: calc(~"100% - 50px");
   background-color: #fff;
   padding: 11px 0 20px 0;
   overflow: auto;
@@ -220,7 +227,7 @@ export default {
     .account-list {
       position: relative;
       &:after {
-        content: '';
+        content: "";
         width: 200%;
         height: 200%;
         position: absolute;

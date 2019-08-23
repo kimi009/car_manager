@@ -84,6 +84,7 @@ export default {
 
 <style scoped lang="less">
 .mayCar {
+  background-color: white;
   height: 100%;
   .mayCarTitla {
     width: 100%;
