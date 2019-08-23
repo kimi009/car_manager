@@ -2,6 +2,8 @@ export default {
   method: 'post',
   // 基础url前缀
   baseURL: process.env.API_ROOT,
+  // 请求天气油站信息域名配置
+  dpiBaseURL: process.env.DAPI_ROOT,
   // 请求头信息
   headers: {
     'Content-Type': 'application/json;charset=UTF-8'
