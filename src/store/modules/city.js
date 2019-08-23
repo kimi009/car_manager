@@ -3,12 +3,16 @@ import Vue from 'vue'
 const cityInfo = {
   state: {
     city: {},
+    coordinateInfo: { lon: '116.332249', lat: '39.765103' },
     limitRowCity: {},
     oliStation: []
   },
   mutations: {
     INIT_CITYDATA: (state, params) => {
       state.city = params
+    },
+    INIT_COORDINATE_INFO: (state, params) => {
+      state.coordinateInfo = params
     },
     INIT_LIMITROWCITY_DATA: (state, params) => {
       state.limitRowCity = params
@@ -19,7 +23,6 @@ const cityInfo = {
   },
   actions: {
     async initCityData({ commit }, params) {
-      console.log(19, params)
       let res = await Vue.prototype.$api.getCityInfo(params)
       if (res.head.errorCode === '0') {
         commit('INIT_CITYDATA', res.body)

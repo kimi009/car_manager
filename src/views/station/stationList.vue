@@ -103,17 +103,14 @@ export default {
   },
   computed: {
     ...mapState({
-      oliStation: state => state.cityInfo.oliStation
+      coordinateInfo: state => state.cityInfo.coordinateInfo || {},
+      oliStation: state => state.cityInfo.oliStation || []
     })
   },
   methods: {
     initData() {
-      // "lon":"116.39277",//纬度
-      // "lat":"39.933748",//经度
-      // "page":1 //页数
       let reqParams = {
-        lon: '113.280637',
-        lat: '23.125178',
+        ...this.coordinateInfo,
         page: 1
       }
       this.$store.dispatch('initOilStation', reqParams)
@@ -121,7 +118,6 @@ export default {
     onSearch() {
     },
     toDetail(item) {
-      console.log(item)
       this.$router.push({
         path: '/stationDetail',
         query: {
