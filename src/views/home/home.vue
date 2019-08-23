@@ -122,6 +122,7 @@
 import { mapState, mapMutations } from 'vuex'
 import { Button } from 'vant'
 import AMap from '../../components/AMap/amap'
+import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 export default {
   name: 'home',
   data() {
@@ -235,6 +236,21 @@ export default {
         case 1:
           this.$router.push({ path: '/stationList' })
           break
+        case 3:
+          window.location.href = ETC
+          break
+        case 4:
+          window.location.href = WEIZHANG
+          break
+        case 5:
+          window.location.href = BAOYANG
+          break
+        case 7:
+          window.location.href = HUANCHE
+          break
+        case 8:
+          window.location.href = TINGCHE
+          break
         default:
           break
       }
@@ -248,7 +264,7 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~"100% - 55px");
+  height: calc(~'100% - 55px');
   background-color: #fff;
   padding: 12px 15px 50px 15px;
   overflow: auto;
@@ -372,7 +388,7 @@ export default {
     margin-top: 16px;
     > a {
       padding-right: 16px;
-      background: url("~@/assets/image/home/more.png") right center no-repeat;
+      background: url('~@/assets/image/home/more.png') right center no-repeat;
       background-size: 6px 11px;
     }
   }
@@ -409,7 +425,7 @@ export default {
         width: 120px;
         height: 74px;
         position: relative;
-        background: url("~@/assets/image/home/bg1.png") center center no-repeat;
+        background: url('~@/assets/image/home/bg1.png') center center no-repeat;
         padding: 8px 12px;
         background-size: 120px 74px;
         margin-right: 8px;
