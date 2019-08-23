@@ -34,6 +34,10 @@ const router = new Router({
       ]
     },
     {
+      path: '/more',
+      component: () => import('@/views/home/more')
+    },
+    {
       path: '/stationList',
       component: () => import('@/views/station/stationList')
     },
