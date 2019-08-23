@@ -14,11 +14,11 @@
     </div>
     <div class="h-divide"></div>
     <div class="content-footer">
-      <span class="status">开票状态：{{rowItem.invoiceState === 1 ? '未开票' : '已开票'}}</span>
-      <span @click.stop="$emit('statusRowClick',rowItem)"
-            :class="['status', rowItem.invoiceState ===1 ? 'no-invoiced' : 'has-invoiced']">{{rowItem.invoiceState === 1 ? '开票' : '点击查看'}}</span>
+      <span class="status">开票状态：{{rowItem.invoiceState === '1' ? '未开票' : '已开票'}}</span>
+      <span @click.stop="$emit('statusRowClick',canMakeInvoice)"
+            :class="['status', canMakeInvoice ? 'no-invoiced' : 'has-invoiced']">{{canMakeInvoice ? '开票' : '点击查看'}}</span>
     </div>
-    <span v-if="rowItem.invoiceState === 2"
+    <span v-if="rowItem.invoiceState === '2'"
           class="status"
           style="display:block;text-align:left;margin-top:10px;">开票时间：{{rowItem.invoiceDate}}</span>
   </div>
@@ -30,6 +30,18 @@ export default {
     rowItem: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    canMakeInvoice: function () {
+      let flag = false
+      if (this.rowItem.invoiceState === '1') {
+        // 1:待结算，2结算成功，3：结算失败 4:结算中
+        if (this.rowItem.clearState !== '4') {
+          flag = true
+        }
+      }
+      return flag
     }
   }
 }

@@ -7,14 +7,15 @@
     <div class="carUpdataP">
       <span class="carUpdataPspan"> 修改行驶证副本:</span>
       <div class="carUpdataPImg">
-      <van-uploader multiple /><van-uploader multiple />
+        <van-uploader multiple />
+        <van-uploader multiple />
       </div>
     </div>
-     <div class="xian"></div>
+    <div class="xian"></div>
     <div class="carUpdataB">
       <span class="carUpdataBspan">保险凭证:</span>
       <div class="carUpdataBImg">
-      <van-uploader multiple />
+        <van-uploader multiple />
       </div>
     </div>
     <van-button size="normal">提交审核</van-button>
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import { Uploader,Button } from 'vant'
+import { Uploader, Button } from 'vant'
 
 export default {
   name: 'carUpdata',
@@ -48,44 +49,43 @@ export default {
     margin-top: 70px;
   }
 }
-  .xian {
-     height: 0.5px;
-    border-top: 1px solid gray;
+.xian {
+  height: 0.5px;
+  border-top: 1px solid gray;
+}
+.carUpdataP {
+  font-size: 16px;
+  height: 180px;
+  .carUpdataPspan {
+    position: absolute;
+    left: 20px;
+    top: 190px;
   }
-  .carUpdataP{
-    font-size: 16px;
-    height: 180px;
-    .carUpdataPspan{
-      position: absolute;
-       left: 20px;
-       top: 190px;
-    }
-    .carUpdataPImg{
-      position: relative;
-      margin-left: 150px;
-        margin-top: 60px;
-      display:block;
-      width: 180px;
-      height: 90px;
-    }
+  .carUpdataPImg {
+    position: relative;
+    margin-left: 150px;
+    margin-top: 60px;
+    display: block;
+    width: 180px;
+    height: 90px;
   }
+}
 
-  .carUpdataB{
-    font-size: 16px;
-    height: 120px;
-    .carUpdataBspan{
-      position: absolute;
-       left: 20px;
-       top: 430px;
-    }
-    .carUpdataBImg{
-       position: relative;
-      margin-left: 150px;
-        margin-top: 60px;
-      display:block;
-      width: 180px;
-      height: 90px;
-    }
+.carUpdataB {
+  font-size: 16px;
+  height: 120px;
+  .carUpdataBspan {
+    position: absolute;
+    left: 20px;
+    top: 430px;
   }
-
+  .carUpdataBImg {
+    position: relative;
+    margin-left: 150px;
+    margin-top: 60px;
+    display: block;
+    width: 180px;
+    height: 90px;
+  }
+}
 </style>

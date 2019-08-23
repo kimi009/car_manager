@@ -22,7 +22,7 @@ const rent = {
     },
     async initMyLeaseList({ commit }, params) {
       let res = await Vue.prototype.$api.getRentList(params)
-      if (res.success) {
+      if (res.data) {
         commit('INIT_LEASE_DATA', res.data)
       }
     }

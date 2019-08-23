@@ -3,7 +3,6 @@ import config from './config.js' // 倒入默认配置
 // import qs from 'qs' // 序列化请求数据，视服务端的要求
 import { Toast } from 'vant'
 import GenerateGuid from '../utils/generateGuid'
-const interfaceConfig = require('./interfaceConfig.json')
 
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
@@ -20,10 +19,7 @@ export default function $axios(options) {
     instance.interceptors.request.use(
       config => {
         // 等待框
-        if (
-          !interfaceConfig[options.url] ||
-          !interfaceConfig[options.url].noShowLoading
-        ) {
+        if (!options.noShowLoading) {
           Toast.loading({
             mask: true,
             message: '加载中...'
@@ -46,15 +42,14 @@ export default function $axios(options) {
         // 根据请求方法，序列化传来的参数，根据后端需求是否序列化
         if (options.isNeedRequestId) {
           config.url += `&requestId=${GenerateGuid(32)}`
-        } else {
-          // if (
-          //   config.method.toLocaleLowerCase() === 'post' ||
-          //   config.method.toLocaleLowerCase() === 'put' ||
-          //   config.method.toLocaleLowerCase() === 'delete'
-          // ) {
-          //   config.data = qs.stringify(config.data)
-          // }
         }
+        // if (
+        //   config.method.toLocaleLowerCase() === 'post' ||
+        //   config.method.toLocaleLowerCase() === 'put' ||
+        //   config.method.toLocaleLowerCase() === 'delete'
+        // ) {
+        //   config.data = qs.stringify(config.data)
+        // }
 
         return config
       },
