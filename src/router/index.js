@@ -79,6 +79,16 @@ const router = new Router({
       path: '/carList',
       meta: { showTab: false, requiresAuth: false },
       component: () => import('@/views/mayCar/carList')
+    },
+    {
+      path: '/carInfo',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayCar/carInfo')
+    },
+    {
+      path: '/carUpdata',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayCar/carUpdata')
     }
   ]
 })
