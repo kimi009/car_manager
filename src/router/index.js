@@ -120,9 +120,19 @@ const router = new Router({
       component: () => import('@/views/mayPersonal/mayPersonal')
     },
     {
-      path: '/newsDetail',
+      path: '/mayPersonalList',
       meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/news/newsDetail')
+      component: () => import('@/views/mayPersonal/mayPersonalList')
+    },
+    {
+      path: '/mayPersonalListInfo',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayPersonal/mayPersonalListInfo')
+    },
+    {
+      path: '/mayFuel',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayFuel/mayFuel')
     }
   ]
 })

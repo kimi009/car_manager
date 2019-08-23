@@ -56,7 +56,9 @@
         <van-row class="text">油费余额(元）</van-row>
         <van-row class="num">2676</van-row>
         <van-row class="cash-button">
-          <div>提现</div>
+          <router-link to="/mayFuel">
+            <div>提现</div>
+          </router-link>
         </van-row>
       </van-col>
       <van-col span="8">
@@ -107,9 +109,6 @@
                 :icon="icon_list.contact"
                 is-link />
     </van-cell-group>
-    <!--以下为组件信息-->
-    <MayCar v-if="showMyCar === true"
-            :carData='carData'></MayCar>
   </div>
 </template>
 
