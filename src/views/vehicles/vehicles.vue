@@ -182,7 +182,6 @@ export default {
   height: calc(~'100% - 50px');
   background-color: #f5f5f5;
   padding: 10px 15px 50px 15px;
-  margin-bottom: 80px;
   > .item {
     margin-bottom: 10px;
     border-radius: 3px;
