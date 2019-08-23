@@ -26,6 +26,10 @@ module.exports = {
       '/gateway': {
         target: 'http://wx.jchl.com/',
         changeOrigin: true
+      },
+      '/auth': {
+        target: 'http://wx.jchl.com/',
+        changeOrigin: true
       }
     },
 

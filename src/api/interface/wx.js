@@ -16,8 +16,9 @@ const getJsConfigInfo = data => {
 // 获取微信openId
 const getOpenId = data => {
   return axios({
-    url: ``,
-    data
+    url: `/auth/wechatCommonService/getOpenId?appId=000101`,
+    data,
+    isNeedRequestId: true
   })
 }
 
