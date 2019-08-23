@@ -140,13 +140,13 @@ export default {
 .carInfotitel {
   display: block;
   width: 100%;
-  height: 100px;
+  height: 80px;
   .mayCarTitlaSpan {
     font-size: 18px;
     font-weight: 700;
     float: left;
     margin-left: 10px;
-    margin-top: 80px;
+    margin-top: 50px;
   }
 }
 .xian {
@@ -184,7 +184,7 @@ export default {
   }
   .zhuangtai {
     position: absolute;
-    bottom: 240px;
+    bottom: 255px;
     font-size: 14px;
     left: 15px;
   }

@@ -92,13 +92,13 @@ export default {
   background-color: white;
   .leaseListTitle {
     width: 100%;
-    height: 120px;
+    height: 80px;
     .leaseListTitleSpan {
       font-size: 18px;
       font-weight: 700;
       float: left;
       margin-left: 10px;
-      margin-top: 80px;
+      margin-top: 50px;
     }
   }
   .leaseListContent {
