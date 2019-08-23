@@ -57,7 +57,7 @@
         <van-row class="num">2676</van-row>
         <van-row class="cash-button">
           <router-link to="/mayFuel">
-            <div>提现</div>
+            <div>购买</div>
           </router-link>
         </van-row>
       </van-col>
@@ -69,7 +69,7 @@
         <van-row class="text">本月租金收入(元）</van-row>
         <van-row class="num">7512</van-row>
         <van-row class="cash-button">
-          <div>提现</div>
+          <div>账单</div>
         </van-row>
       </van-col>
     </van-row>
@@ -100,6 +100,7 @@
       <van-cell class="group"
                 title="惠用车积分"
                 :icon="icon_list.integration"
+                @click="integral"
                 is-link />
       <van-cell class="group"
                 title="关于惠用车"
@@ -114,7 +115,7 @@
 </template>
 
 <script>
-import { Row, Col, Button, Toast, Cell, CellGroup } from 'vant'
+import { Row, Col, Button, Toast, Cell, CellGroup, Dialog } from 'vant'
 
 export default {
   name: 'user',
@@ -124,7 +125,8 @@ export default {
     [Button.name]: Button,
     [Toast.name]: Toast,
     [Cell.name]: Cell,
-    [CellGroup.name]: CellGroup
+    [CellGroup.name]: CellGroup,
+    [Dialog.name]: Dialog
   },
   data() {
     return {
@@ -143,9 +145,9 @@ export default {
     }
   },
   methods: {
-    // 请求我的车辆信息
-    requestCar() {
-
+    // 积分
+    integral() {
+      console.log(111)
     }
   }
 }
