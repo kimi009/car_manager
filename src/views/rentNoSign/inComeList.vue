@@ -1,5 +1,5 @@
 <template>
-  <div v-if="myIncomeData.incomeList.length"
+  <div v-if="myIncomeData.incomeList && myIncomeData.incomeList.length"
        class='my-income'
        :style="myIncomeStyle">
     <div class="list-title">
@@ -38,7 +38,11 @@ export default {
       myIncomeData: state => state.rent.myIncomeData || {}
     }),
     myIncomeStyle: function () {
-      return !this.isIndex ? { padding: '15px' } : {}
+      return !this.isIndex ? {
+        'min-height': '100vh',
+        overflow: 'auto',
+        padding: '15px'
+      } : {}
     }
   },
   created() {
@@ -53,8 +57,8 @@ export default {
     more() {
       this.$router.push({ path: '/rent/list' })
     },
-    statusRowClick(item) {
-      if (item.invoiceState === 1) {
+    statusRowClick(isMakeInvoice) {
+      if (isMakeInvoice) {
         this.$router.push({ path: '/payment' })
       } else {
         const url = 'https://fapiao.yonyoucloud.com/ent-views/fpExtract/get_fapiao.html?pwd=RZAX&authCode=953e006a6ae1af5c6f5a41046b41bedc'

@@ -50,15 +50,17 @@ export default {
   },
   methods: {
     initData() {
-      console.log('rent init')
       this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
-      this.$store.dispatch('initMyLeaseList', { userId: this.userInfo.userId })
+      this.$store.dispatch('initMyLeaseList', { size: 10, current: 1 })
     }
   }
 }
 </script>
 <style lang="less" scoped>
 .rent {
+  height: 100vh;
+  background-color: #f4f4f4;
+  overflow: auto;
   .rent-header {
     height: 130px;
     background: url("~@/assets/image/rent/rent-no-sign-banner.png") no-repeat;
@@ -136,12 +138,8 @@ export default {
     }
   }
   .rent-content {
-    position: absolute;
-    top: 130px;
-    left: 0;
-    right: 0;
+    margin-top: -33px;
     padding: 55px 15px 15px;
-    background-color: #f4f4f4;
     .title {
       display: flex;
       justify-content: space-between;

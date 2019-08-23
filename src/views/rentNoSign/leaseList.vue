@@ -1,5 +1,5 @@
 <template>
-  <div v-if="datas.length"
+  <div v-if="leaseDatas.length"
        class='lease-list'
        :style="leaseStyle">
     <div class="list-title">
@@ -10,7 +10,7 @@
         <img src="@/assets/image/rent/arrow-right.png" />
       </span>
     </div>
-    <lease-comp v-for="item in myLeases"
+    <lease-comp v-for="item in leaseDatas"
                 :key="item.id"
                 :rowItem="item" />
   </div>
@@ -37,15 +37,18 @@ export default {
       myLeases: state => state.rent.myLeases || []
     }),
     leaseStyle: function () {
-      return !this.isIndex ? { padding: '15px' } : { 'margin-top': '22px' }
-    }
-  },
-  created() {
-    if (this.myLeases) {
+      return !this.isIndex ? {
+        'min-height': '100vh',
+        overflow: 'auto',
+        padding: '15px'
+      }
+        : { 'margin-top': '22px' }
+    },
+    leaseDatas: function () {
       if (this.isIndex) {
-        this.datas = this.myLeases.slice(0, 1)
+        return this.myLeases.slice(0, 1)
       } else {
-        this.datas = [...this.myLeases]
+        return [...this.myLeases]
       }
     }
   },

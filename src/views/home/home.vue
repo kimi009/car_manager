@@ -31,7 +31,7 @@
           <img src="@/assets/image/home/location.png"
                alt="">
           <span class="place">{{cityInfo.city}}</span>
-          <span class="status">今日不限行</span>
+          <span class="status">{{isLimit ? '今日限行' : '今日不限行'}}</span>
         </p>
         <p class="weather">
           {{cityInfo.weather}} {{cityInfo.temperature}} C
@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import { Button } from 'vant'
 import AMap from '../../components/AMap/amap'
 export default {
@@ -176,27 +176,34 @@ export default {
   },
   created() {
     this.initData()
-    setTimeout(() => {
-      console.log(179, this.vehicleInfo)
-    }, 5000)
   },
   computed: {
     ...mapState({
       cityInfo: state => state.cityInfo.city || {},
+      isLimit: state => state.cityInfo.currentCityIsLimit,
       coordinateInfo: state => state.cityInfo.coordinateInfo || {},
       userInfo: state => state.user.userInfo || {},
-      vehicleInfo: state => state.vehicles.vehicleInfo || {}
+      vehicleInfo: state => state.vehicles.vehicleInfo || {},
+      limitRowCity: state => state.cityInfo.limitRowCity
     })
   },
   watch: {
     cityInfo: function () {
+      this.$store.dispatch('initLimitRowCity', {})
       this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
+    },
+    limitRowCity: function (newVal) {
+      const city = newVal.find(item => item.cityname === this.cityInfo.city)
+      if (city) {
+        this.MODIFY_CITY_LIMIT_INFO(true)
+        this.$store.dispatch('initLimitCityInfo', { cityId: city.cityid })
+      }
     }
   },
   methods: {
+    ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
     initData() {
       this.$store.dispatch('initCityData', this.coordinateInfo)
-      this.$store.dispatch('initLimitRowCity', {})
     },
     getLocation() { },
     itemClickHandler(item) {
@@ -219,7 +226,7 @@ export default {
 .home {
   height: calc(~'100% - 55px');
   background-color: #fff;
-  padding: 12px 15px;
+  padding: 12px 15px 50px 15px;
   overflow: auto;
   .car-info {
     background: linear-gradient(
@@ -390,11 +397,13 @@ export default {
           z-index: 99;
         }
         > .status {
+          .zoom-font(0.916);
           display: flex;
           align-items: center;
           color: #fff;
           font-size: 11px;
           margin-top: 8px;
+          white-space: nowrap;
           > img {
             width: 34px;
             height: 15px;
