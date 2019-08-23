@@ -6,6 +6,9 @@ import GenerateGuid from '../utils/generateGuid'
 
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
+    if (options.url.includes('tpapi')) {
+      options.baseURL = config.dpiBaseURL
+    }
     const instance = axios.create({
       baseURL: options.baseURL || config.baseURL,
       headers: {

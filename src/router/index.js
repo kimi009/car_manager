@@ -76,12 +76,10 @@ const router = new Router({
     },
     {
       path: '/succeed',
-      meta: { requiresAuth: true },
       component: () => import('@/views/payment/succeed')
     },
     {
       path: '/preview',
-      meta: { requiresAuth: true },
       component: () => import('@/views/commonPage')
     },
     {

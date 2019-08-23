@@ -88,13 +88,13 @@ export default {
   height: 100%;
   .mayCarTitla {
     width: 100%;
-    height: 120px;
+    height: 90px;
     .mayCarTitlaSpan {
       font-size: 18px;
       font-weight: 700;
       float: left;
       margin-left: 10px;
-      margin-top: 80px;
+      margin-top: 50px;
     }
   }
   .custom-title {
