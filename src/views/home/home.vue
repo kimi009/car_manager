@@ -207,20 +207,26 @@ export default {
       this.$store.dispatch('initCityData', this.coordinateInfo)
     },
     async getWxInfo() {
-      let res = await this.$api.getJsConfigInfo({
+      let configRes = await this.$api.getJsConfigInfo({
         url: window.location.href,
         wechatCode: 'jchl_hyc'
       })
-      console.log(res)
-      // wx.config({
-      //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-      //   appId: '', // 必填，公众号的唯一标识
-      //   timestamp: res.timestamp, // 必填，生成签名的时间戳
-      //   nonceStr: res.nonceStr, // 必填，生成签名的随机串
-      //   signature: res.signature,// 必填，签名
-      //   jsApiList: [] // 必填，需要使用的JS接口列表
-      // })
-      // console.log(res)
+      if (configRes.head.errorCode === '0') {
+        let openId = await this.$api.getOpenId({
+          code: 'fhifkfksdjfsdfsfsd',
+          wechatCode: 'jchl_hyc'
+        })
+        console.log(openId)
+        // eslint-disable-next-line
+        wx.config({
+          debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: configRes.appId, // 必填，公众号的唯一标识
+          timestamp: configRes.timestamp, // 必填，生成签名的时间戳
+          nonceStr: configRes.nonceStr, // 必填，生成签名的随机串
+          signature: configRes.signature, // 必填，签名
+          jsApiList: [] // 必填，需要使用的JS接口列表
+        })
+      }
     },
     getLocation() { },
     itemClickHandler(item) {
