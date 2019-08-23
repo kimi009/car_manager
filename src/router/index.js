@@ -75,6 +75,11 @@ const router = new Router({
       component: () => import('@/views/payment')
     },
     {
+      path: '/succeed',
+      meta: { requiresAuth: true },
+      component: () => import('@/views/payment/succeed')
+    },
+    {
       path: '/preview',
       meta: { requiresAuth: true },
       component: () => import('@/views/commonPage')
@@ -113,6 +118,11 @@ const router = new Router({
       path: '/mayPersonal',
       meta: { showTab: false, requiresAuth: false },
       component: () => import('@/views/mayPersonal/mayPersonal')
+    },
+    {
+      path: '/newsDetail',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/news/newsDetail')
     }
   ]
 })
