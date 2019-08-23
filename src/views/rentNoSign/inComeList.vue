@@ -1,5 +1,6 @@
 <template>
-  <div v-if="myIncomeData.incomeList.length" class='my-income'
+  <div v-if="myIncomeData.incomeList.length"
+       class='my-income'
        :style="myIncomeStyle">
     <div class="list-title">
       <span>我的收益</span>
@@ -18,7 +19,6 @@
 <script>
 import { mapState } from 'vuex'
 import InComeComp from '@/components/Rent/InComeComp'
-import test from '@/utils/test'
 export default {
   name: 'inComeList',
   components: { InComeComp },
@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     initInCome() {
-      this.myInComes = test()
       if (this.isIndex) {
         this.myInComes = this.myInComes.slice(0, 2)
       }

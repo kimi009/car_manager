@@ -1,5 +1,6 @@
 <template>
-  <div class='lease-list'
+  <div v-if="datas.length"
+       class='lease-list'
        :style="leaseStyle">
     <div class="list-title">
       <span>我的租约</span>
@@ -9,7 +10,7 @@
         <img src="@/assets/image/rent/arrow-right.png" />
       </span>
     </div>
-    <lease-comp v-for="item in datas"
+    <lease-comp v-for="item in myLeases"
                 :key="item.id"
                 :rowItem="item" />
   </div>
@@ -40,10 +41,12 @@ export default {
     }
   },
   created() {
-    if (this.isIndex) {
-      this.datas = this.myLeases.slice(0, 1)
-    } else {
-      this.datas = [...this.myLeases]
+    if (this.myLeases) {
+      if (this.isIndex) {
+        this.datas = this.myLeases.slice(0, 1)
+      } else {
+        this.datas = [...this.myLeases]
+      }
     }
   },
   methods: {

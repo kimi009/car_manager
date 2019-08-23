@@ -183,6 +183,7 @@ export default {
   computed: {
     ...mapState({
       cityInfo: state => state.cityInfo.city || {},
+      coordinateInfo: state => state.cityInfo.coordinateInfo || {},
       userInfo: state => state.user.userInfo || {},
       vehicleInfo: state => state.vehicles.vehicleInfo || {}
     })
@@ -194,7 +195,7 @@ export default {
   },
   methods: {
     initData() {
-      this.$store.dispatch('initCityData', { lon: '113.280637', lat: '23.125178' })
+      this.$store.dispatch('initCityData', this.coordinateInfo)
       this.$store.dispatch('initLimitRowCity', {})
     },
     getLocation() { },
