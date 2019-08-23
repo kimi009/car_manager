@@ -243,7 +243,7 @@ export default {
 .home {
   height: calc(~"100% - 55px");
   background-color: #fff;
-  padding: 12px 15px;
+  padding: 12px 15px 50px 15px;
   overflow: auto;
   .car-info {
     background: linear-gradient(
@@ -414,11 +414,13 @@ export default {
           z-index: 99;
         }
         > .status {
+          .zoom-font(0.916);
           display: flex;
           align-items: center;
           color: #fff;
           font-size: 11px;
           margin-top: 8px;
+          white-space: nowrap;
           > img {
             width: 34px;
             height: 15px;
