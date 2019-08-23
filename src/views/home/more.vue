@@ -18,7 +18,8 @@
       <div>
         <div class="item"
              v-for="item in finance"
-             :key="item.id">
+             :key="item.id"
+             @click="itemClickHandler(item)">
           <img :src="item.img"
                alt="">
           <p>{{item.label}}</p>
@@ -30,7 +31,8 @@
       <div>
         <div class="item"
              v-for="item in change"
-             :key="item.id">
+             :key="item.id"
+             @click="itemClickHandler(item)">
           <img :src="item.img"
                alt="">
           <p>{{item.label}}</p>
@@ -42,7 +44,8 @@
       <div>
         <div class="item"
              v-for="item in news"
-             :key="item.id">
+             :key="item.id"
+             @click="itemClickHandler(item)">
           <img :src="item.img"
                alt="">
           <p>{{item.label}}</p>
@@ -53,6 +56,7 @@
 </template>
 
 <script>
+import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE, DAIKUAN, LICAI, XINYONGKA, XINCHETUANGOU, ERSHOUCHEJIAOYI, PINPAICHEYOUHUI, ZIXUN } from './thirdLink.js'
 export default {
   data() {
     return {
@@ -146,6 +150,42 @@ export default {
       switch (item.id) {
         case 1:
           this.$router.push('/stationList')
+          break
+        case 3:
+          window.location.href = ETC
+          break
+        case 4:
+          window.location.href = WEIZHANG
+          break
+        case 5:
+          window.location.href = BAOYANG
+          break
+        case 6:
+          window.location.href = HUANCHE
+          break
+        case 7:
+          window.location.href = TINGCHE
+          break
+        case 9:
+          window.location.href = DAIKUAN
+          break
+        case 10:
+          window.location.href = LICAI
+          break
+        case 11:
+          window.location.href = XINYONGKA
+          break
+        case 12:
+          window.location.href = XINCHETUANGOU
+          break
+        case 13:
+          window.location.href = ERSHOUCHEJIAOYI
+          break
+        case 14:
+          window.location.href = PINPAICHEYOUHUI
+          break
+        case 15:
+          window.location.href = ZIXUN
           break
         default:
           break
