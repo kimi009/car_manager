@@ -4,6 +4,7 @@ import certificate from './certificate'
 import lease from './lease'
 import payment from './payment'
 import city from './city'
+import wx from './wx'
 
 export default {
   ...user,
@@ -11,5 +12,6 @@ export default {
   ...certificate,
   ...lease,
   ...payment,
-  ...city
+  ...city,
+  ...wx
 }
