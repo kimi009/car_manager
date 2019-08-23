@@ -77,6 +77,7 @@
       <van-cell class="group"
                 title="我的银行卡"
                 :icon="icon_list.bankCard"
+                to="/mayBankCard"
                 is-link />
       <van-cell class="group"
                 title="我的车辆"
