@@ -22,31 +22,44 @@
   </div>
 </template>
 <script>
-import payTax from '@/api/interface/payment'
+import { Toast } from 'vant'
 export default {
   name: 'index',
+  components: {
+    [Toast.name]: Toast
+  },
   data() {
     return {
       amount: '',
+      payUrl: '',
       paymentStatus: false
     }
   },
   created() {
-    this.amount = this.$route.query.amount || '33.23'
-  },
-  mounted() {
-
+    this.initData()
   },
   methods: {
+    async initData() {
+      const billId = this.$route.query.billId
+      let res = await this.$api.payTax({ employeeBillId: billId, openId: '2ab' })
+      if (res.success) {
+        this.amount = res.data.insteadAmount
+        this.payUrl = res.data.payUrl
+      }
+    },
     async payment() {
+      if (!this.payUrl) {
+        Toast({
+          message: '支付链接为空',
+          position: 'bottom'
+        })
+        return
+      }
       if (this.paymenting) {
         return
       }
       this.paymenting = true
-      let res = await payTax({ employeeBillId: '' })
-      if (res.success) {
-        console.log(res)
-      }
+      this.$router.push({ path: '/preview', query: { url: this.payUrl } })
     }
   }
 }

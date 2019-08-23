@@ -57,9 +57,9 @@ export default {
     more() {
       this.$router.push({ path: '/rent/list' })
     },
-    statusRowClick(isMakeInvoice) {
+    statusRowClick(isMakeInvoice, billId) {
       if (isMakeInvoice) {
-        this.$router.push({ path: '/payment' })
+        this.$router.push({ path: '/payment', query: { billId } })
       } else {
         const url = 'https://fapiao.yonyoucloud.com/ent-views/fpExtract/get_fapiao.html?pwd=RZAX&authCode=953e006a6ae1af5c6f5a41046b41bedc'
         this.$router.push({ path: '/previewPdf', query: { url } })
