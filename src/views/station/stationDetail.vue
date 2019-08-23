@@ -106,8 +106,7 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.query.item)
-    this.stationDetail = this.$route.query.item
+    this.stationDetail = JSON.parse(this.$route.query.item)
     this.stationDetail.price.showPrice = this.stationDetail.price.e93
   },
   methods: {
@@ -129,12 +128,13 @@ export default {
       }
     },
     toLocation() {
-      this.$router.push({
-        path: '/preview',
-        query: {
-          url: `https://m.amap.com/navi/?start=116.403124,39.940693&dest=${this.stationDetail.position}&destName=${this.stationDetail.name}&naviBy=car&key=6b04810a078afef84e3a302955848c43`
-        }
-      })
+      window.location.href = `https://m.amap.com/navi/?start=116.403124,39.940693&dest=${this.stationDetail.position}&destName=${this.stationDetail.name}&naviBy=car&key=6b04810a078afef84e3a302955848c43`
+      // this.$router.push({
+      //   path: '/preview',
+      //   query: {
+      //     url: `https://m.amap.com/navi/?start=116.403124,39.940693&dest=${this.stationDetail.position}&destName=${this.stationDetail.name}&naviBy=car&key=6b04810a078afef84e3a302955848c43`
+      //   }
+      // })
     }
   }
 }

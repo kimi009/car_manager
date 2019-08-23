@@ -121,7 +121,7 @@ export default {
       this.$router.push({
         path: '/stationDetail',
         query: {
-          item: item
+          item: JSON.stringify(item)
         }
       })
     },
