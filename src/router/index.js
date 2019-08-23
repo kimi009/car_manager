@@ -75,6 +75,11 @@ const router = new Router({
       component: () => import('@/views/payment')
     },
     {
+      path: '/succeed',
+      meta: { requiresAuth: true },
+      component: () => import('@/views/payment/succeed')
+    },
+    {
       path: '/preview',
       meta: { requiresAuth: true },
       component: () => import('@/views/commonPage')

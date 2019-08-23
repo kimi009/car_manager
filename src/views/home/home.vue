@@ -203,7 +203,30 @@ export default {
   methods: {
     ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
     initData() {
+      this.getWxInfo()
       this.$store.dispatch('initCityData', this.coordinateInfo)
+    },
+    async getWxInfo() {
+      let configRes = await this.$api.getJsConfigInfo({
+        url: window.location.href,
+        wechatCode: 'jchl_hyc'
+      })
+      if (configRes.head.errorCode === '0') {
+        let openId = await this.$api.getOpenId({
+          code: 'fhifkfksdjfsdfsfsd',
+          wechatCode: 'jchl_hyc'
+        })
+        console.log(openId)
+        // eslint-disable-next-line
+        wx.config({
+          debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: configRes.appId, // 必填，公众号的唯一标识
+          timestamp: configRes.timestamp, // 必填，生成签名的时间戳
+          nonceStr: configRes.nonceStr, // 必填，生成签名的随机串
+          signature: configRes.signature, // 必填，签名
+          jsApiList: [] // 必填，需要使用的JS接口列表
+        })
+      }
     },
     getLocation() { },
     itemClickHandler(item) {
@@ -224,7 +247,7 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~'100% - 55px');
+  height: calc(~"100% - 55px");
   background-color: #fff;
   padding: 12px 15px 50px 15px;
   overflow: auto;
@@ -348,7 +371,7 @@ export default {
     margin-top: 16px;
     > a {
       padding-right: 16px;
-      background: url('~@/assets/image/home/more.png') right center no-repeat;
+      background: url("~@/assets/image/home/more.png") right center no-repeat;
       background-size: 6px 11px;
     }
   }
@@ -385,7 +408,7 @@ export default {
         width: 120px;
         height: 74px;
         position: relative;
-        background: url('~@/assets/image/home/bg1.png') center center no-repeat;
+        background: url("~@/assets/image/home/bg1.png") center center no-repeat;
         padding: 8px 12px;
         background-size: 120px 74px;
         margin-right: 8px;

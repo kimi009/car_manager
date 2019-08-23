@@ -22,6 +22,14 @@ module.exports = {
       '/tpapi': {
         target: 'http://dapi.jchl.com/',
         changeOrigin: true
+      },
+      '/gateway': {
+        target: 'http://wx.jchl.com/',
+        changeOrigin: true
+      },
+      '/auth': {
+        target: 'http://wx.jchl.com/',
+        changeOrigin: true
       }
     },
 
