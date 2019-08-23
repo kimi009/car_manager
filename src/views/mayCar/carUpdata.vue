@@ -37,6 +37,9 @@ export default {
 </script>
 
 <style scoped  lang="less">
+.carUpdata{
+  background-color: white;
+}
 .carUpdataTitle {
   display: block;
   width: 100%;
