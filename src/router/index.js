@@ -133,6 +133,11 @@ const router = new Router({
       path: '/mayFuel',
       meta: { showTab: false, requiresAuth: false },
       component: () => import('@/views/mayFuel/mayFuel')
+    },
+    {
+      path: '/mayBankCard',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayBankCard/mayBankCard')
     }
   ]
 })
