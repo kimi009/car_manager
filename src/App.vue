@@ -1,28 +1,39 @@
 <template>
   <div id="app">
-    <transition :name="$transition" mode="in-out">
+    <transition :name="$transition"
+                mode="in-out">
       <!-- <keep-alive :include="['home']" ></keep-alive> -->
-        <router-view :key="key"/>
+      <router-view :key="key" />
     </transition>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
+import { mapMutations } from 'vuex'
+import { Toast } from 'vant'
 import VConsole from 'vconsole'
-// import { lStorage } from '@/utils/storage.js'
+import { lStorage } from '@/utils/storage.js'
+import { getQueryString } from '@/utils'
+const WXOPENID = 'WXOPENID'
 export default {
   name: 'App',
-  data () {
+  components: {
+    [Toast.name]: Toast
+  },
+  data() {
     return {}
   },
+  created() {
+    this.initWxInfo()
+  },
   computed: {
-    key () {
+    key() {
       // 由于路由组件的复用问题, 相同路由切换, 是不会出现动画效果的, 比如从 /article/1 切换到 /article/2
       return this.$route.path.replace(/\//g, '_')
     }
   },
-  mounted () {
+  mounted() {
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))
     // })
@@ -31,23 +42,49 @@ export default {
       try {
         let vc = new VConsole()
         Vue.use({ vc })
-      } catch (error) {}
+      } catch (error) { }
+    }
+  },
+  methods: {
+    ...mapMutations(['SET_USER_OPEN_ID']),
+    async initWxInfo() {
+      let wxOpenId = lStorage.getItem(WXOPENID)
+      if (wxOpenId) {
+        wxOpenId = JSON.parse(wxOpenId)
+        this.SET_USER_OPEN_ID(wxOpenId)
+      } else {
+        const code = getQueryString('code')
+        if (code) {
+          let openIdInfo = await this.$api.getOpenId({ code })
+          if (openIdInfo.head.success) {
+            lStorage.setItem(WXOPENID, openIdInfo.body.openId)
+            this.SET_USER_OPEN_ID(openIdInfo.body.openId)
+          } else {
+            Toast({
+              message: '获取微信的openId失败',
+              position: 'bottom'
+            })
+          }
+        } else {
+          await this.$api.wxAuth(window.location.href)
+        }
+      }
     }
   }
 }
 </script>
 
 <style lang="less">
-  @import './styles/animation.less';
-  @import './styles/vantUI.less';
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
+@import "./styles/animation.less";
+@import "./styles/vantUI.less";
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 </style>

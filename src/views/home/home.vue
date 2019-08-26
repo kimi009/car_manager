@@ -205,12 +205,19 @@ export default {
     ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
     initData() {
       // this.getWxInfo()
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          console.log(210, '纬度: ' + position.coords.latitude +
+            '经度:' + position.coords.longitude)
+        })
+      } else {
+        console.log('该浏览器不支持获取地理位置')
+      }
       this.$store.dispatch('initCityData', this.coordinateInfo)
     },
     async getWxInfo() {
       let configRes = await this.$api.getJsConfigInfo({
-        url: window.location.href,
-        wechatCode: 'jchl_hyc'
+        url: window.location.href
       })
       if (configRes.head.errorCode === '0') {
         console.log(configRes)
@@ -264,7 +271,7 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~'100% - 55px');
+  height: calc(~"100% - 55px");
   background-color: #fff;
   padding: 12px 15px 50px 15px;
   overflow: auto;
@@ -388,7 +395,7 @@ export default {
     margin-top: 16px;
     > a {
       padding-right: 16px;
-      background: url('~@/assets/image/home/more.png') right center no-repeat;
+      background: url("~@/assets/image/home/more.png") right center no-repeat;
       background-size: 6px 11px;
     }
   }
@@ -425,7 +432,7 @@ export default {
         width: 120px;
         height: 74px;
         position: relative;
-        background: url('~@/assets/image/home/bg1.png') center center no-repeat;
+        background: url("~@/assets/image/home/bg1.png") center center no-repeat;
         padding: 8px 12px;
         background-size: 120px 74px;
         margin-right: 8px;
