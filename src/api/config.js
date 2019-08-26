@@ -1,4 +1,5 @@
 export default {
+  HOST: process.env.HOST,
   method: 'post',
   // 基础url前缀
   baseURL: process.env.API_ROOT,

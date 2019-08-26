@@ -4,7 +4,8 @@ import { lStorage } from '@/utils/storage.js'
 const user = {
   state: {
     isLogin: false,
-    userInfo: ''
+    userInfo: '',
+    openId: ''
   },
   mutations: {
     SET_LOGIN_STATE: (state, params) => {
@@ -12,6 +13,9 @@ const user = {
     },
     SET_USER_INFO: (state, params) => {
       state.userInfo = params
+    },
+    SET_USER_OPEN_ID: (state, params) => {
+      state.openId = params
     }
   },
   actions: {
