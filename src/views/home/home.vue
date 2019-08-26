@@ -114,6 +114,7 @@
 import { mapState, mapMutations } from 'vuex'
 import { Button, Toast } from 'vant'
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
+import config from '@/api/config'
 export default {
   name: 'home',
   data() {
@@ -203,9 +204,7 @@ export default {
         message: '定位中...'
       })
       try {
-        let configRes = await this.$api.getJsConfigInfo({
-          url: window.location.href
-        })
+        let configRes = await this.$api.getJsConfigInfo()
         if (configRes.head.errorCode === '0') {
           console.log(configRes)
           const { appId, nonceStr, signature, timestamp } = configRes.body
@@ -263,6 +262,9 @@ export default {
         case 1:
           this.$router.push({ path: '/stationList' })
           break
+        case 2:
+          this.openPsbInvoiceList()
+          break
         case 3:
           window.location.href = ETC
           break
@@ -284,6 +286,30 @@ export default {
     },
     viewRent() {
       this.$router.push({ path: '/rent' })
+    },
+    async openPsbInvoiceList() {
+      let res = await this.$api.getPsbAccessToken({ userId: '', mobilePhone: '' })
+      if (res.success) {
+        this.sendOpenPageReq(`${config.psbBaseURL}/Open/View/InvoicesPage`, {
+          AccessToken: res.data.accessToken,
+          Platform: 'Pc'
+        })
+      }
+    },
+    sendOpenPageReq(url, params) {
+      var temp = document.createElement('form')
+      temp.action = url
+      temp.method = 'POST'
+      temp.enctype = 'multipart/form-data'
+      temp.style.display = 'none'
+      for (var param in params) {
+        var opt = document.createElement('textarea')
+        opt.name = param
+        opt.value = params[param]
+        temp.appendChild(opt)
+      }
+      document.body.appendChild(temp)
+      temp.submit()
     }
   }
 }
@@ -455,27 +481,27 @@ export default {
         border-radius: 2px;
         flex: 0 0 105px;
         &.bg1 {
-          background: url('~@/assets/image/home/bg1.png') center center
+          background: url("~@/assets/image/home/bg1.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg2 {
-          background: url('~@/assets/image/home/bg2.png') center center
+          background: url("~@/assets/image/home/bg2.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg3 {
-          background: url('~@/assets/image/home/bg3.png') center center
+          background: url("~@/assets/image/home/bg3.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg4 {
-          background: url('~@/assets/image/home/bg4.png') center center
+          background: url("~@/assets/image/home/bg4.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg5 {
-          background: url('~@/assets/image/home/bg5.png') center center
+          background: url("~@/assets/image/home/bg5.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
@@ -524,7 +550,7 @@ export default {
     bottom: 55px;
     width: 48px;
     height: 48px;
-    background: url('~@/assets/image/home/service.png') center center no-repeat;
+    background: url("~@/assets/image/home/service.png") center center no-repeat;
     background-size: 48px 48px;
   }
 }

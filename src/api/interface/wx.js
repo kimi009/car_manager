@@ -17,11 +17,12 @@ const wxAuth = () => {
 }
 
 // 获取wx配置信息
-const getJsConfigInfo = data => {
+const getJsConfigInfo = () => {
+  let data = fillData({ url: config.HOST })
   return axios({
     baseURL: config.HOST,
     url: `/gateway/wechat/thirdparty/ocsp/getWechatWebJs?appId=000101`,
-    data: fillData(data),
+    data,
     isNeedRequestId: true
   })
 }

@@ -5,6 +5,7 @@ import lease from './lease'
 import payment from './payment'
 import city from './city'
 import wx from './wx'
+import invoice from './invoice'
 
 export default {
   ...user,
@@ -13,5 +14,6 @@ export default {
   ...lease,
   ...payment,
   ...city,
-  ...wx
+  ...wx,
+  ...invoice
 }

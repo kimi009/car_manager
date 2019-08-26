@@ -5,6 +5,8 @@ export default {
   baseURL: process.env.API_ROOT,
   // 请求天气油站信息域名配置
   dpiBaseURL: process.env.DAPI_ROOT,
+  // 票税宝baseUrl
+  psbBaseURL: process.env.PSB_ROOT,
   // 请求头信息
   headers: {
     'Content-Type': 'application/json;charset=UTF-8'
