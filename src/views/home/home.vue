@@ -204,7 +204,7 @@ export default {
   methods: {
     ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
     initData() {
-      // this.getWxInfo()
+      this.getWxInfo()
       this.$store.dispatch('initCityData', this.coordinateInfo)
     },
     async getWxInfo() {
