@@ -94,7 +94,7 @@ class LocalStorage extends Store {
   constructor (store) { // eslint-disable-line
     super(store)
   }
-  WX_USER_ID = 'WX_USER_ID'
+  VEHICLE_INFO = 'VEHICLE_INFO' // 车辆信息
 }
 
 class SessionStorage extends Store {

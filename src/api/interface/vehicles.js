@@ -9,6 +9,15 @@ export const getVehicleInfo = data => {
   })
 }
 
+// 获取车辆列表
+export const getCarList = data => {
+  return axios({
+    url: '/api/app/car/list',
+    method: 'post',
+    data
+  })
+}
+
 // 提交车辆证照
 export const vehicleLicense = data => {
   return axios({
@@ -18,7 +27,17 @@ export const vehicleLicense = data => {
   })
 }
 
+// 查询最新租约车辆收益
+export const queryNewIncome = data => {
+  return axios({
+    url: '/api/app/rent/queryNewestIncome',
+    data
+  })
+}
+
 export default {
   getVehicleInfo,
-  vehicleLicense
+  getCarList,
+  vehicleLicense,
+  queryNewIncome
 }

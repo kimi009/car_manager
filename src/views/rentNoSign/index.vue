@@ -3,99 +3,64 @@
     <div class="rent-header">
       <img src="@/assets/image/rent/avatar.png" />
       <div class="rent-header-right">
-        <span>方欣科技</span>
+        <span>{{userInfo.enterpriseName}}</span>
         <div>
-          <span>张美</span>
-          <span>实名认证</span>
+          <span>{{userInfo.userName}}</span>
+          <span>{{userInfo.idNumber ? '实名认证' : '未认证'}}</span>
         </div>
       </div>
     </div>
     <div class="rent-des">
       <div class="item">
-        <span>2500元</span>
+        <span>{{myIncomeData.nextMonthIncome}}元</span>
         <span>预计下月收益</span>
       </div>
       <div class="divide"></div>
       <div class="item">
-        <span>6000元</span>
+        <span>{{myIncomeData.totalIncome}}元</span>
         <span>累计收益</span>
       </div>
     </div>
     <div class="rent-content">
       <in-come-list isIndex />
-      <div class="title"
-           style="margin-top:22px;">
-        <span>我的租约</span>
-        <span>
-          查看更多
-          <img src="@/assets/image/rent/arrow-right.png" />
-        </span>
-      </div>
-      <div class="content-block my-lease">
-        <div class="my-lease-header">
-          <img src="@/assets/image/rent/car.png" />
-          <span>广州某某某租车公司A</span>
-        </div>
-        <div class="h-divide"
-             style="margin: 15px 0;"></div>
-        <div class="row-item"
-             v-for="item in leaseContents"
-             :key="item.id">
-          <span>{{item.title}}</span>
-          <span>{{item.value}}</span>
-        </div>
-      </div>
+      <lease-list isIndex />
     </div>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import InComeList from './inComeList'
+import LeaseList from './leaseList'
 export default {
   name: 'index',
-  components: { InComeList },
+  components: { InComeList, LeaseList },
   data() {
     return {
       leaseContents: []
     }
   },
   created() {
-    this.initLeaseContents()
+    this.initData()
+  },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo,
+      myIncomeData: state => state.rent.myIncomeData || {}
+    })
   },
   methods: {
-    initLeaseContents() {
-      this.leaseContents = [{
-        id: 1,
-        title: '车牌号',
-        value: '粤A 12345'
-      },
-      {
-        id: 3,
-        title: '车辆品牌',
-        value: '丰田 卡罗拉'
-      },
-      {
-        id: 5,
-        title: '租赁期限',
-        value: '2019-04-01~2020-03-31'
-      }, {
-        id: 7,
-        title: '月租金',
-        value: '2500元'
-      }, {
-        id: 9,
-        title: '月租车时长',
-        value: '20天/月'
-      }, {
-        id: 11,
-        title: '租约状态',
-        value: '租车中'
-      }]
+    initData() {
+      this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
+      this.$store.dispatch('initMyLeaseList', { size: 10, current: 1 })
     }
   }
 }
 </script>
 <style lang="less" scoped>
 .rent {
+  height: 100vh;
+  background-color: #f4f4f4;
+  overflow: auto;
   .rent-header {
     height: 130px;
     background: url("~@/assets/image/rent/rent-no-sign-banner.png") no-repeat;
@@ -175,8 +140,6 @@ export default {
   .rent-content {
     margin-top: -33px;
     padding: 55px 15px 15px;
-    background-color: #f4f4f4;
-    height: 100%;
     .title {
       display: flex;
       justify-content: space-between;
@@ -209,39 +172,6 @@ export default {
         }
         &:nth-of-type(2) {
           color: #333333;
-        }
-      }
-    }
-    .content-block {
-      margin-top: 10px;
-      padding: 15px 15px 20px 15px;
-      background-color: #ffffff;
-      border-radius: 3px;
-    }
-    .h-divide {
-      height: 0.9px;
-      background-color: #e5e5e5;
-    }
-
-    .my-lease {
-      .my-lease-header {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        img {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-        }
-        span {
-          margin-left: 19px;
-          font-size: 18px;
-          color: #333333;
-        }
-      }
-      .row-item {
-        &:last-child {
-          margin-bottom: 0;
         }
       }
     }

@@ -13,10 +13,24 @@ module.exports = {
       '/api': {
         // target: 'http://rap2api.taobao.org/app/mock/222062',
         // target: 'https://yfb.jchl.com/backend',
-        target: 'http://47.107.84.151:8088/backend',
+        // target: 'http://47.107.84.151:8088/backend',
+        // target: 'http://39.108.200.59:10080/backend/',
+        target: 'http://hyc.jchl.com/backend/',
         // target: 'http://10.10.24.241:8088/backend', // 本地
         changeOrigin: true
-    }
+      },
+      '/tpapi': {
+        target: 'http://dapi.jchl.com/',
+        changeOrigin: true
+      },
+      '/gateway': {
+        target: 'http://wx.jchl.com/',
+        changeOrigin: true
+      },
+      '/auth': {
+        target: 'http://wx.jchl.com/',
+        changeOrigin: true
+      }
     },
 
     // Various Dev Server settings

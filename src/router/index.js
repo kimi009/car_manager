@@ -11,7 +11,7 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
-    { path: '*', redirect: '/home', hidden: true },
+    { path: '*', redirect: '/guide', hidden: true },
     {
       path: 'entry',
       component: () => import('@/views/entry'),
@@ -28,15 +28,49 @@ const router = new Router({
         },
         {
           path: '/user',
-          meta: { showTab: true, requiresAuth: true },
+          meta: { showTab: true, requiresAuth: false },
           component: () => import('@/views/user/user')
         },
         {
           path: '/sign',
           meta: {showTab: true, requiresAuth: true},
-          component: () => import('@/views/signContract/signContract')
+          component: () => import('@/views/signContract/index'),
+          children: [
+            {
+              path: 'process',
+              meta: {showTab: true, requiresAuth: true, keepAlive: true},
+              component: () => import('@/views/signContract/signProcess')
+            },
+            {
+              path: 'failed',
+              meta: {showTab: true, requiresAuth: true},
+              component: () => import('@/views/signContract/auditFailed')
+            },
+            {
+              path: 'submitted',
+              meta: {showTab: true, requiresAuth: true},
+              component: () => import('@/views/signContract/leaseSubmitted')
+            },
+            {
+              path: 'certificate',
+              meta: {showTab: true, requiresAuth: true},
+              component: () => import('@/views/signContract/certificate/certificate')
+            }
+          ]
         }
       ]
+    },
+    {
+      path: '/more',
+      component: () => import('@/views/home/more')
+    },
+    {
+      path: '/stationList',
+      component: () => import('@/views/station/stationList')
+    },
+    {
+      path: '/stationDetail',
+      component: () => import('@/views/station/stationDetail')
     },
     {
       path: '/login',
@@ -49,15 +83,86 @@ const router = new Router({
     },
     {
       path: '/rent',
+      meta: { requiresAuth: true },
       component: () => import('@/views/rentNoSign')
     },
     {
       path: '/rent/list',
+      meta: { requiresAuth: true },
       component: () => import('@/views/rentNoSign/inComeList')
     },
     {
+      path: '/lease/list',
+      meta: { requiresAuth: true },
+      component: () => import('@/views/rentNoSign/leaseList')
+    },
+    {
       path: '/payment',
+      meta: { requiresAuth: true },
       component: () => import('@/views/payment')
+    },
+    {
+      path: '/succeed',
+      component: () => import('@/views/payment/succeed')
+    },
+    {
+      path: '/preview',
+      component: () => import('@/views/commonPage')
+    },
+    {
+      path: '/carList',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayCar/carList')
+    },
+    {
+      path: '/carInfo',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayCar/carInfo')
+    },
+    {
+      path: '/carUpdata',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayCar/carUpdata')
+    },
+    {
+      path: '/leaseList',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayLease/leaseList')
+    },
+    {
+      path: '/leaseInfo',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayLease/leaseInfo')
+    },
+    {
+      path: '/mayFund',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayFund/mayFund')
+    },
+    {
+      path: '/mayPersonal',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayPersonal/mayPersonal')
+    },
+    {
+      path: '/mayPersonalList',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayPersonal/mayPersonalList')
+    },
+    {
+      path: '/mayPersonalListInfo',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayPersonal/mayPersonalListInfo')
+    },
+    {
+      path: '/mayFuel',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayFuel/mayFuel')
+    },
+    {
+      path: '/mayBankCard',
+      meta: { showTab: false, requiresAuth: false },
+      component: () => import('@/views/mayBankCard/mayBankCard')
     }
   ]
 })

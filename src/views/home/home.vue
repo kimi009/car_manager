@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <div class="map-container">
-       <a-map></a-map>
-    </div> -->
+      <a-map></a-map>
+    </div>
     <!-- <transition :name="$transition" mode="in-out">
         <router-view/>
     </transition> -->
@@ -11,13 +11,14 @@
         <p class="car-num">
           <img src="../../assets/image/home/card.png"
                alt="">
-          <span>粤A65G65</span>
+          <span>{{vehicleInfo.cph}}</span>
         </p>
         <div class="rent">
           <p>本月租金（元）</p>
           <p class="money">
-            <span>2,433.47</span>
-            <a href="javascript:;">查看租金</a>
+            <span>{{vehicleInfo.income || 0}}</span>
+            <a href="javascript:;"
+               @click="viewRent">查看租金</a>
           </p>
         </div>
         <p class="break">
@@ -29,25 +30,27 @@
         <p class="location">
           <img src="@/assets/image/home/location.png"
                alt="">
-          <span class="place">广州</span>
-          <span class="status">今日不限行</span>
+          <span class="place">{{cityInfo.city}}</span>
+          <span class="status">{{isLimit ? '今日限行' : '今日不限行'}}</span>
         </p>
         <p class="weather">
-          雷阵雨 27~35 C
+          {{cityInfo.weather}} {{cityInfo.temperature}} C
         </p>
         <p class="status">不适宜洗车</p>
       </div>
     </div>
     <div class="func">
       <div v-for="item in func"
-           :key="item.label">
+           :key="item.label"
+           @click="itemClickHandler(item)">
         <img :src="item.img"
              alt="">
         <p>{{item.label}}</p>
       </div>
     </div>
     <p class="more">
-      <a href="javascript:;">查看更多</a>
+      <a href="javascript:;"
+         @click="$router.push('/more')">查看更多</a>
     </p>
     <div class="ad">
       <img src="@/assets/image/home/ad_1.png"
@@ -116,42 +119,52 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { Button } from 'vant'
 import AMap from '../../components/AMap/amap'
+import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 export default {
   name: 'home',
   data () {
     return {
       func: [
         {
+          id: 1,
           label: '加油',
           img: require('@/assets/image/home/oil.png')
         },
         {
+          id: 2,
           label: '发票',
           img: require('@/assets/image/home/inv.png')
         },
         {
+          id: 3,
           label: 'ETC',
           img: require('@/assets/image/home/etc.png')
         },
         {
+          id: 4,
           label: '违章',
           img: require('@/assets/image/home/break.png')
         },
         {
+          id: 5,
           label: '保养',
           img: require('@/assets/image/home/fit.png')
         },
         {
+          id: 6,
           label: '保险',
           img: require('@/assets/image/home/safe.png')
         },
         {
+          id: 7,
           label: '换车',
           img: require('@/assets/image/home/change.png')
         },
         {
+          id: 8,
           label: '停车',
           img: require('@/assets/image/home/stop.png')
         }
@@ -162,19 +175,98 @@ export default {
     [Button.name]: Button,
     AMap
   },
-  created () {
+  created() {
+    this.initData()
+  },
+  computed: {
+    ...mapState({
+      cityInfo: state => state.cityInfo.city || {},
+      isLimit: state => state.cityInfo.currentCityIsLimit,
+      coordinateInfo: state => state.cityInfo.coordinateInfo || {},
+      userInfo: state => state.user.userInfo || {},
+      vehicleInfo: state => state.vehicles.vehicleInfo || {},
+      limitRowCity: state => state.cityInfo.limitRowCity
+    })
+  },
+  watch: {
+    cityInfo: function () {
+      this.$store.dispatch('initLimitRowCity', {})
+      this.$store.dispatch('initVehicleInfo', { userId: this.userInfo.userId })
+    },
+    limitRowCity: function (newVal) {
+      const city = newVal.find(item => item.cityname === this.cityInfo.city)
+      if (city) {
+        this.MODIFY_CITY_LIMIT_INFO(true)
+        this.$store.dispatch('initLimitCityInfo', { cityId: city.cityid })
+      }
+    }
   },
   methods: {
-    getLocation () { }
+    ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
+    initData() {
+      // this.getWxInfo()
+      this.$store.dispatch('initCityData', this.coordinateInfo)
+    },
+    async getWxInfo() {
+      let configRes = await this.$api.getJsConfigInfo({
+        url: window.location.href,
+        wechatCode: 'jchl_hyc'
+      })
+      if (configRes.head.errorCode === '0') {
+        console.log(configRes)
+        // let openId = await this.$api.getOpenId({
+        //   code: 'aaa',
+        //   wechatCode: 'jchl_hyc'
+        // })
+        // console.log(openId)
+        // // eslint-disable-next-line
+        // wx.config({
+        //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //   appId: configRes.appId, // 必填，公众号的唯一标识
+        //   timestamp: configRes.timestamp, // 必填，生成签名的时间戳
+        //   nonceStr: configRes.nonceStr, // 必填，生成签名的随机串
+        //   signature: configRes.signature, // 必填，签名
+        //   jsApiList: [] // 必填，需要使用的JS接口列表
+        // })
+      }
+    },
+    getLocation() { },
+    itemClickHandler(item) {
+      switch (item.id) {
+        case 1:
+          this.$router.push({ path: '/stationList' })
+          break
+        case 3:
+          window.location.href = ETC
+          break
+        case 4:
+          window.location.href = WEIZHANG
+          break
+        case 5:
+          window.location.href = BAOYANG
+          break
+        case 7:
+          window.location.href = HUANCHE
+          break
+        case 8:
+          window.location.href = TINGCHE
+          break
+        default:
+          break
+      }
+    },
+    viewRent() {
+      this.$router.push({ path: '/rent' })
+    }
   }
 }
 </script>
 
 <style scoped lang="less">
 .home {
-  height: calc(~'100% - 55px');
+  height: calc(~'100% - 50px');
   background-color: #fff;
-  padding: 12px 15px;
+  padding: 12px 15px 50px 15px;
   overflow: auto;
   .car-info {
     background: linear-gradient(
@@ -190,7 +282,7 @@ export default {
     display: flex;
     > .left {
       width: calc(50% - 1px);
-      border-right: 0.5px solid #e5eefc;
+      border-right: 1px solid #e5eefc;
       > .car-num {
         display: flex;
         align-items: center;
@@ -216,12 +308,14 @@ export default {
             font-size: 15px;
           }
           > a {
+            .zoom-font(0.77);
             font-size: 10px;
-            padding: 4px 10px;
+            padding: 4px 13px;
             border: 1px solid #fff;
             border-radius: 3px;
             color: #fff;
-            transform: rotate(70deg);
+            display: inline-block;
+            margin-left: 12px;
           }
         }
       }
@@ -343,11 +437,13 @@ export default {
           z-index: 99;
         }
         > .status {
+          .zoom-font(0.916);
           display: flex;
           align-items: center;
           color: #fff;
           font-size: 11px;
           margin-top: 8px;
+          white-space: nowrap;
           > img {
             width: 34px;
             height: 15px;
