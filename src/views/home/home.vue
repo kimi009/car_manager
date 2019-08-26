@@ -294,7 +294,6 @@ export default {
     async openPsbInvoiceList() {
       let res = await this.$api.getPsbAccessToken({ userId: this.userInfo.userId, mobilePhone: this.userInfo.mobile })
       if (res.success) {
-        alert(config.psbBaseURL)
         this.sendOpenPageReq(`${config.psbBaseURL}/Open/View/InvoicesPage`, {
           AccessToken: res.data.accessToken,
           Platform: 'Pc'
