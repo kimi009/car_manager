@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div class="map-container">
+    <!-- <div class="map-container">
       <a-map></a-map>
-    </div>
+    </div> -->
     <!-- <transition :name="$transition" mode="in-out">
         <router-view/>
     </transition> -->
