@@ -8,7 +8,8 @@ const user = {
     token: '',
     userId: '',
     enterpriseId: '', // 企业ID
-    isSign: false // 是否签约
+    isSign: false, // 是否签约
+    openId: ''
   },
   mutations: {
     SET_LOGIN_STATE: (state, params) => {
@@ -22,6 +23,9 @@ const user = {
       state.userId = obj.userId
       state.enterpriseId = obj.enterpriseId
       state.isSign = obj.isSign
+    },
+    SET_USER_OPEN_ID: (state, params) => {
+      state.openId = params
     }
   },
   actions: {

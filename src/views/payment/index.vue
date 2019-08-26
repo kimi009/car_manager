@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { Toast } from 'vant'
 export default {
   name: 'index',
@@ -38,10 +39,23 @@ export default {
   created() {
     this.initData()
   },
+  computed: {
+    ...mapState({
+      openId: state => state.user.openId
+    })
+  },
   methods: {
     async initData() {
+      console.log(49, this.$store.state.user)
+      if (!this.openId) {
+        Toast({
+          message: '获取微信的openId失败',
+          position: 'bottom'
+        })
+        return
+      }
       const billId = this.$route.query.billId
-      let res = await this.$api.payTax({ employeeBillId: billId, openId: '2ab' })
+      let res = await this.$api.payTax({ employeeBillId: billId, openId: this.openId })
       if (res.success) {
         this.amount = res.data.insteadAmount
         this.payUrl = res.data.payUrl

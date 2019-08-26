@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div class="map-container">
+    <!-- <div class="map-container">
       <a-map></a-map>
-    </div>
+    </div> -->
     <!-- <transition :name="$transition" mode="in-out">
         <router-view/>
     </transition> -->
@@ -60,25 +60,15 @@
     <div class="news">
       <p class="title">金财车友会</p>
       <div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg1">
         </div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg2">
         </div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg3">
         </div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg4">
+        </div>
+        <div class="item bg5">
         </div>
       </div>
     </div>
@@ -86,8 +76,8 @@
       <p class="title">每日精选</p>
       <div class="selection-item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+          <p class="title">推动新技术研发 通用/福特获美...</p>
+          <p class="content">美国能源部针对先进汽车技术研究拨款 5900万美元。其中，通用和福特获得 了最多的拨款。</p>
         </div>
         <div class="right">
           <img src="@/assets/image/home/selection_1.png"
@@ -96,33 +86,35 @@
       </div>
       <div class="selection-item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+          <p class="title">对话朱孔源：新模式下经销商仍...</p>
+          <p class="content">朱孔源认为，在这样的竞争中，谁能提 供更加优质的服务、谁能够真正实现自 我变革、谁能满足消费者的实际需求， 谁就将赢得这场挑</p>
         </div>
         <div class="right">
-          <img src="@/assets/image/home/selection_1.png"
+          <img src="@/assets/image/home/selection_2.png"
                alt="">
         </div>
       </div>
       <div class="selection-item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+          <p class="title">自动驾驶独立 滴滴出行的未来...</p>
+          <p class="content">最近，国内出行巨头滴滴对外宣布其自 动驾驶部门正式独立。未来独立公司将 专注于自动驾驶研发、产品应用及相关 业务拓展。</p>
         </div>
         <div class="right">
-          <img src="@/assets/image/home/selection_1.png"
+          <img src="@/assets/image/home/selection_3.png"
                alt="">
         </div>
       </div>
     </div>
+    <a href="tel:400-99-12366"
+       class="service"></a>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { Button } from 'vant'
-import AMap from '../../components/AMap/amap'
+import { Button, Toast } from 'vant'
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
+import config from '@/api/config'
 export default {
   name: 'home',
   data () {
@@ -172,8 +164,7 @@ export default {
     }
   },
   components: {
-    [Button.name]: Button,
-    AMap
+    [Button.name]: Button
   },
   created() {
     this.initData()
@@ -202,39 +193,81 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
+    ...mapMutations(['MODIFY_CITY_LIMIT_INFO', 'INIT_COORDINATE_INFO']),
     initData() {
-      // this.getWxInfo()
-      this.$store.dispatch('initCityData', this.coordinateInfo)
+      this.getWxInfo()
+      // this.$store.dispatch('initCityData', this.coordinateInfo)
     },
     async getWxInfo() {
-      let configRes = await this.$api.getJsConfigInfo({
-        url: window.location.href,
-        wechatCode: 'jchl_hyc'
+      Toast.loading({
+        mask: true,
+        message: '定位中...'
       })
-      if (configRes.head.errorCode === '0') {
-        console.log(configRes)
-        // let openId = await this.$api.getOpenId({
-        //   code: 'aaa',
-        //   wechatCode: 'jchl_hyc'
-        // })
-        // console.log(openId)
-        // // eslint-disable-next-line
-        // wx.config({
-        //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        //   appId: configRes.appId, // 必填，公众号的唯一标识
-        //   timestamp: configRes.timestamp, // 必填，生成签名的时间戳
-        //   nonceStr: configRes.nonceStr, // 必填，生成签名的随机串
-        //   signature: configRes.signature, // 必填，签名
-        //   jsApiList: [] // 必填，需要使用的JS接口列表
-        // })
+      try {
+        let configRes = await this.$api.getJsConfigInfo(
+          {
+            url: window.location.href
+          }
+        )
+        if (configRes.head.errorCode === '0') {
+          console.log(configRes)
+          const { appId, nonceStr, signature, timestamp } = configRes.body
+          // eslint-disable-next-line
+          wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId, // 必填，公众号的唯一标识
+            timestamp, // 必填，生成签名的时间戳
+            nonceStr, // 必填，生成签名的随机串
+            signature, // 必填，签名
+            jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表
+          })
+          let self = this
+          // eslint-disable-next-line
+          wx.ready(function () {
+            Toast.clear()
+            self.getLocation()
+          })
+        }
+      } catch (err) {
+        Toast.clear()
+      } finally {
+        Toast.clear()
       }
     },
-    getLocation() { },
+    getLocation() {
+      Toast.loading({
+        mask: true,
+        message: '定位中...'
+      })
+      try {
+        let self = this
+        // eslint-disable-next-line
+        wx.getLocation({
+          type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+          success: function (res) {
+            var latitude = res.latitude // 纬度，浮点数，范围为90 ~ -90
+            var longitude = res.longitude // 经度，浮点数，范围为180 ~ -180。
+            // var speed = res.speed; // 速度，以米/每秒计
+            // var accuracy = res.accuracy; // 位置精度
+            console.log(`当前位置-${longitude}-${latitude}`)
+            self.INIT_COORDINATE_INFO({ lon: longitude, lat: latitude })
+            self.$store.dispatch('initCityData')
+            Toast.clear()
+          }
+        })
+      } catch (err) {
+        Toast.clear()
+      } finally {
+        Toast.clear()
+      }
+    },
     itemClickHandler(item) {
       switch (item.id) {
         case 1:
           this.$router.push({ path: '/stationList' })
+          break
+        case 2:
+          this.openPsbInvoiceList()
           break
         case 3:
           window.location.href = ETC
@@ -257,6 +290,30 @@ export default {
     },
     viewRent() {
       this.$router.push({ path: '/rent' })
+    },
+    async openPsbInvoiceList() {
+      let res = await this.$api.getPsbAccessToken({ userId: this.userInfo.userId, mobilePhone: this.userInfo.mobile })
+      if (res.success) {
+        this.sendOpenPageReq(`${config.psbBaseURL}/Open/View/InvoicesPage`, {
+          AccessToken: res.data.accessToken,
+          Platform: 'Pc'
+        })
+      }
+    },
+    sendOpenPageReq(url, params) {
+      var temp = document.createElement('form')
+      temp.action = url
+      temp.method = 'POST'
+      temp.enctype = 'multipart/form-data'
+      temp.style.display = 'none'
+      for (var param in params) {
+        var opt = document.createElement('textarea')
+        opt.name = param
+        opt.value = params[param]
+        temp.appendChild(opt)
+      }
+      document.body.appendChild(temp)
+      temp.submit()
     }
   }
 }
@@ -264,7 +321,7 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~'100% - 50px');
+  height: calc(~"100% - 55px");
   background-color: #fff;
   padding: 12px 15px 50px 15px;
   overflow: auto;
@@ -388,7 +445,7 @@ export default {
     margin-top: 16px;
     > a {
       padding-right: 16px;
-      background: url('~@/assets/image/home/more.png') right center no-repeat;
+      background: url("~@/assets/image/home/more.png") right center no-repeat;
       background-size: 6px 11px;
     }
   }
@@ -422,32 +479,35 @@ export default {
       overflow-x: auto;
       flex-wrap: nowrap;
       > .item {
-        width: 120px;
-        height: 74px;
+        height: 71px;
         position: relative;
-        background: url('~@/assets/image/home/bg1.png') center center no-repeat;
-        padding: 8px 12px;
-        background-size: 120px 74px;
-        margin-right: 8px;
+        margin-right: 15px;
         border-radius: 2px;
-        flex: 0 0 33%;
-        > .content {
-          font-size: 14px;
-          color: #fff;
-          z-index: 99;
+        flex: 0 0 105px;
+        &.bg1 {
+          background: url("~@/assets/image/home/bg1.png") center center
+            no-repeat;
+          background-size: 105px 71px;
         }
-        > .status {
-          .zoom-font(0.916);
-          display: flex;
-          align-items: center;
-          color: #fff;
-          font-size: 11px;
-          margin-top: 8px;
-          white-space: nowrap;
-          > img {
-            width: 34px;
-            height: 15px;
-          }
+        &.bg2 {
+          background: url("~@/assets/image/home/bg2.png") center center
+            no-repeat;
+          background-size: 105px 71px;
+        }
+        &.bg3 {
+          background: url("~@/assets/image/home/bg3.png") center center
+            no-repeat;
+          background-size: 105px 71px;
+        }
+        &.bg4 {
+          background: url("~@/assets/image/home/bg4.png") center center
+            no-repeat;
+          background-size: 105px 71px;
+        }
+        &.bg5 {
+          background: url("~@/assets/image/home/bg5.png") center center
+            no-repeat;
+          background-size: 105px 71px;
         }
       }
     }
@@ -480,13 +540,22 @@ export default {
       > .right {
         > img {
           width: 110px;
-          height: 83px;
+          height: 92px;
         }
       }
       &:last-child {
         border-bottom: none;
       }
     }
+  }
+  .service {
+    position: fixed;
+    right: 10px;
+    bottom: 55px;
+    width: 48px;
+    height: 48px;
+    background: url("~@/assets/image/home/service.png") center center no-repeat;
+    background-size: 48px 48px;
   }
 }
 </style>
