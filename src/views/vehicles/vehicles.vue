@@ -100,8 +100,8 @@
       </span>
       <div class="item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比 增长0.5%，超出0.3%的市场预期</p>
+          <p class="title">二手车，你敢买么？</p>
+          <p class="content">就"如何选择一辆放心二手车"，这一 问题为大家讲述。</p>
           <p class="opera">
             <span><img class="msg"
                    src="@/assets/image/vehicles/msg.png"
@@ -122,8 +122,8 @@
       </div>
       <div class="item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比 增长0.5%，超出0.3%的市场预期</p>
+          <p class="title">惠用车平台正式开张了！</p>
+          <p class="content">惠用车平台是国内首家私车公用为切 入点，整合车辆服务供应商的平台。</p>
           <p class="opera">
             <span><img class="msg"
                    src="@/assets/image/vehicles/msg.png"
@@ -144,8 +144,8 @@
       </div>
       <div class="item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比 增长0.5%，超出0.3%的市场预期</p>
+          <p class="title">了解常见的损坏发动机行为</p>
+          <p class="content">发动机是汽车的心脏，是车身上最重 要的部件之一。一旦出现问题，维修 成本会很高。</p>
           <p class="opera">
             <span><img class="msg"
                    src="@/assets/image/vehicles/msg.png"
@@ -372,6 +372,7 @@ export default {
   > .news {
     text-align: left;
     position: relative;
+    padding-bottom: 1px;
     > .more {
       font-size: 12px;
       color: #999;

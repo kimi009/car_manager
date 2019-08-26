@@ -60,25 +60,15 @@
     <div class="news">
       <p class="title">金财车友会</p>
       <div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg1">
         </div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg2">
         </div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg3">
         </div>
-        <div class="item">
-          <p class="content">#惠用车开张 有奖闯关</p>
-          <p class="status"><img src="@/assets/image/home/hottest.png"
-                 alt="">246人参与</p>
+        <div class="item bg4">
+        </div>
+        <div class="item bg5">
         </div>
       </div>
     </div>
@@ -86,8 +76,8 @@
       <p class="title">每日精选</p>
       <div class="selection-item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+          <p class="title">推动新技术研发 通用/福特获美...</p>
+          <p class="content">美国能源部针对先进汽车技术研究拨款 5900万美元。其中，通用和福特获得 了最多的拨款。</p>
         </div>
         <div class="right">
           <img src="@/assets/image/home/selection_1.png"
@@ -96,25 +86,27 @@
       </div>
       <div class="selection-item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+          <p class="title">对话朱孔源：新模式下经销商仍...</p>
+          <p class="content">朱孔源认为，在这样的竞争中，谁能提 供更加优质的服务、谁能够真正实现自 我变革、谁能满足消费者的实际需求， 谁就将赢得这场挑</p>
         </div>
         <div class="right">
-          <img src="@/assets/image/home/selection_1.png"
+          <img src="@/assets/image/home/selection_2.png"
                alt="">
         </div>
       </div>
       <div class="selection-item">
         <div class="left">
-          <p class="title">央行加大支持，债市依旧向好</p>
-          <p class="content">上周美国公布5月份核心零售环比增长 0.5%，超出0.3%的市场预期和0.1%的 前值，零售的改善缓解了对... </p>
+          <p class="title">自动驾驶独立 滴滴出行的未来...</p>
+          <p class="content">最近，国内出行巨头滴滴对外宣布其自 动驾驶部门正式独立。未来独立公司将 专注于自动驾驶研发、产品应用及相关 业务拓展。</p>
         </div>
         <div class="right">
-          <img src="@/assets/image/home/selection_1.png"
+          <img src="@/assets/image/home/selection_3.png"
                alt="">
         </div>
       </div>
     </div>
+    <a href="tel:400-99-12366"
+       class="service"></a>
   </div>
 </template>
 
@@ -457,32 +449,35 @@ export default {
       overflow-x: auto;
       flex-wrap: nowrap;
       > .item {
-        width: 120px;
-        height: 74px;
+        height: 71px;
         position: relative;
-        background: url("~@/assets/image/home/bg1.png") center center no-repeat;
-        padding: 8px 12px;
-        background-size: 120px 74px;
-        margin-right: 8px;
+        margin-right: 15px;
         border-radius: 2px;
-        flex: 0 0 33%;
-        > .content {
-          font-size: 14px;
-          color: #fff;
-          z-index: 99;
+        flex: 0 0 105px;
+        &.bg1 {
+          background: url('~@/assets/image/home/bg1.png') center center
+            no-repeat;
+          background-size: 105px 71px;
         }
-        > .status {
-          .zoom-font(0.916);
-          display: flex;
-          align-items: center;
-          color: #fff;
-          font-size: 11px;
-          margin-top: 8px;
-          white-space: nowrap;
-          > img {
-            width: 34px;
-            height: 15px;
-          }
+        &.bg2 {
+          background: url('~@/assets/image/home/bg2.png') center center
+            no-repeat;
+          background-size: 105px 71px;
+        }
+        &.bg3 {
+          background: url('~@/assets/image/home/bg3.png') center center
+            no-repeat;
+          background-size: 105px 71px;
+        }
+        &.bg4 {
+          background: url('~@/assets/image/home/bg4.png') center center
+            no-repeat;
+          background-size: 105px 71px;
+        }
+        &.bg5 {
+          background: url('~@/assets/image/home/bg5.png') center center
+            no-repeat;
+          background-size: 105px 71px;
         }
       }
     }
@@ -515,13 +510,22 @@ export default {
       > .right {
         > img {
           width: 110px;
-          height: 83px;
+          height: 92px;
         }
       }
       &:last-child {
         border-bottom: none;
       }
     }
+  }
+  .service {
+    position: fixed;
+    right: 10px;
+    bottom: 55px;
+    width: 48px;
+    height: 48px;
+    background: url('~@/assets/image/home/service.png') center center no-repeat;
+    background-size: 48px 48px;
   }
 }
 </style>
