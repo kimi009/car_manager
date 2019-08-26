@@ -204,15 +204,7 @@ export default {
   methods: {
     ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
     initData() {
-      // this.getWxInfo()
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          console.log(210, '纬度: ' + position.coords.latitude +
-            '经度:' + position.coords.longitude)
-        })
-      } else {
-        console.log('该浏览器不支持获取地理位置')
-      }
+      this.getWxInfo()
       this.$store.dispatch('initCityData', this.coordinateInfo)
     },
     async getWxInfo() {

@@ -136,6 +136,10 @@ const router = new Router({
       path: '/mayBankCard',
       meta: { showTab: false, requiresAuth: false },
       component: () => import('@/views/mayBankCard/mayBankCard')
+    },
+    {
+      path: '/safe',
+      component: () => import('@/views/safe/safe')
     }
   ]
 })
