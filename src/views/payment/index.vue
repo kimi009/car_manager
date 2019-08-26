@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     async initData() {
-      console.log(this.$store.state.user)
+      console.log(49, this.$store.state.user)
       if (!this.openId) {
         Toast({
           message: '获取微信的openId失败',
