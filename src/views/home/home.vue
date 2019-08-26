@@ -216,13 +216,14 @@ export default {
         })
         if (configRes.head.errorCode === '0') {
           console.log(configRes)
+          const { appId, nonceStr, signature, timestamp } = configRes.body
           // eslint-disable-next-line
           wx.config({
             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: configRes.appId, // 必填，公众号的唯一标识
-            timestamp: configRes.timestamp, // 必填，生成签名的时间戳
-            nonceStr: configRes.nonceStr, // 必填，生成签名的随机串
-            signature: configRes.signature, // 必填，签名
+            appId, // 必填，公众号的唯一标识
+            timestamp, // 必填，生成签名的时间戳
+            nonceStr, // 必填，生成签名的随机串
+            signature, // 必填，签名
             jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表
           })
           let self = this
