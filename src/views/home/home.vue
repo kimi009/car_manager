@@ -204,7 +204,11 @@ export default {
         message: '定位中...'
       })
       try {
-        let configRes = await this.$api.getJsConfigInfo()
+        let configRes = await this.$api.getJsConfigInfo(
+          {
+            url: window.location.href
+          }
+        )
         if (configRes.head.errorCode === '0') {
           console.log(configRes)
           const { appId, nonceStr, signature, timestamp } = configRes.body
@@ -288,8 +292,9 @@ export default {
       this.$router.push({ path: '/rent' })
     },
     async openPsbInvoiceList() {
-      let res = await this.$api.getPsbAccessToken({ userId: '', mobilePhone: '' })
+      let res = await this.$api.getPsbAccessToken({ userId: this.userInfo.userId, mobilePhone: this.userInfo.mobile })
       if (res.success) {
+        alert(config.psbBaseURL)
         this.sendOpenPageReq(`${config.psbBaseURL}/Open/View/InvoicesPage`, {
           AccessToken: res.data.accessToken,
           Platform: 'Pc'
