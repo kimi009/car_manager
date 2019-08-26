@@ -1,5 +1,6 @@
 import axios from '../api'
 import config from '@/api/config'
+
 const wxAppId = 'wx78b4edeac7161cb0'
 // http://wx.jchl.com/gateway/wechat/thirdparty/ocsp/getWechatWebJs?
 // requestId=6409c01b0bcc2f400e8146e8071c99ec&token=235996b41edf417aae23677adc5d037810001201c78c023473c8dc65
@@ -27,6 +28,7 @@ const getJsConfigInfo = data => {
 // 获取微信openId
 const getOpenId = data => {
   return axios({
+    baseURL: config.HOST,
     url: `/auth/wechatCommonService/getOpenId?appId=000101`,
     data: fillData(data),
     isNeedRequestId: true
