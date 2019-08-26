@@ -200,7 +200,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['MODIFY_CITY_LIMIT_INFO']),
+    ...mapMutations(['MODIFY_CITY_LIMIT_INFO', 'INIT_COORDINATE_INFO']),
     initData() {
       this.getWxInfo()
       // this.$store.dispatch('initCityData', this.coordinateInfo)
@@ -225,10 +225,11 @@ export default {
             signature: configRes.signature, // 必填，签名
             jsApiList: ['getLocation'] // 必填，需要使用的JS接口列表
           })
+          let self = this
           // eslint-disable-next-line
           wx.ready(function () {
             Toast.clear()
-            this.getLocation()
+            self.getLocation()
           })
         }
       } catch (err) {
@@ -254,7 +255,7 @@ export default {
             // var accuracy = res.accuracy; // 位置精度
             console.log(`当前位置-${longitude}-${latitude}`)
             self.INIT_COORDINATE_INFO({ lon: longitude, lat: latitude })
-            this.$store.dispatch('initCityData')
+            self.$store.dispatch('initCityData')
             Toast.clear()
           }
         })
