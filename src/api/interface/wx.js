@@ -19,6 +19,7 @@ const wxAuth = () => {
 // 获取wx配置信息
 const getJsConfigInfo = data => {
   return axios({
+    baseURL: config.HOST,
     url: `/gateway/wechat/thirdparty/ocsp/getWechatWebJs?appId=000101`,
     data: fillData(data),
     isNeedRequestId: true

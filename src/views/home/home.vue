@@ -121,7 +121,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { Button } from 'vant'
-import AMap from '../../components/AMap/amap'
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 export default {
   name: 'home',
@@ -172,8 +171,7 @@ export default {
     }
   },
   components: {
-    [Button.name]: Button,
-    AMap
+    [Button.name]: Button
   },
   created() {
     this.initData()

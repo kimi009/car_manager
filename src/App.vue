@@ -49,6 +49,7 @@ export default {
     ...mapMutations(['SET_USER_OPEN_ID']),
     async initWxInfo() {
       let wxOpenId = lStorage.getItem(WXOPENID)
+      console.log(wxOpenId)
       if (wxOpenId) {
         wxOpenId = JSON.parse(wxOpenId)
         this.SET_USER_OPEN_ID(wxOpenId)
