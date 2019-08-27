@@ -27,7 +27,8 @@
         <span>商业险</span>
         <p>￥{{safeInfo.business}}</p>
         <a href="javascript:;"
-           class="once">立即投保</a>
+           class="once"
+           @click="openSuccessDialog">立即投保</a>
       </div>
     </div>
     <div class="safe-list"
@@ -47,7 +48,8 @@
             <span>交强险</span>￥{{item.traffic}}</p>
           <p class="bussiness">
             <span>商业险</span>￥{{item.business}}</p>
-          <a href="javascript:;">立即投保</a>
+          <a href="javascript:;"
+             @click="openSuccessDialog">立即投保</a>
         </div>
       </div>
     </div>
@@ -56,7 +58,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import { Dialog } from 'vant'
 export default {
+  components: {
+    [Dialog.Component.name]: Dialog.Component
+  },
   data() {
     return {
     }
@@ -82,6 +88,14 @@ export default {
         this.$store.dispatch('initSafeInfo', { userId: this.userInfo.userId })
       }
       this.$store.dispatch('initSafeList', {})
+    },
+    openSuccessDialog() {
+      Dialog.alert({
+        title: '预定成功！',
+        message: '稍后我们客服会及时联系您进行确\n认，感谢！'
+      }).then(() => {
+        // on confirm
+      })
     }
   }
 }
