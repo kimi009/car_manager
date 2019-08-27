@@ -117,7 +117,7 @@ import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 import config from '@/api/config'
 export default {
   name: 'home',
-  data () {
+  data() {
     return {
       func: [
         {
@@ -277,6 +277,9 @@ export default {
           break
         case 5:
           window.location.href = BAOYANG
+          break
+        case 6:
+          this.$router.push({ path: '/safe' })
           break
         case 7:
           window.location.href = HUANCHE

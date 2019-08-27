@@ -72,7 +72,7 @@ export default {
         return
       }
       this.paymenting = true
-      window.location.href = this.payUrl;
+      window.location.href = this.payUrl
       // this.$router.push({ path: '/preview', query: { url: this.payUrl } })
     }
   }
