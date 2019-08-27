@@ -75,7 +75,8 @@ export default {
         return
       }
       this.paymenting = true
-      window.location.replace(this.payUrl)
+      // window.location.replace(this.payUrl)
+      window.location.href = this.payUrl
       // this.$router.push({ path: '/preview', query: { url: this.payUrl } })
     },
     back() {
