@@ -5,47 +5,48 @@
     <div class="info">
       <div class="item">
         <span>车牌号：</span>
-        <span>粤ABCD345</span>
+        <span>{{safeInfo.licensePlate}}</span>
       </div>
       <div class="item">
         <span>保险到期日：</span>
-        <span>2019-08-26</span>
+        <span>{{safeInfo.protectEndDate}}</span>
       </div>
       <div class="item">
         <span>保险公司：</span>
-        <span>平安保险</span>
+        <span>{{safeInfo.protectCompany}}</span>
       </div>
     </div>
     <div class="safe-detail">
       <div class="item">
         <span>交强险</span>
-        <p>￥1200</p>
+        <p>￥{{safeInfo.traffic}}</p>
         <a href="javascript:;"
            @click="$router.push('/carList')">查看保单</a>
       </div>
       <div class="item">
         <span>商业险</span>
-        <p>￥3400</p>
+        <p>￥{{safeInfo.business}}</p>
         <a href="javascript:;"
            class="once">立即投保</a>
       </div>
     </div>
-    <div class="safe-list">
+    <div class="safe-list"
+         v-if="safeList.length > 0">
       <div class="item"
            v-for="item in safeList"
-           :key="item.id">
+           :key="item.protectCompanyId">
         <div class="img">
           <img :src="item.img"
                alt="">
         </div>
         <div class="right">
-          <p class="name">{{item.name}}
-            <span>原价：￥{{item.ori}}</span>
+          <p class="name">{{item.protectCompany}}
+            <span>原价：￥{{item.originalPrice}}</span>
           </p>
           <p class="traffic">
             <span>交强险</span>￥{{item.traffic}}</p>
           <p class="bussiness">
-            <span>商业险</span>￥{{item.bussiness}}</p>
+            <span>商业险</span>￥{{item.business}}</p>
           <a href="javascript:;">立即投保</a>
         </div>
       </div>
@@ -54,35 +55,33 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      safeList: [
-        {
-          id: '1',
-          name: '大地保险',
-          traffic: '1200',
-          bussiness: '3400',
-          ori: '34000',
-          img: require('@/assets/image/safe/safe_1.png')
-        },
-        {
-          id: '2',
-          name: '太平保险',
-          traffic: '1200',
-          bussiness: '3400',
-          ori: '34000',
-          img: require('@/assets/image/safe/safe_2.png')
-        },
-        {
-          id: '3',
-          name: '安邦保险',
-          traffic: '1200',
-          bussiness: '3400',
-          ori: '34000',
-          img: require('@/assets/image/safe/safe_3.png')
-        }
-      ]
+    }
+  },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo || {},
+      safeInfo: state => state.safe.safeInfo || {},
+      safeList: state => state.safe.safeList || []
+    })
+  },
+  created() {
+    this.initData()
+  },
+  watch: {
+    userInfo: function () {
+      this.$store.dispatch('initSafeInfo', { userId: this.userInfo.userId })
+    }
+  },
+  methods: {
+    initData() {
+      if (this.userInfo.userId) {
+        this.$store.dispatch('initSafeInfo', { userId: this.userInfo.userId })
+      }
+      this.$store.dispatch('initSafeList', {})
     }
   }
 }

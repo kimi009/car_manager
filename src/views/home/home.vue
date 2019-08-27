@@ -286,6 +286,9 @@ export default {
         case 5:
           window.location.href = BAOYANG
           break
+        case 6:
+          this.$router.push({ path: '/safe' })
+          break
         case 7:
           window.location.href = HUANCHE
           break
@@ -304,7 +307,7 @@ export default {
       if (res.success) {
         this.sendOpenPageReq(`${config.psbBaseURL}/Open/View/InvoicesPage`, {
           AccessToken: res.data.accessToken,
-          Platform: 'Pc'
+          Platform: 'Mobile'
         })
       }
     },
