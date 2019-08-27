@@ -16,6 +16,7 @@
     <div class="content-footer">
       <span class="status">开票状态：{{rowItem.invoiceState === '1' ? '未开票' : '已开票'}}</span>
       <span @click.stop="$emit('statusRowClick',canMakeInvoice,rowItem)"
+            v-if="canShowRow"
             :class="['status', canMakeInvoice ? 'no-invoiced' : 'has-invoiced']">{{canMakeInvoice ? '开票' : '点击查看'}}</span>
     </div>
     <span v-if="rowItem.invoiceState === '2'"
@@ -42,6 +43,9 @@ export default {
         }
       }
       return flag
+    },
+    canShowRow: function () {
+      return this.canMakeInvoice || this.rowItem.invoiceUrl.length > 0
     }
   }
 }

@@ -10,7 +10,7 @@
         <img src="@/assets/image/rent/arrow-right.png" />
       </span>
     </div>
-    <in-come-comp v-for="item in myIncomeData.incomeList"
+    <in-come-comp v-for="item in myInComes"
                   :key="item.id"
                   :rowItem="item"
                   @statusRowClick="statusRowClick" />
@@ -52,10 +52,17 @@ export default {
   created() {
     this.initInCome()
   },
+  watch: {
+    myIncomeData: function () {
+      this.initInCome()
+    }
+  },
   methods: {
     initInCome() {
       if (this.isIndex) {
-        this.myInComes = this.myInComes.slice(0, 2)
+        this.myInComes = this.myIncomeData.incomeList.slice(0, 2)
+      } else {
+        this.myInComes = this.myIncomeData.incomeList
       }
     },
     more() {
@@ -63,7 +70,7 @@ export default {
     },
     statusRowClick(isMakeInvoice, item) {
       if (isMakeInvoice) {
-        this.$router.push({ path: '/payment', query: { billId: item.billId } })
+        this.$router.push({ path: '/payment', query: { billId: item.id } })
       } else {
         if (!item.invoiceUrl) {
           Toast({
