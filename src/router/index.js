@@ -33,28 +33,29 @@ const router = new Router({
         },
         {
           path: '/sign',
-          meta: {showTab: true, requiresAuth: true},
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/signContract/index'),
           children: [
             {
               path: 'process',
-              meta: {showTab: true, requiresAuth: true, keepAlive: true},
+              meta: { showTab: true, requiresAuth: true, keepAlive: true },
               component: () => import('@/views/signContract/signProcess')
             },
             {
               path: 'failed',
-              meta: {showTab: true, requiresAuth: true},
+              meta: { showTab: true, requiresAuth: true },
               component: () => import('@/views/signContract/auditFailed')
             },
             {
               path: 'submitted',
-              meta: {showTab: true, requiresAuth: true},
+              meta: { showTab: true, requiresAuth: true },
               component: () => import('@/views/signContract/leaseSubmitted')
             },
             {
               path: 'certificate',
-              meta: {showTab: true, requiresAuth: true},
-              component: () => import('@/views/signContract/certificate/certificate')
+              meta: { showTab: true, requiresAuth: true },
+              component: () =>
+                import('@/views/signContract/certificate/certificate')
             }
           ]
         }
@@ -167,6 +168,10 @@ const router = new Router({
     {
       path: '/safe',
       component: () => import('@/views/safe/safe')
+    },
+    {
+      path: '/newsDetail',
+      component: () => import('@/views/news/newsDetail')
     },
     {
       path: '/about',

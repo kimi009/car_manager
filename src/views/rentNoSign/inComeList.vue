@@ -10,7 +10,7 @@
         <img src="@/assets/image/rent/arrow-right.png" />
       </span>
     </div>
-    <in-come-comp v-for="item in myIncomeData.incomeList"
+    <in-come-comp v-for="item in myInComes"
                   :key="item.id"
                   :rowItem="item"
                   @statusRowClick="statusRowClick" />
@@ -19,9 +19,13 @@
 <script>
 import { mapState } from 'vuex'
 import InComeComp from '@/components/Rent/InComeComp'
+import { Toast } from 'vant'
 export default {
   name: 'inComeList',
-  components: { InComeComp },
+  components: {
+    InComeComp,
+    [Toast.name]: Toast
+  },
   props: {
     isIndex: {
       type: Boolean,
@@ -48,21 +52,35 @@ export default {
   created() {
     this.initInCome()
   },
+  watch: {
+    myIncomeData: function () {
+      this.initInCome()
+    }
+  },
   methods: {
     initInCome() {
       if (this.isIndex) {
-        this.myInComes = this.myInComes.slice(0, 2)
+        this.myInComes = (this.myIncomeData.incomeList && this.myIncomeData.incomeList.slice(0, 2)) || []
+      } else {
+        this.myInComes = this.myIncomeData.incomeList
       }
     },
     more() {
       this.$router.push({ path: '/rent/list' })
     },
-    statusRowClick(isMakeInvoice, billId) {
+    statusRowClick(isMakeInvoice, item) {
       if (isMakeInvoice) {
-        this.$router.push({ path: '/payment', query: { billId } })
+        this.$router.push({ path: '/payment', query: { billId: item.id } })
       } else {
-        const url = 'https://fapiao.yonyoucloud.com/ent-views/fpExtract/get_fapiao.html?pwd=RZAX&authCode=953e006a6ae1af5c6f5a41046b41bedc'
-        this.$router.push({ path: '/previewPdf', query: { url } })
+        if (!item.invoiceUrl) {
+          Toast({
+            message: '发票链接为空',
+            position: 'bottom'
+          })
+          return
+        }
+        window.location.href = item.invoiceUrl
+        // this.$router.push({ path: '/previewPdf', query: { url: item.invoiceUrl } })
       }
     }
   }

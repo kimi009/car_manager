@@ -3,8 +3,12 @@
     <div class="banner">
       <div>纳税是每个国家公民的神圣职责！</div>
     </div>
-    <span class="desc">您需要支付个人所得税、增值税及附加税总计</span>
-    <div class="amount">
+    <span v-if="paySuccess"
+          class="desc">您需要支付个人所得税、增值税及附加税总计</span>
+    <span class="desc"
+          v-else>支付失败,请重新支付</span>
+    <div v-if="paySuccess"
+         class="amount">
       <span>{{amount}}</span>
       <span>元</span>
     </div>
@@ -12,13 +16,16 @@
          @click.stop="payment">
       <span>立即支付</span>
     </div>
-    <div class="no-make-invoice">
+    <div class="no-make-invoice"
+         @click="back">
       <span>暂不开票</span>
     </div>
-    <p>为什么我要开发票？</p>
-    <p>根据《中华人民共和国个人所得税法》相关规定，个人提供财产租赁需开具发票，并缴纳相关税费。按照规定在开票前您需要缴纳税款和开票。</p>
-    <p>开票需要缴多少税款？</p>
-    <p>按照相关法律、法规，出租车辆需缴纳个人所得税、增值税及附加税。每月开票需缴税金额大概为月租金的4.72%。</p>
+    <div class="content-desc">
+      <p>为什么我要开发票？</p>
+      <p>根据《中华人民共和国个人所得税法》相关规定，个人提供财产租赁需开具发票，并缴纳相关税费。按照规定在开票前您需要缴纳税款和开票。</p>
+      <p>开票需要缴多少税款？</p>
+      <p>按照相关法律、法规，出租车辆需缴纳个人所得税、增值税及附加税。每月开票需缴税金额大概为月租金的4.72%。</p>
+    </div>
   </div>
 </template>
 <script>
@@ -33,7 +40,8 @@ export default {
     return {
       amount: '',
       payUrl: '',
-      paymentStatus: false
+      paymentStatus: false,
+      paySuccess: true // 是否支付成功，默认会成功
     }
   },
   created() {
@@ -72,8 +80,11 @@ export default {
         return
       }
       this.paymenting = true
-      window.location.href = this.payUrl;
+      window.location.replace(this.payUrl)
       // this.$router.push({ path: '/preview', query: { url: this.payUrl } })
+    },
+    back() {
+      this.$router.go(-1)
     }
   }
 }
@@ -136,27 +147,25 @@ export default {
     margin-top: 15px;
     background-color: #e0e0e0;
   }
-  p {
-    margin-left: 15px;
-    margin-right: 15px;
-    text-align: left;
-    &:nth-of-type(1) {
-      margin-top: 49px;
-    }
-    &:nth-of-type(3) {
-      margin-top: 29px;
-    }
-  }
-  p {
-    color: #333333;
-    &:nth-child(even) {
-      font-size: 15px;
-      font-weight: bold;
-    }
-    &:nth-child(odd) {
-      margin-top: 14px;
-      font-size: 13px;
-      line-height: 20px;
+  .content-desc {
+    margin-top: 49px;
+    p {
+      color: #333333;
+      margin-left: 15px;
+      margin-right: 15px;
+      text-align: left;
+      &:nth-child(odd) {
+        font-size: 15px;
+        font-weight: bold;
+      }
+      &:nth-child(even) {
+        margin-top: 14px;
+        font-size: 13px;
+        line-height: 20px;
+      }
+      &:nth-of-type(3) {
+        margin-top: 29px;
+      }
     }
   }
 }

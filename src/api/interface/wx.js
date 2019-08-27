@@ -20,8 +20,9 @@ const wxAuth = () => {
 const getJsConfigInfo = data => {
   // let data = fillData({ url: config.HOST })
   return axios({
-    baseURL: config.HOST,
-    url: `/gateway/wechat/thirdparty/ocsp/getWechatWebJs?appId=000101`,
+    // baseURL: config.HOST,
+    // url: `/gateway/wechat/thirdparty/ocsp/getWechatWebJs?appId=000101`,
+    url: 'api/weixin/getSignature?appId=000101',
     data: fillData(data),
     isNeedRequestId: true
   })

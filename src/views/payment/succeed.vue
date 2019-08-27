@@ -13,15 +13,20 @@
     <div class="tips">
       <p>税务局将在1-2个工作日完成审核和开票，开票完成后请在我的发票中进行发票查看。租金将在开票完成后添加至您的资金账户上。感谢您对惠用车的支持！</p>
     </div>
-    <div class="button">
-      <a href="javascript:;">返回</a>
+    <div @click="back"
+         class="button">
+      <span>返回</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    back() {
+      this.$router.go(-2)
+    }
+  }
 }
 </script>
 
@@ -74,7 +79,7 @@ export default {
     border-radius: 3px;
     line-height: 44px;
     margin-top: 30px;
-    > a {
+    span {
       color: #fff;
       font-size: 18px;
     }
