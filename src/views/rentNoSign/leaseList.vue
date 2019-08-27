@@ -52,6 +52,11 @@ export default {
       }
     }
   },
+  created() {
+    if (this.myLeases.length <= 0) {
+      this.$store.dispatch('initMyLeaseList', { size: 10, current: 1 })
+    }
+  },
   methods: {
     more() {
       this.$router.push({ path: '/lease/list' })

@@ -39,6 +39,7 @@ export default {
   },
   computed: {
     ...mapState({
+      userInfo: state => state.user.userInfo,
       myIncomeData: state => state.rent.myIncomeData || {}
     }),
     myIncomeStyle: function () {
@@ -54,15 +55,19 @@ export default {
   },
   watch: {
     myIncomeData: function () {
-      this.initInCome()
+      this.initInCome(true)
     }
   },
   methods: {
-    initInCome() {
-      if (this.isIndex) {
-        this.myInComes = (this.myIncomeData.incomeList && this.myIncomeData.incomeList.slice(0, 2)) || []
+    initInCome(flag) {
+      if (this.myIncomeData.incomeList || flag) {
+        if (this.isIndex) {
+          this.myInComes = this.myIncomeData.incomeList.slice(0, 2) || []
+        } else {
+          this.myInComes = this.myIncomeData.incomeList
+        }
       } else {
-        this.myInComes = this.myIncomeData.incomeList
+        this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
       }
     },
     more() {
