@@ -167,6 +167,18 @@ const router = new Router({
     {
       path: '/safe',
       component: () => import('@/views/safe/safe')
+    },
+    {
+      path: '/about',
+      component: () => import('@/views/about')
+    },
+    {
+      path: '/contact',
+      component: () => import('@/views/contact')
+    },
+    {
+      path: '/integral',
+      component: () => import('@/views/integral')
     }
   ]
 })
