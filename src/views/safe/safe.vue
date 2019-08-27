@@ -34,10 +34,10 @@
     <div class="safe-list"
          v-if="safeList.length > 0">
       <div class="item"
-           v-for="item in safeList"
-           :key="item.protectCompanyId">
+           v-for="(item,key) in safeList"
+           :key="key">
         <div class="img">
-          <img :src="item.img"
+          <img :src="item.logoUrl"
                alt="">
         </div>
         <div class="right">
