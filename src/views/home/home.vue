@@ -299,7 +299,7 @@ export default {
       if (res.success) {
         this.sendOpenPageReq(`${config.psbBaseURL}/Open/View/InvoicesPage`, {
           AccessToken: res.data.accessToken,
-          Platform: 'Pc'
+          Platform: 'Mobile'
         })
       }
     },
