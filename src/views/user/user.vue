@@ -105,11 +105,13 @@
       <van-cell class="group"
                 title="关于惠用车"
                 :icon="icon_list.about"
-                is-link />
+                is-link to="/about"
+                />
       <van-cell class="group"
                 title="联系我们"
                 :icon="icon_list.contact"
-                is-link />
+                is-link to="/contact"
+                />
     </van-cell-group>
   </div>
 </template>
@@ -147,7 +149,8 @@ export default {
   methods: {
     // 积分
     integral() {
-      console.log(111)
+      // console.log(111)
+      this.$router.push({ path: '/integral' })
     }
   }
 }
