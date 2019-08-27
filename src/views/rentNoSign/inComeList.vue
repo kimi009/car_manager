@@ -60,7 +60,7 @@ export default {
   methods: {
     initInCome() {
       if (this.isIndex) {
-        this.myInComes = this.myIncomeData.incomeList.slice(0, 2)
+        this.myInComes = (this.myIncomeData.incomeList && this.myIncomeData.incomeList.slice(0, 2)) || []
       } else {
         this.myInComes = this.myIncomeData.incomeList
       }
