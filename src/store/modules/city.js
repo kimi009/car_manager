@@ -31,7 +31,7 @@ const cityInfo = {
   },
   actions: {
     async initCityData({ commit, state }, params) {
-      if (!state.city.city) {
+      if (Object.keys(state.city).length <= 0) {
         let res = await Vue.prototype.$api.getCityInfo(params)
         if (res.head.errorCode === '0') {
           commit('INIT_CITYDATA', res.body)

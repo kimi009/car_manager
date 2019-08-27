@@ -222,7 +222,7 @@ export default {
           const { appId, nonceStr, signature, timestamp } = configRes.data
           // eslint-disable-next-line
           wx.config({
-            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId, // 必填，公众号的唯一标识
             timestamp, // 必填，生成签名的时间戳
             nonceStr, // 必填，生成签名的随机串
@@ -258,8 +258,9 @@ export default {
             // var speed = res.speed; // 速度，以米/每秒计
             // var accuracy = res.accuracy; // 位置精度
             console.log(`当前位置-${longitude}-${latitude}`)
-            self.INIT_COORDINATE_INFO({ lon: longitude, lat: latitude })
-            self.$store.dispatch('initCityData')
+            let query = { lon: longitude, lat: latitude }
+            self.INIT_COORDINATE_INFO(query)
+            self.$store.dispatch('initCityData', query)
             Toast.clear()
           }
         })
@@ -340,7 +341,7 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~'100% - 55px');
+  height: calc(~"100% - 55px");
   background-color: #fff;
   padding: 12px 15px 50px 15px;
   overflow: auto;
@@ -464,7 +465,7 @@ export default {
     margin-top: 16px;
     > a {
       padding-right: 16px;
-      background: url('~@/assets/image/home/more.png') right center no-repeat;
+      background: url("~@/assets/image/home/more.png") right center no-repeat;
       background-size: 6px 11px;
     }
   }
@@ -504,27 +505,27 @@ export default {
         border-radius: 2px;
         flex: 0 0 105px;
         &.bg1 {
-          background: url('~@/assets/image/home/bg1.png') center center
+          background: url("~@/assets/image/home/bg1.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg2 {
-          background: url('~@/assets/image/home/bg2.png') center center
+          background: url("~@/assets/image/home/bg2.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg3 {
-          background: url('~@/assets/image/home/bg3.png') center center
+          background: url("~@/assets/image/home/bg3.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg4 {
-          background: url('~@/assets/image/home/bg4.png') center center
+          background: url("~@/assets/image/home/bg4.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg5 {
-          background: url('~@/assets/image/home/bg5.png') center center
+          background: url("~@/assets/image/home/bg5.png") center center
             no-repeat;
           background-size: 105px 71px;
         }
@@ -573,7 +574,7 @@ export default {
     bottom: 55px;
     width: 48px;
     height: 48px;
-    background: url('~@/assets/image/home/service.png') center center no-repeat;
+    background: url("~@/assets/image/home/service.png") center center no-repeat;
     background-size: 48px 48px;
   }
 }
