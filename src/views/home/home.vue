@@ -60,21 +60,27 @@
     <div class="news">
       <p class="title">金财车友会</p>
       <div>
-        <div class="item bg1">
+        <div class="item bg1"
+             @click="toNewsDetail(1)">
         </div>
-        <div class="item bg2">
+        <div class="item bg2"
+             @click="toNewsDetail(2)">
         </div>
-        <div class="item bg3">
+        <div class="item bg3"
+             @click="toNewsDetail(3)">
         </div>
-        <div class="item bg4">
+        <div class="item bg4"
+             @click="toNewsDetail(4)">
         </div>
-        <div class="item bg5">
+        <div class="item bg5"
+             @click="toNewsDetail(5)">
         </div>
       </div>
     </div>
     <div class="selection">
       <p class="title">每日精选</p>
-      <div class="selection-item">
+      <div class="selection-item"
+           @click="toNewsDetail(6)">
         <div class="left">
           <p class="title">推动新技术研发 通用/福特获美...</p>
           <p class="content">美国能源部针对先进汽车技术研究拨款 5900万美元。其中，通用和福特获得 了最多的拨款。</p>
@@ -84,7 +90,8 @@
                alt="">
         </div>
       </div>
-      <div class="selection-item">
+      <div class="selection-item"
+           @click="toNewsDetail(7)">
         <div class="left">
           <p class="title">对话朱孔源：新模式下经销商仍...</p>
           <p class="content">朱孔源认为，在这样的竞争中，谁能提 供更加优质的服务、谁能够真正实现自 我变革、谁能满足消费者的实际需求， 谁就将赢得这场挑</p>
@@ -94,7 +101,8 @@
                alt="">
         </div>
       </div>
-      <div class="selection-item">
+      <div class="selection-item"
+           @click="toNewsDetail(8)">
         <div class="left">
           <p class="title">自动驾驶独立 滴滴出行的未来...</p>
           <p class="content">最近，国内出行巨头滴滴对外宣布其自 动驾驶部门正式独立。未来独立公司将 专注于自动驾驶研发、产品应用及相关 业务拓展。</p>
@@ -117,7 +125,7 @@ import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 import config from '@/api/config'
 export default {
   name: 'home',
-  data () {
+  data() {
     return {
       func: [
         {
@@ -314,6 +322,14 @@ export default {
       }
       document.body.appendChild(temp)
       temp.submit()
+    },
+    toNewsDetail(id) {
+      this.$router.push({
+        path: '/newsDetail',
+        query: {
+          id: id
+        }
+      })
     }
   }
 }
@@ -321,7 +337,7 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: calc(~"100% - 55px");
+  height: calc(~'100% - 55px');
   background-color: #fff;
   padding: 12px 15px 50px 15px;
   overflow: auto;
@@ -445,7 +461,7 @@ export default {
     margin-top: 16px;
     > a {
       padding-right: 16px;
-      background: url("~@/assets/image/home/more.png") right center no-repeat;
+      background: url('~@/assets/image/home/more.png') right center no-repeat;
       background-size: 6px 11px;
     }
   }
@@ -485,27 +501,27 @@ export default {
         border-radius: 2px;
         flex: 0 0 105px;
         &.bg1 {
-          background: url("~@/assets/image/home/bg1.png") center center
+          background: url('~@/assets/image/home/bg1.png') center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg2 {
-          background: url("~@/assets/image/home/bg2.png") center center
+          background: url('~@/assets/image/home/bg2.png') center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg3 {
-          background: url("~@/assets/image/home/bg3.png") center center
+          background: url('~@/assets/image/home/bg3.png') center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg4 {
-          background: url("~@/assets/image/home/bg4.png") center center
+          background: url('~@/assets/image/home/bg4.png') center center
             no-repeat;
           background-size: 105px 71px;
         }
         &.bg5 {
-          background: url("~@/assets/image/home/bg5.png") center center
+          background: url('~@/assets/image/home/bg5.png') center center
             no-repeat;
           background-size: 105px 71px;
         }
@@ -554,7 +570,7 @@ export default {
     bottom: 55px;
     width: 48px;
     height: 48px;
-    background: url("~@/assets/image/home/service.png") center center no-repeat;
+    background: url('~@/assets/image/home/service.png') center center no-repeat;
     background-size: 48px 48px;
   }
 }

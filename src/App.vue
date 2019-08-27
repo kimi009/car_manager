@@ -3,13 +3,15 @@
     <transition :name="$transition"
                 mode="in-out">
       <!-- <keep-alive :include="['carRentalLink']"></keep-alive> -->
-        <keep-alive>
-          <router-view :key="key" v-if="$route.meta.keepAlive"/>
-        </keep-alive>
+      <keep-alive>
+        <router-view :key="key"
+                     v-if="$route.meta.keepAlive" />
+      </keep-alive>
     </transition>
     <transition :name="$transition"
                 mode="in-out">
-      <router-view :key="key" v-if="!$route.meta.keepAlive"/>
+      <router-view :key="key"
+                   v-if="!$route.meta.keepAlive" />
     </transition>
   </div>
 </template>
@@ -31,7 +33,7 @@ export default {
     return {}
   },
   created() {
-    this.initWxInfo()
+    // this.initWxInfo()
   },
   computed: {
     key() {
@@ -80,10 +82,10 @@ export default {
 </script>
 
 <style lang="less">
-@import "./styles/animation.less";
-@import "./styles/vantUI.less";
+@import './styles/animation.less';
+@import './styles/vantUI.less';
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
