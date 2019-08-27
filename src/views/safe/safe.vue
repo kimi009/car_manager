@@ -28,7 +28,7 @@
         <p>￥{{safeInfo.business}}</p>
         <a href="javascript:;"
            class="once"
-           @click="openSuccessDialog">立即投保</a>
+           @click="openSuccessDialog(safeInfo)">立即投保</a>
       </div>
     </div>
     <div class="safe-list"
@@ -103,7 +103,7 @@ export default {
       try {
         let res = await this.$api.saveSafe({
           employeeId: this.userInfo.userId,
-          protectCompanyId: item.protectCompanyId,
+          protectCompanyId: item.protectCompanyId || 1,
           traffic: item.traffic,
           business: item.business
         })
