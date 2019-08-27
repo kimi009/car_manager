@@ -33,7 +33,7 @@ export default {
     return {}
   },
   created() {
-    // this.initWxInfo()
+    this.initWxInfo()
   },
   computed: {
     key() {
