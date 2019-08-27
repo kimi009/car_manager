@@ -58,10 +58,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { Dialog } from 'vant'
+import { Dialog, Toast } from 'vant'
 export default {
   components: {
-    [Dialog.Component.name]: Dialog.Component
+    [Dialog.Component.name]: Dialog.Component,
+    [Toast.name]: Toast
   },
   data() {
     return {
@@ -79,15 +80,15 @@ export default {
   },
   watch: {
     userInfo: function () {
-      this.$store.dispatch('initSafeInfo', { userId: this.userInfo.userId })
+      this.initData()
     }
   },
   methods: {
     initData() {
       if (this.userInfo.userId) {
         this.$store.dispatch('initSafeInfo', { userId: this.userInfo.userId })
+        this.$store.dispatch('initSafeList', {})
       }
-      this.$store.dispatch('initSafeList', {})
     },
     openSuccessDialog(item) {
       Dialog.alert({
@@ -99,12 +100,25 @@ export default {
       })
     },
     async saveSafe(item) {
-      await this.$api.saveSafe({
-        employeeId: this.userInfo.userId,
-        protectCompanyId: '',
-        traffic: item.traffic,
-        business: item.business
-      })
+      try {
+        let res = await this.$api.saveSafe({
+          employeeId: this.userInfo.userId,
+          protectCompanyId: item.protectCompanyId,
+          traffic: item.traffic,
+          business: item.business
+        })
+        if (res.success) {
+          Toast({
+            message: '投保成功',
+            position: 'bottom'
+          })
+        }
+      } catch (err) {
+        Toast({
+          message: '商机已存在',
+          position: 'bottom'
+        })
+      }
     }
   }
 }

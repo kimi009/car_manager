@@ -167,6 +167,7 @@ const router = new Router({
     },
     {
       path: '/safe',
+      meta: { showTab: false, requiresAuth: true },
       component: () => import('@/views/safe/safe')
     },
     {
