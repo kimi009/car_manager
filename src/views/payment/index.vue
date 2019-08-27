@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     async initData() {
-      console.log(49, this.$store.state.user)
       if (!this.openId) {
         Toast({
           message: '获取微信的openId失败',
@@ -73,7 +72,8 @@ export default {
         return
       }
       this.paymenting = true
-      this.$router.push({ path: '/preview', query: { url: this.payUrl } })
+      window.location.href = this.payUrl;
+      // this.$router.push({ path: '/preview', query: { url: this.payUrl } })
     }
   }
 }
