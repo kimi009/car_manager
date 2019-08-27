@@ -3,12 +3,8 @@
     <div class="banner">
       <div>纳税是每个国家公民的神圣职责！</div>
     </div>
-    <span v-if="paySuccess"
-          class="desc">您需要支付个人所得税、增值税及附加税总计</span>
-    <span class="desc"
-          v-else>支付失败,请重新支付</span>
-    <div v-if="paySuccess"
-         class="amount">
+    <span class="desc">您需要支付个人所得税、增值税及附加税总计</span>
+    <div class="amount">
       <span>{{amount}}</span>
       <span>元</span>
     </div>
@@ -40,8 +36,7 @@ export default {
     return {
       amount: '',
       payUrl: '',
-      paymentStatus: false,
-      paySuccess: true // 是否支付成功，默认会成功
+      paymentStatus: false
     }
   },
   created() {

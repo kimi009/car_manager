@@ -8,9 +8,11 @@
     <div class="succedd">
       <img src="@/assets/image/payment/succeed.png"
            alt="">
-      <p>支付成功</p>
+      <p v-if="paySuccess">支付成功</p>
+      <p v-else>支付失败，返回重新发起支付</p>
     </div>
-    <div class="tips">
+    <div v-if="paySuccess"
+         class="tips">
       <p>税务局将在1-2个工作日完成审核和开票，开票完成后请在我的发票中进行发票查看。租金将在开票完成后添加至您的资金账户上。感谢您对惠用车的支持！</p>
     </div>
     <div @click="back"
@@ -22,6 +24,14 @@
 
 <script>
 export default {
+  data() {
+    return {
+      paySuccess: true // 是否支付成功，默认会成功
+    }
+  },
+  created() {
+    this.paySuccess = !(this.$route.query.paySuccess === '-1')
+  },
   methods: {
     back() {
       this.$router.go(-3)

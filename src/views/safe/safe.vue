@@ -49,7 +49,7 @@
           <p class="bussiness">
             <span>商业险</span>￥{{item.business}}</p>
           <a href="javascript:;"
-             @click="openSuccessDialog">立即投保</a>
+             @click="openSuccessDialog(item)">立即投保</a>
         </div>
       </div>
     </div>
@@ -89,12 +89,21 @@ export default {
       }
       this.$store.dispatch('initSafeList', {})
     },
-    openSuccessDialog() {
+    openSuccessDialog(item) {
       Dialog.alert({
         title: '预定成功！',
         message: '稍后我们客服会及时联系您进行确\n认，感谢！'
       }).then(() => {
         // on confirm
+        this.saveSafe(item)
+      })
+    },
+    async saveSafe(item) {
+      await this.$api.saveSafe({
+        employeeId: this.userInfo.userId,
+        protectCompanyId: '',
+        traffic: item.traffic,
+        business: item.business
       })
     }
   }
