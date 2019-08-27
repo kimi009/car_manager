@@ -84,7 +84,7 @@ export default {
     margin: 15px;
     width: 100%;
     height: 110px;
-    background: url("~@/assets/image/payment/banner.png") no-repeat;
+    background: url('~@/assets/image/payment/banner.png') no-repeat;
     background-size: contain;
     position: relative;
     div {
