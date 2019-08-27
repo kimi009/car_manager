@@ -117,7 +117,7 @@ import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 import config from '@/api/config'
 export default {
   name: 'home',
-  data() {
+  data () {
     return {
       func: [
         {

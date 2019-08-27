@@ -9,6 +9,15 @@ export const getVehicleInfo = data => {
   })
 }
 
+// 获取车辆列表
+export const getCarList = data => {
+  return axios({
+    url: '/api/app/car/list',
+    method: 'post',
+    data
+  })
+}
+
 // 提交车辆证照
 export const vehicleLicense = data => {
   return axios({
@@ -28,6 +37,7 @@ export const queryNewIncome = data => {
 
 export default {
   getVehicleInfo,
+  getCarList,
   vehicleLicense,
   queryNewIncome
 }

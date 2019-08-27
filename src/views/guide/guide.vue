@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { Button } from 'vant'
 export default {
   name: 'guide',
@@ -16,9 +17,18 @@ export default {
   data () {
     return {}
   },
+  computed: {
+    ...mapGetters([
+      'isSign'
+    ])
+  },
   methods: {
     goHandle () {
-      this.$router.push('/home')
+      if (this.isSign) {
+        this.$router.push('/home')
+      } else {
+        this.$router.push('/sign')
+      }
     }
   }
 }
@@ -26,9 +36,8 @@ export default {
 
 <style scoped lang="less">
 .guide{
-  height: 100%;
+  .fs;
   background: url('../../assets/image/guideBg.png') 0 0 no-repeat / cover;
-  position: relative;
   .button{
     .wh(262px, 46px);
     position: absolute;

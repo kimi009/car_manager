@@ -7,8 +7,8 @@ const getters = {
   showAgreement: state => state.carRental.showAgreement,
   leaseInfo: state => state.carRental.leaseInfo,
   fileData: state => state.certificate.fileData,
-  token: state => state.user.token,
   userInfo: state => state.user.userInfo,
+  isSign: state => state.user.isSign, // 用户是否签约
   tabbarActive: state => state.tabbar.tabbarActive,
   tabbarShow: state => state.tabbar.tabbarShow
 }

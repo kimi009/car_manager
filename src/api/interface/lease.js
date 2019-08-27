@@ -9,6 +9,15 @@ export const getLeaseInfo = data => {
   })
 }
 
+// 获取租约详情
+export const getLeaseDetail = data => {
+  return axios({
+    url: '/api/app/rent/detail',
+    method: 'post',
+    data
+  })
+}
+
 // 确认租约信息
 export const confirmLeaseInfo = data => {
   return axios({
@@ -71,6 +80,7 @@ const getRentList = data => {
 
 export default {
   getLeaseInfo,
+  getLeaseDetail,
   confirmLeaseInfo,
   carRentalState,
   rentalCarState,

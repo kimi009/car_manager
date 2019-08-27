@@ -7,7 +7,7 @@
       <van-tabbar-item
         v-for="(item, index) in tabbars"
         :key="index"
-        @click="tab(index, item.name)"
+        @click.stop="tab(index, item.name)"
       >
         <span>{{item.title}}</span>
         <template slot="icon" slot-scope="props">
@@ -34,19 +34,19 @@ export default {
     return {
       tabbars: [
         {
-          name: 'home',
+          name: '/home',
           title: '租车',
           normal: require('../../assets/image/tabbar/home.png'),
           active: require('../../assets/image/tabbar/home@1x.png')
         },
         {
-          name: 'vehicles',
+          name: '/vehicles',
           title: '养车',
           normal: require('../../assets/image/tabbar/vehicles.png'),
           active: require('../../assets/image/tabbar/vehicles@1x.png')
         },
         {
-          name: 'user',
+          name: '/user',
           title: '我的',
           normal: require('../../assets/image/tabbar/user.png'),
           active: require('../../assets/image/tabbar/user@1x.png')
@@ -76,6 +76,7 @@ export default {
     tab (index, val) {
       router.disAnimation = true
       this.setTabbarActive(index)
+      console.log(val)
       this.$router.replace(val)
     }
   }

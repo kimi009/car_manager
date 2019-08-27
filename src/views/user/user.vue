@@ -155,14 +155,19 @@ export default {
 
 <style scoped lang="less">
 .user {
-  height: calc(~"100% - 50px");
-  background-color: #fff;
-  padding: 11px 0 20px 0;
-  overflow: auto;
-  .header {
-    .wh(100%, 70px);
+  // height: 100%;
+  // background-color: #F5F5F5;
+  // overflow: auto;
+  height: calc(~'100% - 50px');
+  background-color: #f5f5f5;
+  padding: 0 0 50px 0;
+  .header{
+    .wh(100%, 81px);
     padding-left: 4px;
-    .wrap {
+    padding-top: 11px;
+    background-color: #FFF;
+    box-sizing: border-box;
+    .wrap{
       .wh(100%, 100%);
       position: relative;
       .avatar {
@@ -221,10 +226,11 @@ export default {
       }
     }
   }
-  .account {
-    .wh(100%, 139px);
-    margin: 13px 0 20px 0;
-    padding: 11px 0 0 0;
+  .account{
+    .wh(100%, 170px);
+    background-color: #FFF;
+    padding: 23px 0 18px 0;
+    margin-bottom: 10px;
     box-sizing: border-box;
     .account-list {
       position: relative;
@@ -242,9 +248,9 @@ export default {
         pointer-events: none;
       }
     }
-    .icon {
-      margin-bottom: 2px;
-      img {
+    .icon{
+      margin: 6px 0 2px 0;
+      img{
         height: 24px;
       }
     }
@@ -266,6 +272,10 @@ export default {
         font-size: 12px;
         color: #e27d34;
         margin: 0 auto;
+        &:active{
+          color: #e4a678;
+          border:1px solid #e4a678;
+        }
       }
     }
   }

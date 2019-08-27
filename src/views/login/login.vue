@@ -125,7 +125,7 @@ export default {
       // 登录
       this.$store.dispatch('login', params).then(async res => {
         if (res.code === 'login_success') {
-          this.$router.replace('/home')
+          this.$router.replace('/guide')
         } else if (res.code === 'user_not_find') {
           Toast({
             message: '您不是受邀用户',

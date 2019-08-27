@@ -11,7 +11,7 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
-    { path: '*', redirect: '/home', hidden: true },
+    { path: '*', redirect: '/guide', hidden: true },
     {
       path: 'entry',
       component: () => import('@/views/entry'),
@@ -30,6 +30,33 @@ const router = new Router({
           path: '/user',
           meta: { showTab: true, requiresAuth: false },
           component: () => import('@/views/user/user')
+        },
+        {
+          path: '/sign',
+          meta: {showTab: true, requiresAuth: true},
+          component: () => import('@/views/signContract/index'),
+          children: [
+            {
+              path: 'process',
+              meta: {showTab: true, requiresAuth: true, keepAlive: true},
+              component: () => import('@/views/signContract/signProcess')
+            },
+            {
+              path: 'failed',
+              meta: {showTab: true, requiresAuth: true},
+              component: () => import('@/views/signContract/auditFailed')
+            },
+            {
+              path: 'submitted',
+              meta: {showTab: true, requiresAuth: true},
+              component: () => import('@/views/signContract/leaseSubmitted')
+            },
+            {
+              path: 'certificate',
+              meta: {showTab: true, requiresAuth: true},
+              component: () => import('@/views/signContract/certificate/certificate')
+            }
+          ]
         }
       ]
     },

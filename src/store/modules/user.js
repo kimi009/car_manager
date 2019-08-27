@@ -5,6 +5,10 @@ const user = {
   state: {
     isLogin: false,
     userInfo: '',
+    token: '',
+    userId: '',
+    enterpriseId: '', // 企业ID
+    isSign: false, // 是否签约
     openId: ''
   },
   mutations: {
@@ -13,6 +17,12 @@ const user = {
     },
     SET_USER_INFO: (state, params) => {
       state.userInfo = params
+    },
+    SET_USER_ADMIN_INFO: (state, obj) => {
+      state.token = obj.token
+      state.userId = obj.userId
+      state.enterpriseId = obj.enterpriseId
+      state.isSign = obj.isSign
     },
     SET_USER_OPEN_ID: (state, params) => {
       state.openId = params
@@ -43,6 +53,9 @@ const user = {
             console.log(res)
             commit('SET_LOGIN_STATE', res.data.isLogin)
             commit('SET_USER_INFO', res.data)
+
+            // 用户操作数据
+            commit('SET_USER_ADMIN_INFO', res.data)
             resolve(res)
           })
           .catch(err => {
