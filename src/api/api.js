@@ -3,6 +3,7 @@ import config from './config.js' // 倒入默认配置
 import qs from 'qs' // 序列化请求数据，视服务端的要求
 import { Toast } from 'vant'
 import GenerateGuid from '../utils/generateGuid'
+import router from '../router/index'
 
 export default function $axios(options) {
   return new Promise((resolve, reject) => {
@@ -115,6 +116,8 @@ export default function $axios(options) {
               message: res.message,
               position: 'bottom'
             })
+            router.push('/login')
+
         }
 
         // 未匹配接口

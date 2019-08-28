@@ -68,6 +68,21 @@ export const carUpdata = data => {
     data
   })
 }
+export const integalInfo = data => {
+  return axios({
+    url: '/api/app/score/queryScoreBalance',
+    method: 'post',
+    data
+  })
+}
+export const intergalList = data => {
+  return axios({
+    url: '/api/app/score/queryDetailByPage',
+    method: 'post',
+    data,
+    noShowLoading: true
+  })
+}
 export default {
   getCode,
   isLogin,
@@ -76,5 +91,7 @@ export default {
   userInfo,
   carList,
   carInfo,
-  carUpdata
+  carUpdata,
+  integalInfo,
+  intergalList
 }

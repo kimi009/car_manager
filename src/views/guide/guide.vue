@@ -19,12 +19,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isSign'
+      'userInfo'
     ])
   },
   methods: {
     goHandle () {
-      if (this.isSign) {
+      if (this.userInfo.isSign) {
         this.$router.push('/home')
       } else {
         this.$router.push('/sign')

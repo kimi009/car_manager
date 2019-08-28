@@ -89,11 +89,13 @@
       <van-cell class="group"
                 title="我的订单"
                 :icon="icon_list.order"
-                is-link />
+                is-link
+                to="/order"/>
       <van-cell class="group"
                 title="我的发票"
                 :icon="icon_list.invoice"
-                is-link />
+                is-link
+                @click="openPsbInvoiceList" />
       <van-cell class="group"
                 title="惠用车积分"
                 :icon="icon_list.integration"
@@ -102,11 +104,13 @@
       <van-cell class="group"
                 title="关于惠用车"
                 :icon="icon_list.about"
-                is-link />
+                is-link
+                to="/about" />
       <van-cell class="group"
                 title="联系我们"
                 :icon="icon_list.contact"
-                is-link />
+                is-link
+                to="/contact" />
     </van-cell-group>
 
     <transition :name="$transition" mode="in-out">
@@ -118,10 +122,10 @@
 <script>
 import { Row, Col, Button, Toast, Cell, CellGroup, Dialog } from 'vant'
 import { mapGetters } from 'vuex'
-
+import psbInvoice from '@/mixins/psbInvoice'
 export default {
   name: 'user',
-
+  mixins: [psbInvoice],
   components: {
     [Row.name]: Row,
     [Col.name]: Col,
@@ -169,7 +173,8 @@ export default {
   methods: {
     // 积分
     integral() {
-      console.log(111)
+      // console.log(111)
+      this.$router.push({ path: '/integral' })
     }
   }
 }
@@ -185,9 +190,9 @@ export default {
     .wh(100%, 81px);
     padding-left: 4px;
     padding-top: 11px;
-    background-color: #FFF;
+    background-color: #fff;
     box-sizing: border-box;
-    .wrap{
+    .wrap {
       .wh(100%, 100%);
       position: relative;
       .avatar {
@@ -252,9 +257,9 @@ export default {
       }
     }
   }
-  .account{
+  .account {
     .wh(100%, 170px);
-    background-color: #FFF;
+    background-color: #fff;
     padding: 23px 0 18px 0;
     margin-bottom: 10px;
     box-sizing: border-box;
@@ -310,9 +315,9 @@ export default {
         font-size: 12px;
         color: #e27d34;
         margin: 0 auto;
-        &:active{
+        &:active {
           color: #e4a678;
-          border:1px solid #e4a678;
+          border: 1px solid #e4a678;
         }
       }
     }

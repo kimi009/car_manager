@@ -60,21 +60,27 @@
     <div class="news">
       <p class="title">金财车友会</p>
       <div>
-        <div class="item bg1">
+        <div class="item bg1"
+             @click="toNewsDetail(1)">
         </div>
-        <div class="item bg2">
+        <div class="item bg2"
+             @click="toNewsDetail(2)">
         </div>
-        <div class="item bg3">
+        <div class="item bg3"
+             @click="toNewsDetail(3)">
         </div>
-        <div class="item bg4">
+        <div class="item bg4"
+             @click="toNewsDetail(4)">
         </div>
-        <div class="item bg5">
+        <div class="item bg5"
+             @click="toNewsDetail(5)">
         </div>
       </div>
     </div>
     <div class="selection">
       <p class="title">每日精选</p>
-      <div class="selection-item">
+      <div class="selection-item"
+           @click="toNewsDetail(6)">
         <div class="left">
           <p class="title">推动新技术研发 通用/福特获美...</p>
           <p class="content">美国能源部针对先进汽车技术研究拨款 5900万美元。其中，通用和福特获得 了最多的拨款。</p>
@@ -84,7 +90,8 @@
                alt="">
         </div>
       </div>
-      <div class="selection-item">
+      <div class="selection-item"
+           @click="toNewsDetail(7)">
         <div class="left">
           <p class="title">对话朱孔源：新模式下经销商仍...</p>
           <p class="content">朱孔源认为，在这样的竞争中，谁能提 供更加优质的服务、谁能够真正实现自 我变革、谁能满足消费者的实际需求， 谁就将赢得这场挑</p>
@@ -94,7 +101,8 @@
                alt="">
         </div>
       </div>
-      <div class="selection-item">
+      <div class="selection-item"
+           @click="toNewsDetail(8)">
         <div class="left">
           <p class="title">自动驾驶独立 滴滴出行的未来...</p>
           <p class="content">最近，国内出行巨头滴滴对外宣布其自 动驾驶部门正式独立。未来独立公司将 专注于自动驾驶研发、产品应用及相关 业务拓展。</p>
@@ -114,10 +122,11 @@
 import { mapState, mapMutations } from 'vuex'
 import { Button, Toast } from 'vant'
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
-import config from '@/api/config'
+import psbInvoice from '@/mixins/psbInvoice'
 export default {
   name: 'home',
-  data () {
+  mixins: [psbInvoice],
+  data() {
     return {
       func: [
         {
@@ -206,15 +215,15 @@ export default {
       try {
         let configRes = await this.$api.getJsConfigInfo(
           {
-            url: window.location.href
+            url: window.location.href.split('#')[0]
           }
         )
-        if (configRes.head.errorCode === '0') {
+        if (configRes.success) {
           console.log(configRes)
-          const { appId, nonceStr, signature, timestamp } = configRes.body
+          const { appId, nonceStr, signature, timestamp } = configRes.data
           // eslint-disable-next-line
           wx.config({
-            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId, // 必填，公众号的唯一标识
             timestamp, // 必填，生成签名的时间戳
             nonceStr, // 必填，生成签名的随机串
@@ -250,8 +259,9 @@ export default {
             // var speed = res.speed; // 速度，以米/每秒计
             // var accuracy = res.accuracy; // 位置精度
             console.log(`当前位置-${longitude}-${latitude}`)
-            self.INIT_COORDINATE_INFO({ lon: longitude, lat: latitude })
-            self.$store.dispatch('initCityData')
+            let query = { lon: longitude, lat: latitude }
+            self.INIT_COORDINATE_INFO(query)
+            self.$store.dispatch('initCityData', query)
             Toast.clear()
           }
         })
@@ -278,6 +288,9 @@ export default {
         case 5:
           window.location.href = BAOYANG
           break
+        case 6:
+          this.$router.push({ path: '/safe' })
+          break
         case 7:
           window.location.href = HUANCHE
           break
@@ -291,29 +304,13 @@ export default {
     viewRent() {
       this.$router.push({ path: '/rent' })
     },
-    async openPsbInvoiceList() {
-      let res = await this.$api.getPsbAccessToken({ userId: this.userInfo.userId, mobilePhone: this.userInfo.mobile })
-      if (res.success) {
-        this.sendOpenPageReq(`${config.psbBaseURL}/Open/View/InvoicesPage`, {
-          AccessToken: res.data.accessToken,
-          Platform: 'Pc'
-        })
-      }
-    },
-    sendOpenPageReq(url, params) {
-      var temp = document.createElement('form')
-      temp.action = url
-      temp.method = 'POST'
-      temp.enctype = 'multipart/form-data'
-      temp.style.display = 'none'
-      for (var param in params) {
-        var opt = document.createElement('textarea')
-        opt.name = param
-        opt.value = params[param]
-        temp.appendChild(opt)
-      }
-      document.body.appendChild(temp)
-      temp.submit()
+    toNewsDetail(id) {
+      this.$router.push({
+        path: '/newsDetail',
+        query: {
+          id: id
+        }
+      })
     }
   }
 }

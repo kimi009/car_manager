@@ -51,7 +51,7 @@ export default {
   methods: {
     initData() {
       this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
-      this.$store.dispatch('initMyLeaseList', { size: 10, current: 1 })
+      // this.$store.dispatch('initMyLeaseList', { size: 10, current: 1 })
     }
   }
 }

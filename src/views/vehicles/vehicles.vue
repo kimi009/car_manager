@@ -1,9 +1,7 @@
 <template>
   <div class="vehicles">
     <div class="status item">
-      <p class="date">2019-08-07</p>
-      <p class="weather">雷阵雨 27~35 C</p>
-      <p class="car">不宜洗车</p>
+      <p>该页面数据仅为体验展示，非真实数据</p>
     </div>
     <div class="tips item">
       <p class="title">保养提醒</p>
@@ -194,19 +192,14 @@ export default {
     }
   }
   > .status {
-    background: linear-gradient(
-      -90deg,
-      rgba(68, 120, 233, 1),
-      rgba(98, 165, 241, 1)
-    );
-    display: flex;
-    padding: 16px 19px 15px 9px;
-    justify-content: space-between;
+    padding: 7px 0px 6px 0px;
+    background-color: #f5f5f5;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px dotted #e10900;
     > p {
       font-size: 14px;
-      color: #e5eefc;
-      &.date {
-      }
+      color: #808080;
     }
   }
   > .tips {
