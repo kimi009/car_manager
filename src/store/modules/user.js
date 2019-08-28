@@ -53,9 +53,11 @@ const user = {
             console.log(res)
             commit('SET_LOGIN_STATE', res.data.isLogin)
             commit('SET_USER_INFO', res.data)
-
             // 用户操作数据
             commit('SET_USER_ADMIN_INFO', res.data)
+
+            // 用户ID
+            lStorage.setItem(lStorage.USER_ID, res.data.userId)
             resolve(res)
           })
           .catch(err => {
@@ -85,6 +87,8 @@ const user = {
     logout({ commit, state }) {
       // 清除车辆信息
       lStorage.removeItem(lStorage.VEHICLE_INFO)
+      // 清除用户ID
+      lStorage.removeItem(lStorage.USER_ID)
 
       return new Promise((resolve, reject) => {
         Vue.prototype.$api

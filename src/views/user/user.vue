@@ -276,7 +276,6 @@ export default {
       height: 100%;
       display: flex;
       flex-direction: column;
-      padding-top: 6px;
       &:after {
         content: "";
         width: 200%;

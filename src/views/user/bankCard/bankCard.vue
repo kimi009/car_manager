@@ -11,13 +11,14 @@
       </div>
       <img class="icon" src="../../../assets/image/user/icon.png" alt="">
     </div>
-    <div class="button">
+    <!-- <div class="button">
       <van-button type="default" size="large" @click="$router.push('/user/modify')">修改银行卡信息</van-button>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { Button, Toast } from 'vant'
 export default {
   name: 'bankCard',
@@ -29,6 +30,21 @@ export default {
 
   data () {
     return {}
+  },
+
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ])
+  },
+
+  async mounted () {
+    let res = await this.$api.queryMyBankCard({
+      userId: this.userInfo.userId
+    })
+    // if (res.success) {
+    //   console.log(res)
+    // }
   }
 }
 </script>

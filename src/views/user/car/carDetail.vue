@@ -3,50 +3,51 @@
     <div class="detail">
       <van-row type="flex" class="item">
         <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">{{vehicleDetail.owner}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
-        <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">车牌号</van-col>
+        <van-col span="12">{{vehicleDetail.licensePlate}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
-        <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">车架号</van-col>
+        <van-col span="12">{{vehicleDetail.frameNum}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
-        <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">发动机号</van-col>
+        <van-col span="12">{{vehicleDetail.engineNum}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
-        <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">车辆品牌</van-col>
+        <van-col span="12">{{vehicleDetail.vehicleBrand}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
-        <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">车牌型号</van-col>
+        <van-col span="12">{{vehicleDetail.vehicleModel}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
-        <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">年检到期时间</van-col>
+        <van-col span="12">{{vehicleDetail.checkEndDate}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
-        <van-col span="12">车主姓名</van-col>
-        <van-col span="12">雷晓阳 </van-col>
+        <van-col span="12">保险到期时间</van-col>
+        <van-col span="12">{{vehicleDetail.protectEndDate}}</van-col>
       </van-row>
     </div>
-    <div class="certificate" @click="$router.push('/user/car/upload')">
+    <div class="certificate" @click="$router.push({path: '/user/car/upload', query: {carId: carId}})">
       <van-row type="flex" class="item">
         <van-col span="8">保险凭证</van-col>
         <van-col span="16">
-          <div class="image" :style="{backgroundImage: `url(${icon})`}"></div>
+          <div class="image marginRight" :style="{backgroundImage: `url(${image.traffic})`}"></div>
+          <div class="image" :style="{backgroundImage: `url(${image.business})`}"></div>
         </van-col>
       </van-row>
       <div class="van-hairline--bottom"></div>
       <van-row type="flex" class="item">
         <van-col span="8">行驶证正副本</van-col>
         <van-col span="16">
-          <div class="image marginRight" :style="{backgroundImage: `url(${icon})`}"></div>
-          <div class="image" :style="{backgroundImage: `url(${icon})`}"></div>
+          <div class="image marginRight" :style="{backgroundImage: `url(${image.driving})`}"></div>
+          <div class="image" :style="{backgroundImage: `url(${image.drivingCopy})`}"></div>
         </van-col>
       </van-row>
       <img class="arrow-right" src="../../../assets/image/common/arrow-right.png" alt="">
@@ -72,7 +73,9 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { Row, Col, Button, Toast, Image } from 'vant'
+import { getQueryString } from '@/utils/index.js'
 export default {
   name: 'carDetail',
 
@@ -86,7 +89,67 @@ export default {
 
   data () {
     return {
-      icon: require('../../../assets/image/user/idcard-back.png')
+      icon: require('../../../assets/image/user/idcard-back.png'),
+      carId: parseInt(getQueryString('carId')),
+      vehicleDetail: {} // 车辆详情
+    }
+  },
+
+  computed: {
+    ...mapGetters([
+      'fileData'
+    ]),
+
+    image () {
+      return {
+        traffic: this.fileData[2] && this.fileData[2].url,
+        business: this.fileData[3] && this.fileData[3].url,
+        driving: this.fileData[4] && this.fileData[4].url,
+        drivingCopy: this.fileData[5] && this.fileData[5].url
+      }
+    }
+  },
+
+  mounted () {
+    this.$api.getVehicleInfo({
+      carId: this.carId
+    }).then(res => {
+      this.vehicleDetail = res.data
+
+      if (res.data.traffic) {
+        this.setFileHandle(res.data.traffic, 3)
+      }
+
+      if (res.data.business) {
+        this.setFileHandle(res.data.business, 4)
+      }
+
+      if (res.data.driving) {
+        this.setFileHandle(res.data.driving, 5)
+      }
+
+      if (res.data.drivingCopy) {
+        this.setFileHandle(res.data.drivingCopy, 6)
+      }
+    })
+  },
+
+  methods: {
+    ...mapActions([
+      'setFileData'
+    ]),
+
+    // 获取证照url
+    setFileHandle (id, index) {
+      this.$api.getImageUrl({id: id}).then(res => {
+        let obj = Object.assign({}, this.fileData[index] || {}, {
+          url: res.data.url,
+          picType: index,
+          id: id
+        })
+        this.setFileData(obj)
+        console.log('fileData', this.fileData)
+      })
     }
   }
 }

@@ -28,7 +28,7 @@ const router = new Router({
         },
         {
           path: '/user',
-          meta: { showTab: true, requiresAuth: false },
+          meta: { showTab: true, requiresAuth: true },
           component: () => import('@/views/user/user'),
           children: [
             {
