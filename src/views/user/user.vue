@@ -13,7 +13,7 @@
         <van-col span="11"
                  class="head-list">
           <div class="head-li">{{userInfo.name}}</div>
-          <div class="head-li">会员积分：6711分</div>
+          <div class="head-li">会员积分：{{intergalVal}}分</div>
           <div class="head-li">
             <img src="../../assets/image/user/members.png"
                  alt="">
@@ -21,7 +21,7 @@
           </div>
         </van-col>
         <van-col span="7">
-          <div class="sign">
+          <div class="sign" @click="addIntergal">
             <img src="../../assets/image/user/sign.png"
                  alt="">
             <span>签到领积分</span>
@@ -121,7 +121,7 @@
 
 <script>
 import { Row, Col, Button, Toast, Cell, CellGroup, Dialog } from 'vant'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import psbInvoice from '@/mixins/psbInvoice'
 export default {
   name: 'user',
@@ -157,12 +157,18 @@ export default {
     ...mapGetters([
       'userInfo', 'availableBalance', 'oilBalance', 'myIncomeData'
     ]),
-
+    ...mapState({
+      intergalVal: state => state.intergal.intergalVal || '0'
+    }),
     headPath () {
       return this.userInfo.headPath ? this.userInfo.headPath : require('../../assets/image/user/head.png')
     }
   },
-
+  watch:{
+    userInfo(){
+      this.$store.dispatch('initIntergalInfo', { userId: this.userInfo.userId })
+    }
+  },
   mounted () {
     // 获取账户余额
     if (!this.availableBalance) {
@@ -183,6 +189,10 @@ export default {
     integral() {
       // console.log(111)
       this.$router.push({ path: '/integral' })
+    },
+    async addIntergal(){
+      let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
+      console.log(res)
     }
   }
 }
@@ -294,8 +304,9 @@ export default {
       // margin: 6px 0 2px 0;
       flex-grow: 1;
       height: 0;
+      margin-bottom: 5px;
       img{
-        height: 24px;
+        height: 22px;
       }
     }
     .text {

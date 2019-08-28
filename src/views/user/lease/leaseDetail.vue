@@ -1,37 +1,37 @@
 <template>
   <div class="leaseDetail">
-    <div class="column">
-      <van-row type="flex" class="item">
+    <div class="column" >
+      <!-- <van-row type="flex" class="item">
         <van-col span="8">租约编号：</van-col>
         <van-col span="16">A12344444</van-col>
-      </van-row>
+      </van-row> -->
       <van-row type="flex" class="item">
         <van-col span="8">租车公司名称：</van-col>
-        <van-col span="16">租车公司A</van-col>
+        <van-col span="16">{{leaseDetailList.rentalCompany}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
         <van-col span="8">车主姓名：</van-col>
-        <van-col span="16">张晓霞</van-col>
+        <van-col span="16">{{leaseDetailList.owner}}</van-col>
       </van-row>
       <van-row type="flex" class="item">
         <van-col span="8">车牌号：</van-col>
-        <van-col span="16">粤A12345</van-col>
+        <van-col span="16">{{leaseDetailList.licensePlate}}</van-col>
       </van-row>
-      <van-row type="flex" class="item">
+      <!-- <van-row type="flex" class="item">
         <van-col span="8">租赁期限：</van-col>
         <van-col span="16">2019-06-01~2020-05-31</van-col>
-      </van-row>
+      </van-row> -->
       <van-row type="flex" class="item">
         <van-col span="8">月租金：</van-col>
-        <van-col span="16">2500元</van-col>
+        <van-col span="16">{{leaseDetailList.monthlyRent}}元</van-col>
       </van-row>
-      <van-row type="flex" class="item">
+      <!-- <van-row type="flex" class="item">
         <van-col span="8">租赁期限：</van-col>
         <van-col span="16">22天/月</van-col>
-      </van-row>
+      </van-row> -->
       <van-row type="flex" class="item">
         <van-col span="8">创建时间：</van-col>
-        <van-col span="16">2019-05-30 18:00:00</van-col>
+        <van-col span="16">{{leaseDetailList.createDate}}</van-col>
       </van-row>
     </div>
     <div class="agreement">
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { Row, Col, Button, Toast } from 'vant'
+import { Row, Col, Button, Toast, List } from "vant";
 export default {
   name: 'leaseDetail',
 
@@ -50,11 +50,27 @@ export default {
     [Row.name]: Row,
     [Col.name]: Col,
     [Button.name]: Button,
-    [Toast.name]: Toast
+    [Toast.name]: Toast,
+    [List.name]: List
   },
-
+  methods: {
+    async initList() {
+       let res = await this.$api.initUserleaseDetailList({
+        rentId: this.$route.query.rentId,
+      })
+      if (res.code === 200 && Object.keys(res.data).length > 0) {
+        this.leaseDetailList = res.data
+      }
+    }
+  },
+  created() {
+    this.initList();
+  },
   data () {
-    return {}
+    return {
+      rentId:'',
+      leaseDetailList:[]
+    }
   }
 }
 </script>

@@ -3,6 +3,7 @@ import Vue from 'vue'
 const intergal = {
   state: {
     intergalVal: '000',
+    intergalValString: '',
     intergalArr: [],
     page: 1,
     count: 100,
@@ -13,6 +14,9 @@ const intergal = {
     INIT_INTERGAL_INFO: (state, params) => {
       state.intergalVal = params
     },
+    INIT_INTERGAL_STRING: (state, params) => {
+      state.intergalValString = params
+    },
     INIT_INTERGAL_LIST: (state, params) => {
       state.intergalArr.push(...params)
     }
@@ -22,7 +26,8 @@ const intergal = {
       let res = await Vue.prototype.$api.integalInfo(params)
       if (res.success) {
         let reg = /\d{1,3}(?=(\d{3})+$)/g
-        commit('INIT_INTERGAL_INFO', parseInt(res.data.availableBalance).toString().replace(reg, '$&,'))
+        commit('INIT_INTERGAL_STRING', parseInt(res.data.availableBalance).toString().replace(reg, '$&,'))
+        commit('INIT_INTERGAL_INFO', res.data.availableBalance)
       }
     },
     async initIntergalLiist({ commit, state }, params) {
