@@ -44,10 +44,10 @@ export default {
   data() {
     return {
       count: 7,
-      offset: 30,
+      offset: 30
     }
   },
-  created(){
+  created() {
     if (!this.userInfo.userId) return
     this.getIntergalInfo()
   },
@@ -64,7 +64,7 @@ export default {
     },
     async getInetrgalList() {
       if (!this.userInfo.userId) return
-      let that = this
+      // let that = this
       let data = {
         userId: this.userInfo.userId,
         page: this.page,
