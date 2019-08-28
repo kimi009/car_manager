@@ -83,6 +83,22 @@ export const intergalList = data => {
     noShowLoading: true
   })
 }
+export const initUserleaseList = data => {
+  return axios({
+    url: '/api/app/rent/list',
+    method: 'post',
+    data,
+    noShowLoading: true
+  })
+}
+export const initUserleaseDetailList = data => {
+  return axios({
+    url: '/api/app/rent/detail',
+    method: 'post',
+    data,
+    noShowLoading: true
+  })
+}
 export default {
   getCode,
   isLogin,
@@ -93,5 +109,7 @@ export default {
   carInfo,
   carUpdata,
   integalInfo,
-  intergalList
+  intergalList,
+  initUserleaseList,
+  initUserleaseDetailList
 }

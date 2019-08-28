@@ -12,6 +12,7 @@ import cityInfo from './modules/city'
 import account from './modules/account'
 import safe from './modules/safe'
 import intergal from './modules/intergal'
+import userLease from './modules/userLease'
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
     cityInfo,
     account,
     safe,
-    intergal
+    intergal,
+    userLease,
   },
   getters
 })

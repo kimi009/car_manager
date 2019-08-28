@@ -5,7 +5,7 @@
       <van-dropdown-item v-model="value2" :options="option2" />
       <van-dropdown-item v-model="value3" :options="option3" />
     </van-dropdown-menu>
-    <ul class="orderUl">
+    <ul class="orderUl" v-if="!nodata">
         <li>
             <div>太平洋保险  加油费用</div>
             <div class="order-detail">
@@ -33,6 +33,7 @@
             <div class="price">¥300</div>
         </li>
     </ul>
+    <div v-if="nodata" class="nodata">暂无数据</div>
   </div>
 </template>
 <script>
@@ -45,6 +46,7 @@ export default {
       value1: 0,
       value2: 'a',
       value3: 'b',
+      nodata: true,
       option1: [
         { text: '全部商品', value: 0 },
         { text: '全部商品', value: 1 },
@@ -70,6 +72,11 @@ export default {
     height: 100%;
     width: 100%;
     position: fixed;
+}
+.nodata {
+    font-size: 15px;
+    margin: 185px 0;
+    color: #707070;
 }
 .van-cell{
     text-align: left;
