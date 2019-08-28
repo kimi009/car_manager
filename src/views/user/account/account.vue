@@ -7,7 +7,7 @@
       </div>
       <div class="account-input van-hairline--bottom van-hairline--top">
         <span>提现金额</span>
-        <input type="number" placeholder="请输入100-30000之间的数额">
+        <input type="number" v-model="account" placeholder="请输入100-30000之间的数额">
       </div>
       <div class="tip">提现金额将转入绑定的银行卡</div>
       <div class="cash">
@@ -18,7 +18,7 @@
       <van-tabs v-model="active">
         <van-tab title="提现记录">
           <ul class="tab-wrap" :style="{height: (tabHeight - 44) / 37.5 + 'rem'}">
-            <li class="van-hairline--bottom">
+            <!-- <li class="van-hairline--bottom">
               <div class="li-top">
                 <span>提现金额：<em>1000元</em></span>
                 <strong>2019-04-12 12:01:01</strong>
@@ -31,29 +31,29 @@
                 <strong>2019-04-12 12:01:01</strong>
               </div>
               <div class="li-bottom">提现状态：提现中（预计两个工作日到账）</div>
-            </li>
-            <!-- <van-pull-refresh class="refresh" v-model="isLoading" @refresh="onRefresh">
+            </li> -->
+            <van-pull-refresh class="refresh" v-model="cash.isLoading" @refresh="onRefresh('cash')">
               <van-list
                 class="load"
-                v-model="loading"
-                :finished="finished"
+                v-model="cash.loading"
+                :finished="cash.finished"
                 finished-text="没有更多了"
-                @load="onLoad"
+                @load="onLoad('cash')"
               >
-                <li class="van-hairline--bottom" v-for="(item, index) in deviceList" :key="index">
+                <li class="van-hairline--bottom" v-for="(item, index) in cash.list" :key="index">
                   <div class="li-top">
-                    <span>提现金额：<em>1000元</em></span>
-                    <strong>2019-04-12 12:01:01</strong>
+                    <span>提现金额：<em>{{item.amount}}元</em></span>
+                    <strong>{{item.createDate}}</strong>
                   </div>
                   <div class="li-bottom">提现状态：提现中（预计两个工作日到账）</div>
                 </li>
               </van-list>
-            </van-pull-refresh> -->
+            </van-pull-refresh>
           </ul>
         </van-tab>
         <van-tab title="收入记录">
           <ul class="tab-wrap" :style="{height: (tabHeight - 44) / 37.5 + 'rem'}">
-            <li class="van-hairline--bottom">
+            <!-- <li class="van-hairline--bottom">
               <div class="li-top">
                 <span>收入金额：<em>1000元</em></span>
                 <strong>2019-09-12 12:01:01</strong>
@@ -66,7 +66,24 @@
                 <strong>2019-09-12 12:01:01</strong>
               </div>
               <div class="li-bottom">收益类型：租金发放</div>
-            </li>
+            </li> -->
+            <van-pull-refresh class="refresh" v-model="income.isLoading" @refresh="onRefresh('income')">
+              <van-list
+                class="load"
+                v-model="income.loading"
+                :finished="income.finished"
+                finished-text="没有更多了"
+                @load="onLoad('income')"
+              >
+                <li class="van-hairline--bottom" v-for="(item, index) in income.list" :key="index">
+                  <div class="li-top">
+                    <span>收入金额：<em>{{item.amount}}元</em></span>
+                    <strong>{{item.tradeDatetime}}</strong>
+                  </div>
+                  <div class="li-bottom">收益类型：租金发放</div>
+                </li>
+              </van-list>
+            </van-pull-refresh>
           </ul>
         </van-tab>
       </van-tabs>
@@ -81,6 +98,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Row, Col, Button, Toast, Tab, Tabs, List, PullRefresh } from 'vant'
+import { validateInteger } from '../../../utils/validate.js'
 export default {
   name: 'account',
 
@@ -98,13 +116,24 @@ export default {
   data () {
     return {
       active: 0,
-      tabHeight: '',
-      deviceList: [], // 用于存放加载的数据
-      totalPage: 10,
-      pageNumber: 0,
-      loading: false, // 控制上拉加载的加载动画
-      isLoading: false, // 控制下拉刷新的加载动画
-      finished: false
+      tabHeight: '', // tab高度
+      account: '', // 提现金额
+      cash: {
+        list: [], // 用于存放加载的数据
+        totalPage: 10,
+        pageNumber: 0,
+        loading: false, // 控制上拉加载的加载动画
+        isLoading: false, // 控制下拉刷新的加载动画
+        finished: false
+      },
+      income: {
+        list: [], // 用于存放加载的数据
+        totalPage: 10,
+        pageNumber: 0,
+        loading: false, // 控制上拉加载的加载动画
+        isLoading: false, // 控制下拉刷新的加载动画
+        finished: false
+      }
     }
   },
 
@@ -120,7 +149,31 @@ export default {
 
   methods: {
     cashHandle () {
-      this.$router.push('/user/account/cash')
+      if (!validateInteger(this.account)) {
+        Toast({
+          message: '金额只能为整数！',
+          position: 'bottom'
+        })
+      } else if (this.account < 100) {
+        Toast({
+          message: '提现金额不得少于100元！',
+          position: 'bottom'
+        })
+      } else if (this.account > 30000) {
+        Toast({
+          message: '单次提现金额不能大于3万！',
+          position: 'bottom'
+        })
+      } else {
+        this.$api.createWithdraw({
+          userId: this.userInfo.userId,
+          amount: this.account
+        }).then(res => {
+          if (res.success) {
+            this.$router.push('/user/account/cash')
+          }
+        })
+      }
     },
 
     init () {
@@ -128,20 +181,31 @@ export default {
     },
 
     // 下拉刷新
-    onRefresh () {},
+    onRefresh (type) {},
 
     // 页面初始化之后会触发一次
-    onLoad () {
-      // this.loading = false
-      this.$api.queryBalanceConsumeByPage({
-        userId: this.userInfo.userId,
-        page: this.pageNumber + 1,
-        limit: this.totalPage
-      }).then(res => {
-        this.deviceList = res.data
-        // this.loading = false
-        console.log('deviceList', this.deviceList)
-      })
+    onLoad (type) {
+      if (type === 'cash') {
+        this.$api.queryBalanceConsumeByPage({
+          userId: this.userInfo.userId,
+          page: this.cash.pageNumber + 1,
+          limit: this.cash.totalPage
+        }).then(res => {
+          this.cash.list = res.data
+          this.cash.loading = false
+          this.cash.finished = true
+        })
+      } else {
+        this.$api.queryBalanceIncomeByPage({
+          userId: this.userInfo.userId,
+          page: this.income.pageNumber + 1,
+          limit: this.income.totalPage
+        }).then(res => {
+          this.income.list = res.data
+          this.income.loading = false
+          this.income.finished = true
+        })
+      }
     }
   }
 }

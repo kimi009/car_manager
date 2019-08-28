@@ -52,7 +52,7 @@
                alt="">
         </van-row>
         <van-row class="text">油费余额(元）</van-row>
-        <van-row class="num">2676</van-row>
+        <van-row class="num">{{oilBalance}}</van-row>
         <van-row class="cash-button">
           <!-- <div @click="$router.push('/user/account')">购买</div> -->
         </van-row>
@@ -64,7 +64,7 @@
                alt="">
         </van-row>
         <van-row class="text">本月租金收入(元）</van-row>
-        <van-row class="num">7512</van-row>
+        <van-row class="num">{{myIncomeData.nextMonthIncome}}</van-row>
         <van-row class="cash-button">
           <div @click="$router.push('/rent')">账单</div>
         </van-row>
@@ -155,7 +155,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userInfo', 'availableBalance'
+      'userInfo', 'availableBalance', 'oilBalance', 'myIncomeData'
     ]),
 
     headPath () {
@@ -164,9 +164,17 @@ export default {
   },
 
   mounted () {
-    // 获取油卡余额
+    // 获取账户余额
     if (!this.availableBalance) {
       this.$store.dispatch('getAccountMsg')
+    }
+    // 获取油卡余额
+    if (!this.oilBalance) {
+      this.$store.dispatch('getOilBalance')
+    }
+    // 本月租金收益
+    if (Object.keys(this.myIncomeData).length === 0) {
+      this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
     }
   },
 

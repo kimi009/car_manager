@@ -44,6 +44,7 @@ export default {
     }
   },
   mounted() {
+    console.log('V1.0.1')
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))
     // })

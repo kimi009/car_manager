@@ -27,8 +27,28 @@ export const queryBalanceIncomeByPage = data => {
   })
 }
 
+// 资金提现接口
+export const createWithdraw = data => {
+  return axios({
+    url: '/api/app/balance/createWithdraw',
+    method: 'post',
+    data
+  })
+}
+
+// 油费余额查询接口
+export const queryOilBalance = data => {
+  return axios({
+    url: '/api/app/oilfee/queryOilBalance',
+    method: 'post',
+    data
+  })
+}
+
 export default {
   queryBalance,
   queryBalanceConsumeByPage,
-  queryBalanceIncomeByPage
+  queryBalanceIncomeByPage,
+  createWithdraw,
+  queryOilBalance
 }
