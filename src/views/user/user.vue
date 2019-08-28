@@ -5,14 +5,14 @@
                class="wrap">
         <van-col span="6"
                  class="avatar">
-          <router-link to="/mayPersonal">
-            <img src="../../assets/image/user/head.png"
-                 alt="">
-          </router-link>
+          <div class="icon"
+               :style="{backgroundImage: `url(${headPath})`}"
+               @click="$router.push('/user/personal')">
+          </div>
         </van-col>
         <van-col span="11"
                  class="head-list">
-          <div class="head-li">笑傲浆糊</div>
+          <div class="head-li">{{userInfo.name}}</div>
           <div class="head-li">会员积分：6711分</div>
           <div class="head-li">
             <img src="../../assets/image/user/members.png"
@@ -39,11 +39,9 @@
                alt="">
         </van-row>
         <van-row class="text">帐户余额(元）</van-row>
-        <van-row class="num">8888.8</van-row>
+        <van-row class="num">{{availableBalance}}</van-row>
         <van-row class="cash-button">
-          <router-link to="/mayFund">
-            <div>提现</div>
-          </router-link>
+          <div @click="$router.push('/user/account')">提现</div>
         </van-row>
       </van-col>
 
@@ -56,12 +54,11 @@
         <van-row class="text">油费余额(元）</van-row>
         <van-row class="num">2676</van-row>
         <van-row class="cash-button">
-          <router-link to="/mayFuel">
-            <div>购买</div>
-          </router-link>
+          <!-- <div @click="$router.push('/user/account')">购买</div> -->
         </van-row>
       </van-col>
-      <van-col span="8">
+      <van-col span="8"
+               class="account-list">
         <van-row class="icon">
           <img src="../../assets/image/user//rent.png"
                alt="">
@@ -69,7 +66,7 @@
         <van-row class="text">本月租金收入(元）</van-row>
         <van-row class="num">7512</van-row>
         <van-row class="cash-button">
-          <div>账单</div>
+          <div @click="$router.push('/rent')">账单</div>
         </van-row>
       </van-col>
     </van-row>
@@ -77,16 +74,16 @@
       <van-cell class="group"
                 title="我的银行卡"
                 :icon="icon_list.bankCard"
-                to="/mayBankCard"
+                to="/user/bankCard"
                 is-link />
       <van-cell class="group"
                 title="我的车辆"
                 :icon="icon_list.car"
-                to="/carList"
+                to="/user/car"
                 is-link />
       <van-cell class="group"
                 title="我的租约"
-                to="/leaseList"
+                to="/user/lease"
                 :icon="icon_list.lease"
                 is-link />
       <van-cell class="group"
@@ -111,14 +108,20 @@
                 :icon="icon_list.contact"
                 is-link />
     </van-cell-group>
+
+    <transition :name="$transition" mode="in-out">
+        <router-view/>
+    </transition>
   </div>
 </template>
 
 <script>
 import { Row, Col, Button, Toast, Cell, CellGroup, Dialog } from 'vant'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'user',
+
   components: {
     [Row.name]: Row,
     [Col.name]: Col,
@@ -128,6 +131,7 @@ export default {
     [CellGroup.name]: CellGroup,
     [Dialog.name]: Dialog
   },
+
   data() {
     return {
       icon_list: {
@@ -144,6 +148,24 @@ export default {
       carData: {}
     }
   },
+
+  computed: {
+    ...mapGetters([
+      'userInfo', 'availableBalance'
+    ]),
+
+    headPath () {
+      return this.userInfo.headPath ? this.userInfo.headPath : require('../../assets/image/user/head.png')
+    }
+  },
+
+  mounted () {
+    // 获取油卡余额
+    if (!this.availableBalance) {
+      this.$store.dispatch('getAccountMsg')
+    }
+  },
+
   methods: {
     // 积分
     integral() {
@@ -155,12 +177,10 @@ export default {
 
 <style scoped lang="less">
 .user {
-  // height: 100%;
-  // background-color: #F5F5F5;
-  // overflow: auto;
-  height: calc(~'100% - 50px');
+  .fs;
   background-color: #f5f5f5;
   padding: 0 0 50px 0;
+  overflow: auto;
   .header{
     .wh(100%, 81px);
     padding-left: 4px;
@@ -172,9 +192,15 @@ export default {
       position: relative;
       .avatar {
         position: relative;
-        img {
-          height: 60px;
-          .f-center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon{
+          .wh(60px, 60px);
+          border-radius: 50%;
+          display: block;
+          background: url('../../assets/image/user/head.png') 0 0 no-repeat;
+          background-size: cover;
         }
       }
       .head-list {
@@ -234,6 +260,10 @@ export default {
     box-sizing: border-box;
     .account-list {
       position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-top: 6px;
       &:after {
         content: "";
         width: 200%;
@@ -249,22 +279,30 @@ export default {
       }
     }
     .icon{
-      margin: 6px 0 2px 0;
+      // margin: 6px 0 2px 0;
+      flex-grow: 1;
+      height: 0;
       img{
         height: 24px;
       }
     }
     .text {
+      flex-grow: 1;
+      height: 0;
       font-size: 12px;
       color: #878787;
-      margin-bottom: 14px;
+      // margin-bottom: 14px;
     }
     .num {
+      flex-grow: 1;
+      height: 0;
       font-size: 16px;
       color: #333333;
-      margin-bottom: 15px;
+      // margin-bottom: 15px;
     }
     .cash-button {
+      flex-grow: 1;
+      height: 0;
       div {
         .wh-l(65px, 23px);
         border: 1px solid rgba(226, 125, 52, 1);

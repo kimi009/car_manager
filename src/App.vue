@@ -31,7 +31,9 @@ export default {
     return {}
   },
   created() {
-    this.initWxInfo()
+    if (process.env.NODE_ENV !== 'development') {
+      this.initWxInfo()
+    }
   },
   computed: {
     key() {

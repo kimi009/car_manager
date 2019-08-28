@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { Button } from 'vant'
+import { Button, Toast } from 'vant'
 import { mapGetters, mapActions } from 'vuex'
 import { getQueryString } from '../../../utils/index.js'
 import Uploader from '../../../components/Uploader'
@@ -61,6 +61,7 @@ export default {
   },
   components: {
     [Button.name]: Button,
+    [Toast.name]: Toast,
     Uploader
   },
   computed: {
@@ -113,10 +114,16 @@ export default {
           this.$router.back()
           console.log(this.fileData)
         } else {
-          this.$Toast('获取图片失败')
+          Toast({
+            message: '获取图片失败',
+            position: 'bottom'
+          })
         }
       } else {
-        this.$Toast('上传失败')
+        Toast({
+          message: '上传失败',
+          position: 'bottom'
+        })
       }
     }
   }

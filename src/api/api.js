@@ -1,6 +1,6 @@
 import axios from 'axios' // 注意先安装哦
 import config from './config.js' // 倒入默认配置
-// import qs from 'qs' // 序列化请求数据，视服务端的要求
+import qs from 'qs' // 序列化请求数据，视服务端的要求
 import { Toast } from 'vant'
 import GenerateGuid from '../utils/generateGuid'
 
@@ -11,12 +11,12 @@ export default function $axios(options) {
     }
     const instance = axios.create({
       baseURL: options.baseURL || config.baseURL,
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
+      headers: options.headers || config.headers,
       method: options.method || 'post',
       transformResponse: [function(data) {}]
     })
+
+    console.dir(instance)
 
     // request 拦截器
     instance.interceptors.request.use(
@@ -53,6 +53,9 @@ export default function $axios(options) {
         // ) {
         //   config.data = qs.stringify(config.data)
         // }
+        if (options.headers && options.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
+          config.data = qs.stringify(config.data)
+        }
 
         return config
       },

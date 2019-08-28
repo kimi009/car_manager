@@ -9,6 +9,7 @@ import tabbar from './modules/tabbar'
 import rent from './modules/rent'
 import vehicles from './modules/vehicles'
 import cityInfo from './modules/city'
+import account from './modules/account'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,8 @@ const store = new Vuex.Store({
     tabbar,
     rent,
     vehicles,
-    cityInfo
+    cityInfo,
+    account
   },
   getters
 })
