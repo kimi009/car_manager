@@ -83,6 +83,14 @@ export const intergalList = data => {
     noShowLoading: true
   })
 }
+export const addIntergal = data => {
+  return axios({
+    url: '/api/app/score/give',
+    method: 'get',
+    data,
+    noShowLoading: true
+  })
+}
 export const initUserleaseList = data => {
   return axios({
     url: '/api/app/rent/list',
@@ -111,5 +119,6 @@ export default {
   integalInfo,
   intergalList,
   initUserleaseList,
-  initUserleaseDetailList
+  initUserleaseDetailList,
+  addIntergal
 }

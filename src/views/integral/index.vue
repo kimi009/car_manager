@@ -2,7 +2,7 @@
   <div>
     <div class="intergal-rt">
       <span>积分</span>
-      <span>{{intergalVal}}</span>
+      <span>{{intergalValString}}</span>
     </div>
     <div class="intergal-info" @click="tips()">积分说明</div>
     <div class="icon-box">
@@ -60,11 +60,11 @@ export default {
       })
     },
     async getIntergalInfo() {
+      if(this.intergalValString) return
       this.$store.dispatch('initIntergalInfo', { userId: this.userInfo.userId })
     },
     async getInetrgalList() {
       if (!this.userInfo.userId) return
-      // let that = this
       let data = {
         userId: this.userInfo.userId,
         page: this.page,
@@ -104,7 +104,7 @@ export default {
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo || {},
-      intergalVal: state => state.intergal.intergalVal || 0,
+      intergalValString: state => state.intergal.intergalValString || '',
       intergalArr: state => state.intergal.intergalArr || [],
       page: state => state.intergal.page || 1,
       intergal: state => state.intergal || false,
