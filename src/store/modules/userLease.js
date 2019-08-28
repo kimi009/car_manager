@@ -15,7 +15,7 @@ const userLease = {
   },
   actions: {
     async initleaseList({ commit, state }, params) {
-      if (state.leaseList.length >= state.count ) {
+      if (state.leaseList.length >= state.count) {
         state.loading = false
         state.finished = true
         return false

@@ -11,7 +11,7 @@
             <div class="order-detail">
                 <p>积分+390</p>
                 <p>订单状态：待支付</p>
-                <p>订单时间：2018-12-12  09:10  |  油费订单</p>
+                <p>订单时间：2018-12-12  09:10  |  油费订单</p>
             </div>
             <div class="buttn-div">
                 <div>查看发票</div>
@@ -25,7 +25,7 @@
             <div class="order-detail">
                 <p>积分+390</p>
                 <p>订单状态：待支付</p>
-                <p>订单时间：2018-12-12  09:10  |  油费订单</p>
+                <p>订单时间：2018-12-12  09:10  |  油费订单</p>
             </div>
             <div class="buttn-div">
                 <div class="pay">立即支付</div>

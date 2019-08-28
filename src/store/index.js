@@ -29,7 +29,7 @@ const store = new Vuex.Store({
     account,
     safe,
     intergal,
-    userLease,
+    userLease
   },
   getters
 })

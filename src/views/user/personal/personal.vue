@@ -65,7 +65,6 @@
 <script>
 import { Row, Col, Button, Toast, Image } from 'vant'
 import { mapGetters } from 'vuex'
-import store from '@/store'
 export default {
   name: 'personal',
 

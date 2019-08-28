@@ -42,9 +42,9 @@ export default {
     let res = await this.$api.queryMyBankCard({
       userId: this.userInfo.userId
     })
-    // if (res.success) {
-    //   console.log(res)
-    // }
+    if (res.success) {
+      console.log(res)
+    }
   }
 }
 </script>

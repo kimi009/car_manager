@@ -5,7 +5,7 @@
       <van-row type="flex" class="item">
         <van-col span="8">保险凭证</van-col>
         <van-col span="16">
-          <div class="image marginRight" 
+          <div class="image marginRight"
                :style="{backgroundImage: `url(${image.traffic})`}"
                @click="itemHandle(3)"></div>
           <div class="image"
@@ -63,10 +63,10 @@ export default {
 
     image () {
       return {
-        traffic: this.fileData[2] && this.fileData[2].url || require('../../../assets/image/user/add-level.png'),
-        business: this.fileData[3] && this.fileData[3].url || require('../../../assets/image/user/add-level.png'),
-        driving: this.fileData[4] && this.fileData[4].url || require('../../../assets/image/user/add-level.png'),
-        drivingCopy: this.fileData[5] && this.fileData[5].url || require('../../../assets/image/user/add-level.png')
+        traffic: (this.fileData[2] && this.fileData[2].url) || require('../../../assets/image/user/add-level.png'),
+        business: (this.fileData[3] && this.fileData[3].url) || require('../../../assets/image/user/add-level.png'),
+        driving: (this.fileData[4] && this.fileData[4].url) || require('../../../assets/image/user/add-level.png'),
+        drivingCopy: (this.fileData[5] && this.fileData[5].url) || require('../../../assets/image/user/add-level.png')
       }
     }
   },
