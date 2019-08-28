@@ -6,6 +6,7 @@ import payment from './payment'
 import city from './city'
 import wx from './wx'
 import invoice from './invoice'
+import fund from './fund'
 import safe from './safe'
 
 export default {
@@ -17,5 +18,6 @@ export default {
   ...city,
   ...wx,
   ...invoice,
+  ...fund,
   ...safe
 }

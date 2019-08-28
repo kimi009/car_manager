@@ -1,12 +1,21 @@
 <template>
-  <div class="demo">
-    
+  <div class="waitingCash">
+    waitingCash
   </div>
 </template>
 
 <script>
+import { Row, Col, Button, Toast } from 'vant'
 export default {
-  name: 'demo',
+  name: 'waitingCash',
+
+  components: {
+    [Row.name]: Row,
+    [Col.name]: Col,
+    [Button.name]: Button,
+    [Toast.name]: Toast
+  },
+
   data () {
     return {}
   }
@@ -14,8 +23,8 @@ export default {
 </script>
 
 <style scoped lang="less">
-.demo{
-  height: 100%;
+.waitingCash{
+  .fs;
   background-color: #FFF;
 }
 </style>

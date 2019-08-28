@@ -25,7 +25,8 @@ export const getImageUrl = data => {
   return axios({
     url: '/api/file/url',
     method: 'post',
-    data
+    data,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   })
 }
 

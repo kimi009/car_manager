@@ -29,7 +29,65 @@ const router = new Router({
         {
           path: '/user',
           meta: { showTab: true, requiresAuth: false },
-          component: () => import('@/views/user/user')
+          component: () => import('@/views/user/user'),
+          children: [
+            {
+              path: 'account',
+              meta: { requiresAuth: true },
+              component: () => import('@/views/user/account/account'),
+              children: [
+                {
+                  path: 'cash',
+                  meta: { requiresAuth: true },
+                  component: () => import('@/views/user/account/waitingCash')
+                }
+              ]
+            },
+            {
+              path: 'personal',
+              meta: { requiresAuth: true },
+              component: () => import('@/views/user/personal/personal')
+            },
+            {
+              path: 'bankCard',
+              meta: { requiresAuth: true },
+              component: () => import('@/views/user/bankCard/bankCard')
+            },
+            {
+              path: 'modify',
+              meta: { requiresAuth: true },
+              component: () => import('@/views/user/bankCard/modify')
+            },
+            {
+              path: 'car',
+              meta: { requiresAuth: true },
+              component: () => import('@/views/user/car/car'),
+              children: [
+                {
+                  path: 'detail',
+                  meta: { requiresAuth: true },
+                  component: () => import('@/views/user/car/carDetail')
+                },
+                {
+                  path: 'upload',
+                  meta: { requiresAuth: true },
+                  component: () => import('@/views/user/car/uploadCertificate')
+                }
+              ]
+            },
+            {
+              path: 'lease',
+              meta: { requiresAuth: true },
+              component: () => import('@/views/user/lease/lease'),
+              children: [
+                {
+                  path: 'detail',
+                  meta: { requiresAuth: true },
+                  component: () => import('@/views/user/lease/leaseDetail')
+                }
+              ]
+            }
+          ]
         },
         {
           path: '/sign',
@@ -109,61 +167,6 @@ const router = new Router({
     {
       path: '/preview',
       component: () => import('@/views/commonPage')
-    },
-    {
-      path: '/carList',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayCar/carList')
-    },
-    {
-      path: '/carInfo',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayCar/carInfo')
-    },
-    {
-      path: '/carUpdata',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayCar/carUpdata')
-    },
-    {
-      path: '/leaseList',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayLease/leaseList')
-    },
-    {
-      path: '/leaseInfo',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayLease/leaseInfo')
-    },
-    {
-      path: '/mayFund',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayFund/mayFund')
-    },
-    {
-      path: '/mayPersonal',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayPersonal/mayPersonal')
-    },
-    {
-      path: '/mayPersonalList',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayPersonal/mayPersonalList')
-    },
-    {
-      path: '/mayPersonalListInfo',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayPersonal/mayPersonalListInfo')
-    },
-    {
-      path: '/mayFuel',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayFuel/mayFuel')
-    },
-    {
-      path: '/mayBankCard',
-      meta: { showTab: false, requiresAuth: false },
-      component: () => import('@/views/mayBankCard/mayBankCard')
     },
     {
       path: '/safe',

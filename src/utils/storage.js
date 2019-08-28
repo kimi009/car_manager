@@ -94,6 +94,7 @@ class LocalStorage extends Store {
   constructor (store) { // eslint-disable-line
     super(store)
   }
+  USER_ID = 'USER_ID' // 用户ID
   VEHICLE_INFO = 'VEHICLE_INFO' // 车辆信息
 }
 
