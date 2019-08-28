@@ -97,7 +97,8 @@
       <van-cell class="group"
                 title="我的发票"
                 :icon="icon_list.invoice"
-                is-link />
+                is-link
+                @click="openPsbInvoiceList" />
       <van-cell class="group"
                 title="惠用车积分"
                 :icon="icon_list.integration"
@@ -106,22 +107,23 @@
       <van-cell class="group"
                 title="关于惠用车"
                 :icon="icon_list.about"
-                is-link to="/about"
-                />
+                is-link
+                to="/about" />
       <van-cell class="group"
                 title="联系我们"
                 :icon="icon_list.contact"
-                is-link to="/contact"
-                />
+                is-link
+                to="/contact" />
     </van-cell-group>
   </div>
 </template>
 
 <script>
 import { Row, Col, Button, Toast, Cell, CellGroup, Dialog } from 'vant'
-
+import psbInvoice from '@/mixins/psbInvoice'
 export default {
   name: 'user',
+  mixins: [psbInvoice],
   components: {
     [Row.name]: Row,
     [Col.name]: Col,
@@ -162,16 +164,16 @@ export default {
   // height: 100%;
   // background-color: #F5F5F5;
   // overflow: auto;
-  height: calc(~'100% - 50px');
+  height: calc(~"100% - 50px");
   background-color: #f5f5f5;
   padding: 0 0 50px 0;
-  .header{
+  .header {
     .wh(100%, 81px);
     padding-left: 4px;
     padding-top: 11px;
-    background-color: #FFF;
+    background-color: #fff;
     box-sizing: border-box;
-    .wrap{
+    .wrap {
       .wh(100%, 100%);
       position: relative;
       .avatar {
@@ -230,9 +232,9 @@ export default {
       }
     }
   }
-  .account{
+  .account {
     .wh(100%, 170px);
-    background-color: #FFF;
+    background-color: #fff;
     padding: 23px 0 18px 0;
     margin-bottom: 10px;
     box-sizing: border-box;
@@ -252,9 +254,9 @@ export default {
         pointer-events: none;
       }
     }
-    .icon{
+    .icon {
       margin: 6px 0 2px 0;
-      img{
+      img {
         height: 24px;
       }
     }
@@ -276,9 +278,9 @@ export default {
         font-size: 12px;
         color: #e27d34;
         margin: 0 auto;
-        &:active{
+        &:active {
           color: #e4a678;
-          border:1px solid #e4a678;
+          border: 1px solid #e4a678;
         }
       }
     }

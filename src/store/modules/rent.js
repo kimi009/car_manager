@@ -10,7 +10,7 @@ const rent = {
       state.myIncomeData = params
     },
     INIT_LEASE_DATA: (state, params) => {
-      state.myLeases = params
+      state.myLeases = [...state.myLeases, ...params]
     }
   },
   actions: {

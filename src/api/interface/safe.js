@@ -15,7 +15,17 @@ const getSafeList = data => {
     data
   })
 }
+
+// 创建保险
+const saveSafe = data => {
+  return axios({
+    url: '/api/app/car/insurance/chance/add',
+    data
+  })
+}
+
 export default {
   getInsuranceInfo,
-  getSafeList
+  getSafeList,
+  saveSafe
 }

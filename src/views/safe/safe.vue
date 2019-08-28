@@ -28,7 +28,7 @@
         <p>￥{{safeInfo.business}}</p>
         <a href="javascript:;"
            class="once"
-           @click="openSuccessDialog">立即投保</a>
+           @click="openSuccessDialog(safeInfo)">立即投保</a>
       </div>
     </div>
     <div class="safe-list"
@@ -49,7 +49,7 @@
           <p class="bussiness">
             <span>商业险</span>￥{{item.business}}</p>
           <a href="javascript:;"
-             @click="openSuccessDialog">立即投保</a>
+             @click="openSuccessDialog(item)">立即投保</a>
         </div>
       </div>
     </div>
@@ -58,10 +58,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { Dialog } from 'vant'
+import { Dialog, Toast } from 'vant'
 export default {
   components: {
-    [Dialog.Component.name]: Dialog.Component
+    [Dialog.Component.name]: Dialog.Component,
+    [Toast.name]: Toast
   },
   data() {
     return {
@@ -79,23 +80,45 @@ export default {
   },
   watch: {
     userInfo: function () {
-      this.$store.dispatch('initSafeInfo', { userId: this.userInfo.userId })
+      this.initData()
     }
   },
   methods: {
     initData() {
       if (this.userInfo.userId) {
         this.$store.dispatch('initSafeInfo', { userId: this.userInfo.userId })
+        this.$store.dispatch('initSafeList', {})
       }
-      this.$store.dispatch('initSafeList', {})
     },
-    openSuccessDialog() {
+    openSuccessDialog(item) {
       Dialog.alert({
         title: '预定成功！',
         message: '稍后我们客服会及时联系您进行确\n认，感谢！'
       }).then(() => {
         // on confirm
+        this.saveSafe(item)
       })
+    },
+    async saveSafe(item) {
+      try {
+        let res = await this.$api.saveSafe({
+          employeeId: this.userInfo.userId,
+          protectCompanyId: item.protectCompanyId || 1,
+          traffic: item.traffic,
+          business: item.business
+        })
+        if (res.success) {
+          Toast({
+            message: '投保成功',
+            position: 'bottom'
+          })
+        }
+      } catch (err) {
+        Toast({
+          message: '商机已存在',
+          position: 'bottom'
+        })
+      }
     }
   }
 }
