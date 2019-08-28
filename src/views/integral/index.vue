@@ -14,7 +14,7 @@
     </div>
     <ul class="intergal-ul">
       <van-list
-          v-model="loading"
+          v-model="intergal.loading"
           :finished="finished"
           finished-text="没有更多了"
           @load="getInetrgalList"
@@ -43,12 +43,13 @@ export default {
   name: 'intergal',
   data() {
     return {
-      count: 8,
-      loading: false,
-      finished: false,
-      offset: 40,
-      total: 100
+      count: 7,
+      offset: 30,
     }
+  },
+  created(){
+    if (!this.userInfo.userId) return
+    this.getIntergalInfo()
   },
   methods: {
     tips() {
@@ -70,15 +71,7 @@ export default {
         limit: this.count,
         scoreType: ''
       }
-      this.$store.dispatch('initIntergalLiist', {data,
-       cb(res) {
-        that.loading = false
-        that.total = res.count
-        if ((that.page - 1) * that.count >= that.total) {
-          that.finished = true
-        }
-      }
-      })
+      this.$store.dispatch('initIntergalLiist', data)
     },
     formatNumber(n) {
       n = n.toString()
@@ -113,7 +106,9 @@ export default {
       userInfo: state => state.user.userInfo || {},
       intergalVal: state => state.intergal.intergalVal || 0,
       intergalArr: state => state.intergal.intergalArr || [],
-      page: state => state.intergal.page || 1
+      page: state => state.intergal.page || 1,
+      intergal: state => state.intergal || false,
+      finished: state => state.intergal.finished || false
     })
   },
   components: {
