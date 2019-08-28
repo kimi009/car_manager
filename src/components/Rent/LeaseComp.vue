@@ -46,7 +46,6 @@ export default {
 <style lang="less" scoped>
 @import url("~@/styles/rentCommon");
 .lease-comp {
-  margin-top: 10px;
   padding: 15px 15px 20px 15px;
   background-color: #ffffff;
   border-radius: 3px;

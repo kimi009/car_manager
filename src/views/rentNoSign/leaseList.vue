@@ -10,17 +10,37 @@
         <img src="@/assets/image/rent/arrow-right.png" />
       </span>
     </div>
-    <lease-comp v-for="item in leaseDatas"
-                :key="item.id"
-                :rowItem="item" />
+    <div v-if="isIndex">
+      <lease-comp style="margin-top:10px;"
+                  v-for="item in leaseDatas"
+                  :key="item.id"
+                  :rowItem="item" />
+    </div>
+    <div v-else>
+      <van-list v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad">
+        <van-cell style="margin-top:10px;"
+                  v-for="item in leaseDatas"
+                  :key="item.id">
+          <lease-comp :rowItem="item" />
+        </van-cell>
+      </van-list>
+    </div>
   </div>
 </template>
 <script>
+import { List, Cell } from 'vant'
 import { mapState } from 'vuex'
 import LeaseComp from '@/components/Rent/LeaseComp'
 export default {
   name: 'leaseList',
-  components: { LeaseComp },
+  components: {
+    [List.name]: List,
+    [Cell.name]: Cell,
+    LeaseComp
+  },
   props: {
     isIndex: {
       type: Boolean,
@@ -29,6 +49,10 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      finished: false,
+      currentPageIndex: 1,
+      pageSize: 10,
       datas: []
     }
   },
@@ -52,12 +76,26 @@ export default {
       }
     }
   },
+  watch: {
+    myLeases: function (newVal, oldVal) {
+      this.loading = false
+      if (newVal.length === oldVal.length) {
+        this.finished = true
+      }
+    }
+  },
   created() {
     if (this.myLeases.length <= 0) {
-      this.$store.dispatch('initMyLeaseList', { size: 10, current: 1 })
+      this.onLoad(true)
     }
   },
   methods: {
+    onLoad(isFirst) {
+      if (!isFirst) {
+        this.currentPageIndex += 1
+      }
+      this.$store.dispatch('initMyLeaseList', { size: this.pageSize, current: this.currentPageIndex })
+    },
     more() {
       this.$router.push({ path: '/lease/list' })
     }
