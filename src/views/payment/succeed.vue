@@ -34,7 +34,11 @@ export default {
   },
   methods: {
     back() {
-      this.$router.go(-4)
+      if (this.paySuccess) {
+        this.$router.go(-3)
+      } else {
+        this.$router.go(-2)
+      }
     }
   }
 }
