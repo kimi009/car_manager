@@ -92,7 +92,8 @@
       <van-cell class="group"
                 title="我的订单"
                 :icon="icon_list.order"
-                is-link />
+                is-link
+                to="/order"/>
       <van-cell class="group"
                 title="我的发票"
                 :icon="icon_list.invoice"

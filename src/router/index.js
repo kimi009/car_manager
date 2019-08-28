@@ -183,7 +183,13 @@ const router = new Router({
     },
     {
       path: '/integral',
+      meta: { showTab: false, requiresAuth: true },
       component: () => import('@/views/integral')
+    },
+    {
+      path: '/order',
+      meta: { showTab: false, requiresAuth: true },
+      component: () => import('@/views/order')
     }
   ]
 })

@@ -2,7 +2,7 @@
   <div>
     <div class="intergal-rt">
       <span>积分</span>
-      <span>{{intergaled}}</span>
+      <span>{{intergalVal}}</span>
     </div>
     <div class="intergal-info" @click="tips()">积分说明</div>
     <div class="icon-box">
@@ -13,40 +13,41 @@
       <span>积分明细</span>
     </div>
     <ul class="intergal-ul">
+      <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="getInetrgalList"
+          :offset="offset"
+      >
       <li v-for="(item,index) in intergalArr" :key="index">
-        <div class="title">{{item.title}}</div>
+        <div class="title">{{item.tradeSubject}}</div>
         <div class="detail">
-          <span>余额：{{item.balance}}</span>
-          <span>{{item.date}}</span>
+          <span>余额：{{item.endBalance}}</span>
+          <span>{{formatTime(parseInt(item.tradeDatetime),'Y-M-D')}}</span>
         </div>
         <div
           class="right-nub"
-        >{{parseInt(item.number)>0?'+'+parseInt(item.number):'-'+parseInt(item.number)}}</div>
+        >{{parseInt(item.amount)>0?'+'+parseInt(item.amount):'-'+parseInt(item.amount)}}</div>
       </li>
+      </van-list>
     </ul>
   </div>
 </template>
 <script>
-import { Dialog } from 'vant'
+import { Dialog, List } from 'vant'
+import { mapState } from 'vuex'
+import Vue from 'vue'
+Vue.use(List)
 export default {
   name: 'intergal',
   data() {
     return {
-      intergal: '1000',
-      intergalArr: [
-        {
-          title: '在线支付',
-          balance: '1387878',
-          date: '2019-03-08',
-          number: 120
-        },
-        {
-          title: '转账',
-          balance: '9821',
-          date: '2019-03-08',
-          number: 89
-        }
-      ]
+      count: 8,
+      loading: false,
+      finished: false,
+      offset: 40,
+      total: 100
     }
   },
   methods: {
@@ -56,13 +57,64 @@ export default {
       }).then(() => {
         // on close
       })
+    },
+    async getIntergalInfo() {
+      this.$store.dispatch('initIntergalInfo', { userId: this.userInfo.userId })
+    },
+    async getInetrgalList() {
+      if (!this.userInfo.userId) return
+      let that = this
+      let data = {
+        userId: this.userInfo.userId,
+        page: this.page,
+        limit: this.count,
+        scoreType: ''
+      }
+      this.$store.dispatch('initIntergalLiist', {data,
+       cb(res) {
+        that.loading = false
+        that.total = res.count
+        if ((that.page - 1) * that.count >= that.total) {
+          that.finished = true
+        }
+      }
+      })
+    },
+    formatNumber(n) {
+      n = n.toString()
+      return n[1] ? n : '0' + n
+    },
+    formatTime(number, format) {
+      let time = new Date(number)
+      let newArr = []
+      let formatArr = ['Y', 'M', 'D', 'h', 'm', 's']
+      newArr.push(time.getFullYear())
+      newArr.push(this.formatNumber(time.getMonth() + 1))
+      newArr.push(this.formatNumber(time.getDate()))
+
+      newArr.push(this.formatNumber(time.getHours()))
+      newArr.push(this.formatNumber(time.getMinutes()))
+      newArr.push(this.formatNumber(time.getSeconds()))
+
+      for (let i in newArr) {
+        format = format.replace(formatArr[i], newArr[i])
+      }
+      return format
+    }
+  },
+  watch: {
+    userInfo() {
+      this.getIntergalInfo()
+      this.getInetrgalList()
     }
   },
   computed: {
-    intergaled() {
-      var reg = /\d{1,3}(?=(\d{3})+$)/g
-      return (this.intergal + '').replace(reg, '$&,')
-    }
+    ...mapState({
+      userInfo: state => state.user.userInfo || {},
+      intergalVal: state => state.intergal.intergalVal || 0,
+      intergalArr: state => state.intergal.intergalArr || [],
+      page: state => state.intergal.page || 1
+    })
   },
   components: {
     [Dialog.Component.name]: Dialog.Component
@@ -89,12 +141,12 @@ export default {
     }
   }
 }
-.intergal-info{
-    position: absolute;
-    top: 13px;
-    right: 14px;
-    font-size: 15px;
-    color: #333333;
+.intergal-info {
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  font-size: 15px;
+  color: #333333;
 }
 .icon-box {
   img {
