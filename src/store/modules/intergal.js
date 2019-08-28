@@ -27,7 +27,7 @@ const intergal = {
     },
     async initIntergalLiist({ commit, state }, params) {
       console.log(state.loading)
-      if (state.intergalArr.length >= state.count ) {
+      if (state.intergalArr.length >= state.count) {
         state.loading = false
         state.finished = true
         return false
