@@ -295,8 +295,9 @@ export default {
       // margin: 6px 0 2px 0;
       flex-grow: 1;
       height: 0;
+      margin-bottom: 5px;
       img{
-        height: 24px;
+        height: 22px;
       }
     }
     .text {
