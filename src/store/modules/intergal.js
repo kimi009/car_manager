@@ -4,7 +4,10 @@ const intergal = {
   state: {
     intergalVal: '000',
     intergalArr: [],
-    page: 1
+    page: 1,
+    count: 100,
+    loading: false,
+    finished: false
   },
   mutations: {
     INIT_INTERGAL_INFO: (state, params) => {
@@ -23,11 +26,21 @@ const intergal = {
       }
     },
     async initIntergalLiist({ commit, state }, params) {
-      let res = await Vue.prototype.$api.intergalList(params.data)
+      console.log(state.loading)
+      if (state.intergalArr.length >= state.count ) {
+        state.loading = false
+        state.finished = true
+        return false
+      }
+      let res = await Vue.prototype.$api.intergalList(params)
       if (res.code === 1 && res.data.length > 0) {
         commit('INIT_INTERGAL_LIST', res.data)
         state.page++
-        typeof params.cb === 'function' && params.cb(res)
+        state.count = res.count
+        state.loading = false
+        if (state.intergalArr.length >= state.count) {
+          state.finished = true
+        }
       }
     }
   }
