@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted() {
-    console.log('V1.0.1')
+    console.log('V1.0.2')
     // this.$api.logout()
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))
