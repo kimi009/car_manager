@@ -15,13 +15,13 @@ const userLease = {
   },
   actions: {
     async initleaseList({ commit, state }, params) {
-      if (state.leaseList.length >= state.count ) {
+      if (state.leaseList.length >= state.count) {
         state.loading = false
         state.finished = true
         return false
       }
       let res = await Vue.prototype.$api.initUserleaseList(params)
-      if (res.code === 0 && res.data.length > 0) {
+      if (res.code === 1 && res.data.length > 0) {
         commit('INIT_LEASE_LIST', res.data)
         state.page++
         state.count = res.count
@@ -29,6 +29,9 @@ const userLease = {
         if (state.leaseList.length >= state.count) {
           state.finished = true
         }
+      }else{
+        state.loading = false
+        state.finished = true
       }
     }
   }

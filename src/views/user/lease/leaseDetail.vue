@@ -58,7 +58,7 @@ export default {
        let res = await this.$api.initUserleaseDetailList({
         rentId: this.$route.query.rentId,
       })
-      if (res.code === 200 && Object.keys(res.data).length > 0) {
+      if (res.code === 1 && Object.keys(res.data).length > 0) {
         this.leaseDetailList = res.data
       }
     }

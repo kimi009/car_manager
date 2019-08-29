@@ -64,15 +64,15 @@ export default {
   },
   methods: {
     initList() {
-      this.$store.dispatch("initleaseList", {
+      this.$store.dispatch('initleaseList', {
         size: this.size,
         current: this.page
-      });
+      })
     }
   },
   created() {
-    if (this.leaseList.length > 0) return;
-    this.initList();
+    if (this.leaseList.length > 0) return
+    this.initList()
   },
   computed: {
     ...mapState({

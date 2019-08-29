@@ -191,6 +191,8 @@ export default {
       this.$router.push({ path: '/integral' })
     },
     async addIntergal(){
+      console.log(this.userInfo) 
+      return
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
       console.log(res)
     }
