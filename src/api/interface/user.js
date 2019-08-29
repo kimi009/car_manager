@@ -85,9 +85,9 @@ export const intergalList = data => {
 }
 export const addIntergal = data => {
   return axios({
-    url: '/api/app/score/give',
+    url: '/api/app/score/give?userId='+data.userId,
     method: 'get',
-    data,
+    // data,
     noShowLoading: true
   })
 }

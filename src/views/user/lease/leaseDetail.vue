@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { Row, Col, Button, Toast, List } from 'vant'
+import { Row, Col, Button, Toast, List } from "vant";
 export default {
   name: 'leaseDetail',
 
@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     async initList() {
-      let res = await this.$api.initUserleaseDetailList({
-        rentId: this.$route.query.rentId
+       let res = await this.$api.initUserleaseDetailList({
+        rentId: this.$route.query.rentId,
       })
       if (res.code === 200 && Object.keys(res.data).length > 0) {
         this.leaseDetailList = res.data
@@ -64,12 +64,12 @@ export default {
     }
   },
   created() {
-    this.initList()
+    this.initList();
   },
   data () {
     return {
-      rentId: '',
-      leaseDetailList: []
+      rentId:'',
+      leaseDetailList:[]
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div class="login">
-    <div class="title">欢迎使用惠用车</div>
+    <!-- <div class="title">欢迎使用惠用车</div> -->
+    <div class="title"><img src="@/assets/image/common/logo.png" alt=""></div>
     <div class="mobile">
       <van-row type="flex">
         <van-col span="4" tag="span">+86</van-col>
@@ -200,6 +201,9 @@ export default {
     font-size:26px;
     margin: 49px auto 45px auto;
     color: #333;
+    img{
+      width:183px;
+    }
   }
   .mobile, .code{
     .wh-l(320px, 36px);

@@ -187,7 +187,10 @@ export default {
     },
     async addIntergal() {
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
-      console.log(res)
+      Toast({
+        message: res.message,
+        position: 'bottom'
+      })
     }
   }
 }
