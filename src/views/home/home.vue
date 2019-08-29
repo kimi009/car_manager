@@ -6,6 +6,9 @@
     <!-- <transition :name="$transition" mode="in-out">
         <router-view/>
     </transition> -->
+    <div class="status item" v-if="!isSign">
+      <p>该页面数据仅为体验展示，非真实数据</p>
+    </div>
     <div class="car-info">
       <div class="left">
         <p class="car-num">
@@ -123,7 +126,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { Button, Toast } from 'vant'
+import { Button, Toast, Dialog } from 'vant'
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 import psbInvoice from '@/mixins/psbInvoice'
 import { lStorage } from '@/utils/storage.js'
@@ -178,7 +181,8 @@ export default {
     }
   },
   components: {
-    [Button.name]: Button
+    [Button.name]: Button,
+    [Dialog.name]: Dialog
   },
   created() {
     this.initData()
@@ -286,6 +290,15 @@ export default {
       }
     },
     itemClickHandler(item) {
+      if (!this.isSign) {
+        Dialog.confirm({
+          title: '提示',
+          message: '请先完成签约后解锁所有功能'
+        }).then(() => {
+          this.$router.push('/sign')
+        }).catch(() => {})
+        return false
+      }
       switch (item.id) {
         case 1:
           this.$router.push({ path: '/stationList' })
@@ -336,6 +349,18 @@ export default {
   background-color: #fff;
   padding: 12px 15px 50px 15px;
   overflow: auto;
+  > .status {
+    padding: 7px 0px 6px 0px;
+    background-color: #f5f5f5;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px dotted #e10900;
+    margin-bottom: 10px;
+    > p {
+      font-size: 14px;
+      color: #808080;
+    }
+  }
   .car-info {
     background: linear-gradient(
       -90deg,
