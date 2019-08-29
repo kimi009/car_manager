@@ -1,4 +1,6 @@
 <template>
+<div>
+
   <div class="personal">
     <div class="container">
       <van-row type="flex" class="avatar">
@@ -48,10 +50,12 @@
       </van-row>
       <div class="van-hairline--bottom"></div>
       <van-row type="flex" class="item">
-        <van-col span="12">开票信息维护</van-col>
-        <van-col span="12">
-          <span>详细信息</span>
-          <img class="arrow-right" src="../../../assets/image/common/arrow-right.png" alt="">
+        <van-col span="12" >开票信息维护</van-col>
+        <van-col span="12" >
+          <div @click="$router.push('/user/personal/invoice')" style="text-align:right">
+            <span>详细信息</span>
+            <img class="arrow-right" src="../../../assets/image/common/arrow-right.png" alt="">
+          </div>
         </van-col>
       </van-row>
     </div>
@@ -59,6 +63,10 @@
     <div class="button">
       <van-button type="default" size="large" @click="logout">退出登录</van-button>
     </div>
+</div>
+    <transition :name="$transition" mode="in-out">
+          <router-view/>
+      </transition>
   </div>
 </template>
 
@@ -95,7 +103,7 @@ export default {
       this.$store.dispatch('logout').then(() => {
         this.$router.push('/login')
       })
-    }
+    },
   }
 }
 </script>

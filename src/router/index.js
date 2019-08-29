@@ -46,7 +46,21 @@ const router = new Router({
             {
               path: 'personal',
               meta: { requiresAuth: true },
-              component: () => import('@/views/user/personal/personal')
+              component: () => import('@/views/user/personal/personal'),
+              children: [
+                {
+                  path:'invoice',
+                  meta: { requiresAuth: true },
+                  component: () => import('@/views/user/personal/invoice'),
+                  children: [
+                    {
+                      path:'addinvoice',
+                      meta: { requiresAuth: true },
+                      component: () => import('@/views/user/personal/addinvoice'),
+                    }
+                  ]
+                }
+              ]
             },
             {
               path: 'bankCard',
