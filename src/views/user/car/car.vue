@@ -2,24 +2,10 @@
   <div class="car">
     <div class="container">
       <ul class="car-list">
-        <li @click="itemHandle">
-          <span>车牌号:粤ACD123</span>
-          <strong>
-            <em>车辆状态：正常</em>
-            <em>出租状态：出租中</em>
-          </strong>
-          <img class="arrow-right" src="../../../assets/image/common/arrow-right.png" alt="">
-        </li>
-        <li>
-          <span>车牌号:粤ACD123</span>
-          <strong>
-            <em>车辆状态：正常</em>
-            <em>出租状态：出租中</em>
-          </strong>
-          <img class="arrow-right" src="../../../assets/image/common/arrow-right.png" alt="">
-        </li>
-        <li>
-          <span>车牌号:粤ACD123</span>
+        <li @click="itemHandle(item)"
+            v-for="(item, index) in carList"
+            :key="index">
+          <span>车牌号:{{item.licensePlate}}</span>
           <strong>
             <em>车辆状态：正常</em>
             <em>出租状态：出租中</em>
@@ -48,12 +34,25 @@ export default {
   },
 
   data () {
-    return {}
+    return {
+      carList: []
+    }
+  },
+
+  created () {
+    if (this.carList.length === 0) {
+      this.$api.getCarList().then(res => {
+        this.carList = res.data
+      })
+    }
   },
 
   methods: {
-    itemHandle () {
-      this.$router.push('/user/car/detail')
+    itemHandle (item) {
+      this.$router.push({
+        path: '/user/car/detail',
+        query: {carId: item.carId}
+      })
     }
   }
 }

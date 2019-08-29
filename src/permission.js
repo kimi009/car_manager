@@ -12,6 +12,7 @@ function popstateHandle () {
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log('store.state.user.isLogin', store.state.user.isLogin)
     if (!store.state.user.isLogin) {
       console.log(to.path)
       // 检测是否登录

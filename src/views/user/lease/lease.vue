@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import { Row, Col, Button, Toast, List } from "vant";
-import { mapState } from "vuex";
+import { Row, Col, Button, Toast, List } from 'vant'
+import { mapState } from 'vuex'
 export default {
-  name: "lease",
+  name: 'lease',
   components: {
     [Row.name]: Row,
     [Col.name]: Col,
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       size: 6
-    };
+    }
   },
   methods: {
     initList() {
@@ -82,7 +82,7 @@ export default {
       finished: state => state.userLease.finished || false
     })
   }
-};
+}
 </script>
 
 <style scoped lang="less">

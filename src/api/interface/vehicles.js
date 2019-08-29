@@ -27,6 +27,15 @@ export const vehicleLicense = data => {
   })
 }
 
+// 修改车辆信息
+export const vehicleUpdate = data => {
+  return axios({
+    url: '/api/app/car/permit/update',
+    method: 'post',
+    data
+  })
+}
+
 // 查询最新租约车辆收益
 export const queryNewIncome = data => {
   return axios({
@@ -39,5 +48,6 @@ export default {
   getVehicleInfo,
   getCarList,
   vehicleLicense,
+  vehicleUpdate,
   queryNewIncome
 }

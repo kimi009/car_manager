@@ -60,7 +60,7 @@ export default {
       })
     },
     async getIntergalInfo() {
-      if(this.intergalValString) return
+      if (this.intergalValString) return
       this.$store.dispatch('initIntergalInfo', { userId: this.userInfo.userId })
     },
     async getInetrgalList() {

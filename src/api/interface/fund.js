@@ -45,10 +45,20 @@ export const queryOilBalance = data => {
   })
 }
 
+// 查询我的银行卡
+export const queryMyBankCard = data => {
+  return axios({
+    url: '/api/app/bank/queryMyBankCard',
+    method: 'post',
+    data
+  })
+}
+
 export default {
   queryBalance,
   queryBalanceConsumeByPage,
   queryBalanceIncomeByPage,
   createWithdraw,
-  queryOilBalance
+  queryOilBalance,
+  queryMyBankCard
 }

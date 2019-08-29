@@ -55,6 +55,10 @@
         </van-col>
       </van-row>
     </div>
+
+    <div class="button">
+      <van-button type="default" size="large" @click="logout">退出登录</van-button>
+    </div>
   </div>
 </template>
 
@@ -83,6 +87,14 @@ export default {
 
     headPath () {
       return this.userInfo.headPath ? this.userInfo.headPath : require('../../../assets/image/user/head.png')
+    }
+  },
+
+  methods: {
+    logout () {
+      this.$store.dispatch('logout').then(() => {
+        this.$router.push('/login')
+      })
     }
   }
 }
@@ -160,6 +172,10 @@ export default {
         }
       }
     }
+  }
+  .button{
+    .wh(345px, 44px);
+    margin: 28px auto 0 auto;
   }
 }
 </style>

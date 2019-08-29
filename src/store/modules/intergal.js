@@ -46,6 +46,9 @@ const intergal = {
         if (state.intergalArr.length >= state.count) {
           state.finished = true
         }
+      }else{
+        state.finished = true
+        state.loading = false
       }
     }
   }

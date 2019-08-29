@@ -164,8 +164,8 @@ export default {
       return this.userInfo.headPath ? this.userInfo.headPath : require('../../assets/image/user/head.png')
     }
   },
-  watch:{
-    userInfo(){
+  watch: {
+    userInfo() {
       this.$store.dispatch('initIntergalInfo', { userId: this.userInfo.userId })
     }
   },
@@ -190,11 +190,12 @@ export default {
       // console.log(111)
       this.$router.push({ path: '/integral' })
     },
-    async addIntergal(){
-      console.log(this.userInfo) 
-      return
+    async addIntergal() {
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
-      console.log(res)
+      Toast({
+        message: res.message,
+        position: 'bottom'
+      })
     }
   }
 }
@@ -288,7 +289,6 @@ export default {
       height: 100%;
       display: flex;
       flex-direction: column;
-      padding-top: 6px;
       &:after {
         content: "";
         width: 200%;
