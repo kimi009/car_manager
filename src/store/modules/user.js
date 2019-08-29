@@ -52,7 +52,7 @@ const user = {
           .then(res => {
             console.log(res)
             commit('SET_LOGIN_STATE', res.data.isLogin)
-            commit('SET_USER_INFO', res.data)
+            // commit('SET_USER_INFO', res.data)
             // 用户操作数据
             commit('SET_USER_ADMIN_INFO', res.data)
 
@@ -89,6 +89,8 @@ const user = {
       lStorage.removeItem(lStorage.VEHICLE_INFO)
       // 清除用户ID
       lStorage.removeItem(lStorage.USER_ID)
+      // 清除签约信息
+      lStorage.removeItem(lStorage.IS_SIGN)
 
       return new Promise((resolve, reject) => {
         Vue.prototype.$api

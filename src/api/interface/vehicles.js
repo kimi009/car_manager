@@ -23,7 +23,8 @@ export const vehicleLicense = data => {
   return axios({
     url: '/api/app/car/permit/submit',
     method: 'post',
-    data
+    data,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   })
 }
 

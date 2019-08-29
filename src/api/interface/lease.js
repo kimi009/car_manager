@@ -23,7 +23,8 @@ export const confirmLeaseInfo = data => {
   return axios({
     url: '/api/app/rent/confirm',
     method: 'post',
-    data
+    data,
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
   })
 }
 

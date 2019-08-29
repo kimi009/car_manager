@@ -96,6 +96,7 @@ class LocalStorage extends Store {
   }
   USER_ID = 'USER_ID' // 用户ID
   VEHICLE_INFO = 'VEHICLE_INFO' // 车辆信息
+  IS_SIGN = 'IS_SIGN'
 }
 
 class SessionStorage extends Store {

@@ -50,7 +50,7 @@
 <script>
 import { Button, Row, Col, Dialog } from 'vant'
 // import { diff } from '@/utils/index.js'
-// import { lStorage } from '@/utils/storage.js'
+import { lStorage } from '@/utils/storage.js'
 export default {
   components: {
     [Button.name]: Button,
@@ -81,7 +81,7 @@ export default {
       if (Object.keys(this.info).length === 0) {
         let res = await this.$api.getCarList()
         let res2 = await this.$api.getVehicleInfo({
-          carId: res.data[0].carId
+          carId: res.data && res.data[0].carId
         })
         if (res2.success) {
           this.info = res2.data
@@ -91,6 +91,10 @@ export default {
 
     checkHandle () {
       this.$emit('activeHandle', 3)
+      lStorage.setItem(lStorage.VEHICLE_INFO, JSON.stringify({
+        operate: true,
+        message: this.info
+      }))
     },
 
     errorHandle () {

@@ -18,12 +18,12 @@ const router = new Router({
       children: [
         {
           path: '/home',
-          meta: { showTab: true, requiresAuth: true },
+          meta: { showTab: true, requiresAuth: true, experienceMode: true },
           component: () => import('@/views/home/home')
         },
         {
           path: '/vehicles',
-          meta: { showTab: true, requiresAuth: true },
+          meta: { showTab: true, requiresAuth: true, experienceMode: true },
           component: () => import('@/views/vehicles/vehicles')
         },
         {
@@ -91,27 +91,27 @@ const router = new Router({
         },
         {
           path: '/sign',
-          meta: { showTab: true, requiresAuth: true },
+          meta: { showTab: true, requiresAuth: true, experienceMode: true },
           component: () => import('@/views/signContract/index'),
           children: [
             {
               path: 'process',
-              meta: { showTab: true, requiresAuth: true, keepAlive: true },
+              meta: { showTab: true, requiresAuth: true, experienceMode: true, keepAlive: true },
               component: () => import('@/views/signContract/signProcess')
             },
             {
               path: 'failed',
-              meta: { showTab: true, requiresAuth: true },
+              meta: { showTab: true, requiresAuth: true, experienceMode: true },
               component: () => import('@/views/signContract/auditFailed')
             },
             {
               path: 'submitted',
-              meta: { showTab: true, requiresAuth: true },
+              meta: { showTab: true, requiresAuth: true, experienceMode: true },
               component: () => import('@/views/signContract/leaseSubmitted')
             },
             {
               path: 'certificate',
-              meta: { showTab: true, requiresAuth: true },
+              meta: { showTab: true, requiresAuth: true, experienceMode: true },
               component: () =>
                 import('@/views/signContract/certificate/certificate')
             }
@@ -133,11 +133,12 @@ const router = new Router({
     },
     {
       path: '/login',
+      meta: { experienceMode: true },
       component: () => import('@/views/login/login')
     },
     {
       path: '/guide',
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, experienceMode: true },
       component: () => import('@/views/guide/guide')
     },
     {

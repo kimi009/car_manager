@@ -1,6 +1,6 @@
 <template>
   <div class="vehicles">
-    <div class="status item">
+    <div class="status item" v-if="!isSign">
       <p>该页面数据仅为体验展示，非真实数据</p>
     </div>
     <div class="tips item">
@@ -167,10 +167,17 @@
 </template>
 
 <script>
+import { lStorage } from '@/utils/storage.js'
 export default {
   name: 'vehicles',
   data() {
     return {}
+  },
+
+  computed: {
+    isSign () {
+      return lStorage.getItem(lStorage.IS_SIGN) === 'true' || false
+    }
   }
 }
 </script>

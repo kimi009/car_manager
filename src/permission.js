@@ -2,6 +2,8 @@ import Vue from 'vue'
 import router from './router'
 import History from './router/history'
 import store from './store'
+import { lStorage } from '@/utils/storage.js'
+import { Dialog } from 'vant'
 
 function popstateHandle () {
   // console.log('监听了返回键')
@@ -10,32 +12,59 @@ function popstateHandle () {
   if (el) el.setAttribute('transition-direction', 'back')
 }
 
+// 获取用户信息
+function getUserInfo (to, next) {
+  store.dispatch('getInfo').then(res => {
+    lStorage.setItem(lStorage.IS_SIGN, res.data.isSign)
+    experienceMode(to, next)
+  })
+}
+
+// 体验者模式
+function experienceMode (to, next) {
+  let isSign = lStorage.getItem(lStorage.IS_SIGN) || false
+  console.log('isSign', isSign)
+  console.log('experienceMode', !!to.meta.experienceMode)
+  if (!!to.meta.experienceMode || isSign === 'true') {
+    next()
+  } else {
+    Dialog.confirm({
+      title: '提示',
+      message: '请先完成签约后解锁所有功能'
+    }).then(() => {
+      next({path: `/guide?redirect=${to.path}`, replace: true})
+    }).catch(() => {})
+  }
+}
+
 router.beforeEach((to, from, next) => {
+  // console.log('store.state.user.isLogin', to)
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log('store.state.user.isLogin', store.state.user.isLogin)
     if (!store.state.user.isLogin) {
       console.log(to.path)
       // 检测是否登录
       store.dispatch('isLogin').then(res => {
         if (res.data.isLogin) {
-          // 获取用户信息
+          // 获取用户信息、判断体验者模式
           if (!store.state.user.userInfo) {
-            store.dispatch('getInfo')
+            getUserInfo(to, next)
+          } else {
+            experienceMode(to, next)
           }
-          next()
         } else {
           next({path: `/login?redirect=${to.path}`, replace: true})
         }
       })
     } else {
-      // 获取用户信息
+      // 获取用户信息、判断体验者模式
       if (!store.state.user.userInfo) {
-        store.dispatch('getInfo')
+        getUserInfo(to, next)
+      } else {
+        experienceMode(to, next)
       }
-      next()
     }
   } else {
-    next()
+    experienceMode(to, next)
   }
 
   // 路由跳转动画

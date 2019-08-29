@@ -164,11 +164,6 @@ export default {
       return this.userInfo.headPath ? this.userInfo.headPath : require('../../assets/image/user/head.png')
     }
   },
-  watch: {
-    userInfo() {
-      this.$store.dispatch('initIntergalInfo', { userId: this.userInfo.userId })
-    }
-  },
   mounted () {
     // 获取账户余额
     if (!this.availableBalance) {

@@ -11,11 +11,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://rap2api.taobao.org/app/mock/222062',
+        // target: 'http://rap2api.taobao.org/app/mock/222062',
         // target: 'https://yfb.jchl.com/backend',
         // target: 'http://47.107.84.151:8088/backend',
         // target: 'http://39.108.200.59:10080/backend/',
-        // target: 'http://hyc.jchl.com/backend/',
+        target: 'http://hyc.jchl.com/backend/',
         // target: 'http://10.10.24.241:8088/backend', // 本地
         changeOrigin: true
       },
