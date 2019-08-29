@@ -39,7 +39,7 @@
                alt="">
         </van-row>
         <van-row class="text">帐户余额(元）</van-row>
-        <van-row class="num">{{availableBalance}}</van-row>
+        <van-row class="num">{{availableBalance || 0}}</van-row>
         <van-row class="cash-button">
           <div @click="$router.push('/user/account')">提现</div>
         </van-row>
@@ -52,9 +52,9 @@
                alt="">
         </van-row>
         <van-row class="text">油费余额(元）</van-row>
-        <van-row class="num">{{oilBalance}}</van-row>
+        <van-row class="num">{{oilBalance || 0}}</van-row>
         <van-row class="cash-button">
-          <!-- <div @click="$router.push('/user/account')">购买</div> -->
+          <div @click="$router.push('/user/account')">查看</div>
         </van-row>
       </van-col>
       <van-col span="8"

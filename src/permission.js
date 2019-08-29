@@ -23,8 +23,6 @@ function getUserInfo (to, next) {
 // 体验者模式
 function experienceMode (to, next) {
   let isSign = lStorage.getItem(lStorage.IS_SIGN) || false
-  console.log('isSign', isSign)
-  console.log('experienceMode', !!to.meta.experienceMode)
   if (!!to.meta.experienceMode || isSign === 'true') {
     next()
   } else {
@@ -32,7 +30,7 @@ function experienceMode (to, next) {
       title: '提示',
       message: '请先完成签约后解锁所有功能'
     }).then(() => {
-      next({path: `/guide?redirect=${to.path}`, replace: true})
+      next({path: `/sign?redirect=${to.path}`, replace: true})
     }).catch(() => {})
   }
 }
