@@ -107,7 +107,7 @@ export default function $axios(options) {
         switch (res.code) {
           case '0':
             Toast({
-              message: '请求失败',
+              message: res.message,
               position: 'bottom'
             })
             return Promise.reject(res.message || 'Error')

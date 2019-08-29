@@ -164,11 +164,6 @@ export default {
       return this.userInfo.headPath ? this.userInfo.headPath : require('../../assets/image/user/head.png')
     }
   },
-  watch: {
-    userInfo() {
-      this.$store.dispatch('initIntergalInfo', { userId: this.userInfo.userId })
-    }
-  },
   mounted () {
     // 获取账户余额
     if (!this.availableBalance) {
@@ -307,7 +302,9 @@ export default {
       // margin: 6px 0 2px 0;
       flex-grow: 1;
       height: 0;
-      margin-bottom: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       img{
         height: 22px;
       }
@@ -317,6 +314,9 @@ export default {
       height: 0;
       font-size: 12px;
       color: #878787;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       // margin-bottom: 14px;
     }
     .num {
@@ -324,11 +324,17 @@ export default {
       height: 0;
       font-size: 16px;
       color: #333333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       // margin-bottom: 15px;
     }
     .cash-button {
       flex-grow: 1;
       height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       div {
         .wh-l(65px, 23px);
         border: 1px solid rgba(226, 125, 52, 1);

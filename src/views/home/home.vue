@@ -13,7 +13,7 @@
                alt="">
           <span>{{vehicleInfo.cph}}</span>
         </p>
-        <div class="rent">
+        <div class="rent" v-if="isSign">
           <p>本月租金（元）</p>
           <p class="money">
             <span>{{vehicleInfo.income || 0}}</span>
@@ -21,10 +21,13 @@
                @click="viewRent">查看租金</a>
           </p>
         </div>
-        <p class="break">
+        <p class="break" v-if="isSign">
           <span>本月违章</span>
           <span>无</span>
         </p>
+        <div class="noSign" v-if="!isSign" @click="$router.push('/guide')">
+          点击开启尊贵的租车之旅！
+        </div>
       </div>
       <div class="right">
         <p class="location">
@@ -123,6 +126,7 @@ import { mapState, mapMutations } from 'vuex'
 import { Button, Toast } from 'vant'
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE } from './thirdLink.js'
 import psbInvoice from '@/mixins/psbInvoice'
+import { lStorage } from '@/utils/storage.js'
 export default {
   name: 'home',
   mixins: [psbInvoice],
@@ -186,7 +190,11 @@ export default {
       userInfo: state => state.user.userInfo || {},
       vehicleInfo: state => state.vehicles.vehicleInfo || {},
       limitRowCity: state => state.cityInfo.limitRowCity
-    })
+    }),
+
+    isSign () {
+      return lStorage.getItem(lStorage.IS_SIGN) === 'true' || false
+    }
   },
   watch: {
     cityInfo: function () {
@@ -383,6 +391,16 @@ export default {
             margin-left: 20px;
           }
         }
+      }
+      .noSign{
+        .wh(110px, 50px);
+        padding: 0 5px;
+        margin-top: 10px;
+        border: 1px solid rgba(255, 255, 255, 1);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
     > .right {

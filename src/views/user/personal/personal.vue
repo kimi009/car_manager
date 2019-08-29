@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { Row, Col, Button, Toast, Image } from 'vant'
+import { Row, Col, Button, Toast, Image, Dialog } from 'vant'
 import { mapGetters } from 'vuex'
 export default {
   name: 'personal',
@@ -81,7 +81,8 @@ export default {
     [Col.name]: Col,
     [Button.name]: Button,
     [Toast.name]: Toast,
-    [Image.name]: Image
+    [Image.name]: Image,
+    [Dialog.name]: Dialog
   },
 
   data () {
@@ -100,10 +101,15 @@ export default {
 
   methods: {
     logout () {
-      this.$store.dispatch('logout').then(() => {
-        this.$router.push('/login')
-      })
-    },
+      Dialog.confirm({
+        title: '提示',
+        message: '是否确认退出登录？'
+      }).then(() => {
+        this.$store.dispatch('logout').then(() => {
+          this.$router.push('/login')
+        })
+      }).catch(() => {})
+    }
   }
 }
 </script>

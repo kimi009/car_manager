@@ -34,6 +34,7 @@ import vehicleLicense from './signProcess/vehicleLicense'
 import identityCard from './signProcess/identityCard'
 import vehicleInfo from './signProcess/vehicleInfo'
 import leaseInfo from './signProcess/leaseInfo'
+import { lStorage } from '@/utils/storage.js'
 export default {
   name: 'signProcess',
 
@@ -55,13 +56,38 @@ export default {
     }
   },
 
-  created () {
-    console.log(111)
+  activated () {
+    this.initProcess()
   },
 
   methods: {
     activeHandle (i) {
       this.active = i
+    },
+
+    async initProcess () {
+      // 查询身份证是否验证通过
+      let res = await this.$api.verifyId()
+      if (res.success) {
+        if (res.data.verify) {
+          this.active = 1
+        }
+      }
+
+      let res2 = await this.$api.carRentalState()
+      if (res2.success) {
+        if (res2.data.permit) {
+          this.active = 2
+        }
+        let info = JSON.parse(lStorage.getItem(lStorage.VEHICLE_INFO)) || false
+        if (info) {
+          this.active = 3
+        }
+        if (res2.data.lease) {
+          this.active = 3
+          this.$router.replace('/sign/submitted')
+        }
+      }
     }
   }
 }
