@@ -52,7 +52,7 @@
       <van-row type="flex" class="item">
         <van-col span="12" >开票信息维护</van-col>
         <van-col span="12" >
-          <div @click="$router.push('/user/personal/invoice')" style="text-align:right">
+          <div style="text-align:right">
             <span>详细信息</span>
             <img class="arrow-right" src="../../../assets/image/common/arrow-right.png" alt="">
           </div>

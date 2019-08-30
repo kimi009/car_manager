@@ -6,7 +6,7 @@
         <img class="title" src="../../assets/image/signContract/dialogBox.png" alt="">
         <div class="text">
           <span>尊敬的金小财：</span>
-          <strong>恭喜您！您是我们平台尊贵的受邀客户，您可将车辆租予惠用车平台，您可以按月获得丰厚租金收益，并且可以享受到惠用车平台的诸多用车优</strong>
+          <strong>恭喜您！您是我们平台尊贵的受邀客户，您可将车辆租予惠用车平台，您可以按月获得丰厚租金收益!</strong>
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@ export default {
         strong{
           height: calc(100% - 37px);
           display: block;
-          padding-top: 12px;
+          padding-top: 20px;
           text-align: left;
           text-indent:25px;
           color: #FF7426;

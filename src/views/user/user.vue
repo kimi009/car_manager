@@ -54,7 +54,7 @@
         <van-row class="text">油费余额(元）</van-row>
         <van-row class="num">{{oilBalance || 0}}</van-row>
         <van-row class="cash-button">
-          <div @click="$router.push('/user/account')">查看</div>
+          <div>查看</div>
         </van-row>
       </van-col>
       <van-col span="8"
