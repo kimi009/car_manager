@@ -155,9 +155,10 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userInfo', 'availableBalance', 'oilBalance', 'myIncomeData'
+      'availableBalance', 'oilBalance', 'myIncomeData'
     ]),
     ...mapState({
+      userInfo: state => state.user.userInfo || {},
       intergalVal: state => state.intergal.intergalVal || '0'
     }),
     headPath () {
@@ -177,8 +178,10 @@ export default {
     if (Object.keys(this.myIncomeData).length === 0) {
       this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
     }
+    if(this.userInfo.userId){
+      this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
+    }
   },
-
   methods: {
     // 积分
     integral() {
@@ -187,6 +190,9 @@ export default {
     },
     async addIntergal() {
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
+      if(res.sucess){
+        this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
+      }
       Toast({
         message: res.message,
         position: 'bottom'
