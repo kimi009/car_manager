@@ -30,6 +30,13 @@ function experienceMode (to, next) {
       title: '提示',
       message: '请先完成签约后解锁所有功能'
     }).then(() => {
+      // 清除车辆信息
+      lStorage.removeItem(lStorage.VEHICLE_INFO)
+      // 清除用户ID
+      lStorage.removeItem(lStorage.USER_ID)
+      // 清除签约信息
+      lStorage.removeItem(lStorage.IS_SIGN)
+
       next({path: `/sign?redirect=${to.path}`, replace: true})
     }).catch(() => {})
   }
@@ -50,6 +57,7 @@ router.beforeEach((to, from, next) => {
             experienceMode(to, next)
           }
         } else {
+
           next({path: `/login?redirect=${to.path}`, replace: true})
         }
       })

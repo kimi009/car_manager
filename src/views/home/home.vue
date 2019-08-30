@@ -28,7 +28,7 @@
           <span>本月违章</span>
           <span>无</span>
         </p>
-        <div class="noSign" v-if="!isSign" @click="$router.push('/guide')">
+        <div class="noSign" v-if="!isSign" @click="$router.push('/sign')">
           点击开启尊贵的租车之旅！
         </div>
       </div>
