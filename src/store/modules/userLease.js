@@ -10,7 +10,9 @@ const userLease = {
   },
   mutations: {
     INIT_LEASE_LIST: (state, params) => {
-      state.leaseList.push(...params)
+      if(state.leaseList !== params){
+        state.leaseList.push(...params)
+      }
     }
   },
   actions: {
