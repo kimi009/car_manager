@@ -5,7 +5,7 @@
       <div class="dialog">
         <img class="title" src="../../assets/image/signContract/dialogBox.png" alt="">
         <div class="text">
-          <span>尊敬的金小财：</span>
+          <span>尊敬的{{userInfo.name}}：</span>
           <strong>恭喜您！您是我们平台尊贵的受邀客户，您可将车辆租予惠用车平台，您可以按月获得丰厚租金收益!</strong>
         </div>
       </div>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { Button } from 'vant'
 export default {
   name: 'signContract',
@@ -31,6 +32,12 @@ export default {
 
   data () {
     return {}
+  },
+
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ])
   },
 
   methods: {

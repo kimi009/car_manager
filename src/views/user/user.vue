@@ -54,7 +54,7 @@
         <van-row class="text">油费余额(元）</van-row>
         <van-row class="num">{{oilBalance || 0}}</van-row>
         <van-row class="cash-button">
-          <div>查看</div>
+          <div @click="$router.push('/user/oilCost')">查看</div>
         </van-row>
       </van-col>
       <van-col span="8"
@@ -155,7 +155,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'availableBalance', 'oilBalance', 'myIncomeData'
+      'availableBalance', 'oilBalance', 'myIncomeData', 'currentPage'
     ]),
     ...mapState({
       userInfo: state => state.user.userInfo || {},

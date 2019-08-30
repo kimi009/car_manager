@@ -1,9 +1,9 @@
 <template>
   <div class="orderBox">
     <van-dropdown-menu>
-      <van-dropdown-item v-model="value1" :options="option1" />
-      <van-dropdown-item v-model="value2" :options="option2" />
-      <van-dropdown-item v-model="value3" :options="option3" />
+      <van-dropdown-item title="订单列表" v-model="value1" :options="option1" />
+      <van-dropdown-item title="订单类型" v-model="value2" :options="option2" />
+      <van-dropdown-item title="时间排序" v-model="value3" :options="option3" />
     </van-dropdown-menu>
     <ul class="orderUl" v-if="!nodata">
         <li>
@@ -48,19 +48,15 @@ export default {
       value3: 'b',
       nodata: true,
       option1: [
-        { text: '全部商品', value: 0 },
-        { text: '全部商品', value: 1 },
-        { text: '全部商品', value: 2 }
+        { text: '订单列表 ', value: 0 }
       ],
       option2: [
-        { text: '综合排序', value: 'a' },
-        { text: '综合排序', value: 'b' },
-        { text: '综合排序', value: 'c' }
+        { text: '加油费用', value: 'b' },
+        { text: '停车费用', value: 'c' }
       ],
       option3: [
-        { text: '地图模式', value: 'a' },
-        { text: '地图模式', value: 'b' },
-        { text: '地图模式', value: 'c' }
+        { text: '时间正序', value: 'a' },
+        { text: '时间倒序', value: 'b' }
       ]
     }
   }

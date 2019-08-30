@@ -13,7 +13,8 @@ const getters = {
   tabbarShow: state => state.tabbar.tabbarShow,
   availableBalance: state => state.account.availableBalance, // 账户余额
   oilBalance: state => state.account.oilBalance, // 油费余额
-  myIncomeData: state => state.rent.myIncomeData // 租金收益
+  myIncomeData: state => state.rent.myIncomeData, // 租金收益
+  currentPage: state => state.common.currentPage
 }
 
 export default getters

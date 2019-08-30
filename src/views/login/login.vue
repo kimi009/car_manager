@@ -1,7 +1,10 @@
 <template>
   <div class="login">
     <!-- <div class="title">欢迎使用惠用车</div> -->
-    <div class="title"><img src="@/assets/image/common/logo.png" alt=""></div>
+    <div class="title">
+      <img src="@/assets/image/common/logo.png" alt="">
+      <div class="text">惠用车，享生活</div>
+    </div>
     <div class="mobile">
       <van-row type="flex">
         <van-col span="4" tag="span">+86</van-col>
@@ -207,6 +210,10 @@ export default {
     color: #333;
     img{
       width:183px;
+    }
+    .text{
+      font-size: 16px;
+      margin-top: 10px;
     }
   }
   .mobile, .code{

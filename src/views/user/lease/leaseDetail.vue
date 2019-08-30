@@ -36,13 +36,16 @@
     </div>
     <div class="agreement">
       <img src="../../../assets/image/user/circle.png" alt="">
-      <span>租车协议</span>
+      <span @click="carAgreement">租车协议</span>
     </div>
+
+    <car-agreement :show.sync="show"></car-agreement>
   </div>
 </template>
 
 <script>
-import { Row, Col, Button, Toast, List } from 'vant'
+import { Row, Col, Button, Toast, List, Popup } from 'vant'
+import CarAgreement from '../../../components/CarAgreement/index'
 export default {
   name: 'leaseDetail',
 
@@ -51,7 +54,9 @@ export default {
     [Col.name]: Col,
     [Button.name]: Button,
     [Toast.name]: Toast,
-    [List.name]: List
+    [List.name]: List,
+    [Popup.name]: Popup,
+    CarAgreement
   },
   methods: {
     async initList() {
@@ -61,6 +66,13 @@ export default {
       if (res.code === 200 && Object.keys(res.data).length > 0) {
         this.leaseDetailList = res.data
       }
+
+      // this.$api.rentAgreement().then(res => {
+      //   this.info = res.data
+      // })
+    },
+    carAgreement () {
+      this.show = true
     }
   },
   created() {
@@ -69,7 +81,19 @@ export default {
   data () {
     return {
       rentId: '',
-      leaseDetailList: []
+      leaseDetailList: [],
+      show: false
+      // info: {
+      //   // enterpriseName: '企业名称',
+      //   // employeeName: '员工姓名',
+      //   // idNumber: '身份证号',
+      //   // vehicleModel: '车辆型号',
+      //   // licensePlate: '车牌号',
+      //   // frameNum: '车架号',
+      //   // engineNum: '发动机号',
+      //   // legalPerson: '法定代表人',
+      //   // enterpriseId: '7e42d9d153ff3912a42c1a9229e6ba12'
+      // } // 协议包含信息
     }
   }
 }

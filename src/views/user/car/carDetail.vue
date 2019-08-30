@@ -90,7 +90,7 @@ export default {
   data () {
     return {
       icon: require('../../../assets/image/user/idcard-back.png'),
-      carId: parseInt(getQueryString('carId')),
+      carId: getQueryString('carId'),
       vehicleDetail: {} // 车辆详情
     }
   },

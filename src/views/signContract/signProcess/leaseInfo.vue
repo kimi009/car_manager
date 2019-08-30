@@ -58,17 +58,21 @@
         <van-button type="default" size="large" @click="submitHandle">提交</van-button>
       </div>
     </div>
+
+    <car-agreement :show.sync="show"></car-agreement>
   </div>
 </template>
 
 <script>
+import CarAgreement from '../../../components/CarAgreement/index'
 import { Button, Row, Col, Toast } from 'vant'
 export default {
   components: {
     [Button.name]: Button,
     [Row.name]: Row,
     [Col.name]: Col,
-    [Toast.name]: Toast
+    [Toast.name]: Toast,
+    CarAgreement
   },
 
   data () {
@@ -85,7 +89,8 @@ export default {
         // rentDuration: '', // 月租车时长
         // bankOfDeposit: '', // 开户银行
         // bankAccountNum: '' // 银行账号
-      }
+      },
+      show: false
     }
   },
 
@@ -112,7 +117,9 @@ export default {
       this.check = !this.check
     },
 
-    showAgreement () {},
+    showAgreement () {
+      this.show = true
+    },
 
     submitHandle () {
       if (this.check) {

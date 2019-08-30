@@ -13,6 +13,7 @@ import account from './modules/account'
 import safe from './modules/safe'
 import intergal from './modules/intergal'
 import userLease from './modules/userLease'
+import common from './modules/common'
 
 Vue.use(Vuex)
 
@@ -29,7 +30,8 @@ const store = new Vuex.Store({
     account,
     safe,
     intergal,
-    userLease
+    userLease,
+    common
   },
   getters
 })

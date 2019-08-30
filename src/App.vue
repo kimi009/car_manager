@@ -4,14 +4,14 @@
                 mode="in-out">
       <!-- <keep-alive :include="['carRentalLink']"></keep-alive> -->
       <keep-alive>
-        <router-view :key="key"/>
+        <router-view :key="key" v-if="$route.meta.keepAlive"/>
       </keep-alive>
     </transition>
-    <!-- <transition :name="$transition"
+    <transition :name="$transition"
                 mode="in-out">
       <router-view :key="key"
                    v-if="!$route.meta.keepAlive" />
-    </transition> -->
+    </transition>
   </div>
 </template>
 

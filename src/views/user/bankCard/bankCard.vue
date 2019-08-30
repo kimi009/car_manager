@@ -34,7 +34,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userInfo'
+      'userInfo', 'currentPage'
     ])
   },
 

@@ -12,6 +12,15 @@ export const timestampToTime = function (str) {
   let h = date.getHours()
   let m = date.getMinutes()
   let s = date.getSeconds()
-  let time = `${y}-${M}-${d} ${h}:${m}:${s}`
+  let time = `${dateLayout(y)}-${dateLayout(M)}-${dateLayout(d)} ${dateLayout(h)}:${dateLayout(m)}:${dateLayout(s)}`
   return time
+}
+
+/**
+ * 
+ * @method dateLayout
+ */
+export const dateLayout = function (str) {
+  str = parseInt(str) < 10 ? '0' + str : str
+  return str
 }

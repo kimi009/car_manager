@@ -1,6 +1,6 @@
 <template>
   <div class="vehicles">
-    <div class="status item" v-if="!isSign">
+    <div class="status item">
       <p>该页面数据仅为体验展示，非真实数据</p>
     </div>
     <div class="tips item">

@@ -3,36 +3,28 @@
     <div class="head">
       <div class="account-bar">
         <span>帐户余额 (元)</span>
-        <em>{{availableBalance || 0}}</em>
-      </div>
-      <div class="account-input van-hairline--bottom van-hairline--top">
-        <span>提现金额</span>
-        <input type="number" v-model="account" placeholder="请输入100-30000之间的数额">
-      </div>
-      <div class="tip">提现金额将转入绑定的银行卡</div>
-      <div class="cash">
-        <van-button type="default" size="large" @click="cashHandle">立即提现</van-button>
+        <em>{{oilBalance}}</em>
       </div>
     </div>
     <div class="bottom" ref="element">
       <van-tabs v-model="active">
-        <van-tab title="提现记录">
+        <van-tab title="消费记录">
           <ul class="tab-wrap" :style="{height: (tabHeight - 44) / 37.5 + 'rem'}">
-            <!-- <li class="van-hairline--bottom">
+            <li class="van-hairline--bottom">
               <div class="li-top">
-                <span>提现金额：<em>1000元</em></span>
+                <span>消费金额：<em>1000元</em></span>
                 <strong>2019-04-12 12:01:01</strong>
               </div>
-              <div class="li-bottom">提现状态：提现中（预计两个工作日到账）</div>
+              <div class="li-bottom">消费地点：科学城加油站</div>
             </li>
             <li class="van-hairline--bottom">
               <div class="li-top">
-                <span>提现金额：<em>1000元</em></span>
+                <span>消费金额：<em>1000元</em></span>
                 <strong>2019-04-12 12:01:01</strong>
               </div>
-              <div class="li-bottom">提现状态：提现中（预计两个工作日到账）</div>
-            </li> -->
-            <van-pull-refresh class="refresh" v-model="cash.isLoading" @refresh="onRefresh('cash')">
+              <div class="li-bottom">消费地点：科学城加油站</div>
+            </li>
+            <!-- <van-pull-refresh class="refresh" v-model="cash.isLoading" @refresh="onRefresh('cash')">
               <van-list
                 class="load"
                 v-model="cash.loading"
@@ -43,33 +35,33 @@
                 <li class="van-hairline--bottom" v-for="(item, index) in cash.list" :key="index">
                   <div class="li-top">
                     <span>提现金额：<em>{{item.amount}}元</em></span>
-                    <strong>{{item.createDate}}</strong>
+                    <strong>{{timestampToTime(item.createDate)}}</strong>
                   </div>
                   <div class="li-bottom" v-show="item.status === '1'">提现状态：待发放</div>
                   <div class="li-bottom" v-show="item.status === '2'">提现状态：已发放</div>
                   <div class="li-bottom" v-show="item.status === '3'">提现状态：发放失败</div>
                 </li>
               </van-list>
-            </van-pull-refresh>
+            </van-pull-refresh> -->
           </ul>
         </van-tab>
         <van-tab title="收入记录">
           <ul class="tab-wrap" :style="{height: (tabHeight - 44) / 37.5 + 'rem'}">
-            <!-- <li class="van-hairline--bottom">
+            <li class="van-hairline--bottom">
               <div class="li-top">
                 <span>收入金额：<em>1000元</em></span>
                 <strong>2019-09-12 12:01:01</strong>
               </div>
-              <div class="li-bottom">收益类型：租金发放</div>
+              <div class="li-bottom">方欣公司油费补贴</div>
             </li>
             <li class="van-hairline--bottom">
               <div class="li-top">
                 <span>收入金额：<em>1000元</em></span>
                 <strong>2019-09-12 12:01:01</strong>
               </div>
-              <div class="li-bottom">收益类型：租金发放</div>
-            </li> -->
-            <van-pull-refresh class="refresh" v-model="income.isLoading" @refresh="onRefresh('income')">
+              <div class="li-bottom">方欣公司油费补贴</div>
+            </li>
+            <!-- <van-pull-refresh class="refresh" v-model="income.isLoading" @refresh="onRefresh('income')">
               <van-list
                 class="load"
                 v-model="income.loading"
@@ -80,12 +72,12 @@
                 <li class="van-hairline--bottom" v-for="(item, index) in income.list" :key="index">
                   <div class="li-top">
                     <span>收入金额：<em>{{item.amount}}元</em></span>
-                    <strong>{{toTime(item.tradeDatetime)}}</strong>
+                    <strong>{{item.tradeDatetime}}</strong>
                   </div>
                   <div class="li-bottom">收益类型：租金发放</div>
                 </li>
               </van-list>
-            </van-pull-refresh>
+            </van-pull-refresh> -->
           </ul>
         </van-tab>
       </van-tabs>
@@ -103,7 +95,7 @@ import { Row, Col, Button, Toast, Tab, Tabs, List, PullRefresh } from 'vant'
 import { validateInteger } from '../../../utils/validate.js'
 import { timestampToTime } from '../../../utils/date.js' // eslint-disable-line
 export default {
-  name: 'account',
+  name: 'oilCost',
 
   components: {
     [Row.name]: Row,
@@ -142,7 +134,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userInfo', 'availableBalance'
+      'userInfo', 'availableBalance', 'oilBalance'
     ])
   },
 
@@ -151,10 +143,6 @@ export default {
   },
 
   methods: {
-    toTime (str) {
-      return timestampToTime(str)
-    },
-
     cashHandle () {
       if (!validateInteger(this.account)) {
         Toast({
@@ -225,7 +213,7 @@ export default {
   background-color: #F4F4F4;
   .head{
     background-color: #FFF;
-    padding:14px 0 31px 0;
+    padding:14px 0 14px 0;
     .account-bar{
       .wh(345px, 86px);
       display: flex;
@@ -267,7 +255,7 @@ export default {
   }
   .bottom{
     width: 100%;
-    height: calc(~"100% - 292px");
+    height: calc(~"100% - 124px");
     position: absolute;
     left: 0;
     bottom: 0;
@@ -276,7 +264,7 @@ export default {
       overflow: auto;
       padding-bottom: 20px;
       .refresh{
-        // min-height: 100%;
+        height: 100%;
       }
       li{
         height: 73px;

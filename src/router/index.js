@@ -28,7 +28,7 @@ const router = new Router({
         },
         {
           path: '/user',
-          meta: { showTab: true, requiresAuth: true },
+          meta: { showTab: true, requiresAuth: true, keepAlive: true },
           component: () => import('@/views/user/user'),
           children: [
             {
@@ -42,6 +42,11 @@ const router = new Router({
                   component: () => import('@/views/user/account/waitingCash')
                 }
               ]
+            },
+            {
+              path: 'oilCost',
+              meta: { requiresAuth: true },
+              component: () => import('@/views/user/oilCost/oilCost')
             },
             {
               path: 'personal',
