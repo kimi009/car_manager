@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import { lStorage } from '@/utils/storage.js'
+
 const account = {
   state: {
     availableBalance: '', // 账户余额
@@ -10,39 +12,23 @@ const account = {
     // }
   },
   actions: {
-    getAccountMsg ({ state, rootState, dispatch }) {
-      const queryBalance = async userId => {
-        let res = await Vue.prototype.$api.queryBalance({
-          userId: userId
-        })
-        if (res.success) {
-          state.availableBalance = res.data.availableBalance
-        }
-      }
-      if (rootState.user.userId) {
-        queryBalance(rootState.user.userId)
-      } else {
-        dispatch('getInfo', {}, {root: true}).then(response => {
-          queryBalance(response.data.userId)
-        })
+    async getAccountMsg ({ state }) {
+      let userId = lStorage.getItem(lStorage.USER_ID) || false
+      let res = await Vue.prototype.$api.queryBalance({
+        userId: userId
+      })
+      if (res.success) {
+        state.availableBalance = res.data.availableBalance
       }
     },
 
-    getOilBalance ({ state, rootState, dispatch }) {
-      const queryBalance = async userId => {
-        let res = await Vue.prototype.$api.queryOilBalance({
-          userId: userId
-        })
-        if (res.success) {
-          state.oilBalance = res.data.availableBalance
-        }
-      }
-      if (rootState.user.userId) {
-        queryBalance(rootState.user.userId)
-      } else {
-        dispatch('getInfo', {}, {root: true}).then(response => {
-          queryBalance(response.data.userId)
-        })
+    async getOilBalance ({ state }) {
+      let userId = lStorage.getItem(lStorage.USER_ID) || false
+      let res = await Vue.prototype.$api.queryOilBalance({
+        userId: userId
+      })
+      if (res.success) {
+        state.oilBalance = res.data.availableBalance
       }
     }
   }

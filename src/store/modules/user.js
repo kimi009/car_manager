@@ -73,7 +73,6 @@ const user = {
         Vue.prototype.$api
           .userInfo()
           .then(res => {
-            console.log('123456', res)
             commit('SET_USER_INFO', res.data)
             resolve(res)
           })

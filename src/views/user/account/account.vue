@@ -43,9 +43,11 @@
                 <li class="van-hairline--bottom" v-for="(item, index) in cash.list" :key="index">
                   <div class="li-top">
                     <span>提现金额：<em>{{item.amount}}元</em></span>
-                    <strong>{{item.createDate}}</strong>
+                    <strong>{{timestampToTime(item.createDate)}}</strong>
                   </div>
-                  <div class="li-bottom">提现状态：提现中（预计两个工作日到账）</div>
+                  <div class="li-bottom" v-show="item.status === '1'">提现状态：待发放</div>
+                  <div class="li-bottom" v-show="item.status === '2'">提现状态：已发放</div>
+                  <div class="li-bottom" v-show="item.status === '3'">提现状态：发放失败</div>
                 </li>
               </van-list>
             </van-pull-refresh>
@@ -99,6 +101,7 @@
 import { mapGetters } from 'vuex'
 import { Row, Col, Button, Toast, Tab, Tabs, List, PullRefresh } from 'vant'
 import { validateInteger } from '../../../utils/validate.js'
+import { timestampToTime } from '../../../utils/date.js' // eslint-disable-line
 export default {
   name: 'account',
 
