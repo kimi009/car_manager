@@ -155,9 +155,10 @@ export default {
 
   computed: {
     ...mapGetters([
-      'userInfo', 'availableBalance', 'oilBalance', 'myIncomeData'
+      'availableBalance', 'oilBalance', 'myIncomeData'
     ]),
     ...mapState({
+      userInfo: state => state.user.userInfo || {},
       intergalVal: state => state.intergal.intergalVal || '0'
     }),
     headPath () {
@@ -177,9 +178,7 @@ export default {
     if (Object.keys(this.myIncomeData).length === 0) {
       this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
     }
-  },
-  watch:{
-    userInfo(){
+    if(this.userInfo.userId){
       this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
     }
   },

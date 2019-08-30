@@ -24,6 +24,7 @@ const intergal = {
   actions: {
     async initIntergalInfo({ commit }, params) {
       let res = await Vue.prototype.$api.integalInfo(params)
+      console.log(res)
       if (res.success) {
         let reg = /\d{1,3}(?=(\d{3})+$)/g
         commit('INIT_INTERGAL_STRING', parseInt(res.data.availableBalance).toString().replace(reg, '$&,'))
