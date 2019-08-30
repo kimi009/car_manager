@@ -178,7 +178,11 @@ export default {
       this.$store.dispatch('initIncomeData', { userId: this.userInfo.userId })
     }
   },
-
+  watch:{
+    userInfo(){
+      this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
+    }
+  },
   methods: {
     // 积分
     integral() {
@@ -187,6 +191,9 @@ export default {
     },
     async addIntergal() {
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
+      if(res.sucess){
+        this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
+      }
       Toast({
         message: res.message,
         position: 'bottom'
