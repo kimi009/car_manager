@@ -6,7 +6,9 @@
     </div>
     <div class="intergal-info" @click="tips()">积分说明</div>
     <div class="icon-box">
-      <img src="@/assets/image/user/members.png" alt />
+      <div>
+         <img src="@/assets/image/user/members.png" alt />
+      </div>
       <span>黄金会员</span>
     </div>
     <div class="detail-title">
@@ -144,9 +146,17 @@ export default {
   color: #333333;
 }
 .icon-box {
+  margin: 13px 0 18px;
+  display: flex;
+  justify-content: center;
+  >div:nth-child(1){
+    margin-top: 2px;
+    margin-right: 2px;
+    height: 10px;
+  }
   img {
-    width: 16px;
-    margin-top: 11px;
+    width: 13px;
+    margin-top: 2px;
     display: inline-block;
     vertical-align: text-top;
   }
