@@ -146,7 +146,7 @@ export default {
   color: #333333;
 }
 .icon-box {
-  margin: 11px 0 14px;
+  margin: 13px 0 18px;
   display: flex;
   justify-content: center;
   >div:nth-child(1){
