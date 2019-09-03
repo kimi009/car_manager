@@ -84,10 +84,10 @@ const user = {
     },
 
     // 获取微信信息
-    getWxInfo ({ state }) {
+    getWxInfo ({ state }, obj) {
       return new Promise((resolve, reject) => {
         Vue.prototype.$api
-          .getWxUserinfo()
+          .getWxUserinfo(obj)
           .then(res => {
             state.wxUserinfo = res.body
             resolve(res)

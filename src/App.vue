@@ -32,9 +32,9 @@ export default {
     return {}
   },
   created() {
-    if (process.env.NODE_ENV !== 'development') {
-      this.initWxInfo()
-    }
+    // if (process.env.NODE_ENV !== 'development') {
+    this.initWxInfo()
+    // }
   },
   computed: {
     ...mapGetters([
@@ -46,7 +46,6 @@ export default {
     }
   },
   mounted() {
-    console.log('V1.0.5')
     // this.$api.logout()
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))

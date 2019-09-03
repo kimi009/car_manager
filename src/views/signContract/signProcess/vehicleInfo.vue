@@ -80,7 +80,7 @@ export default {
     async getInfo () {
       if (Object.keys(this.info).length === 0) {
         let res = await this.$api.getCarList()
-        let car = res.data && res.data.find(i => i.rentState === '1')
+        let car = res.data && res.data.find(i => i.rentState === '1') || {}
         let res2 = await this.$api.getVehicleInfo({
           carId: car.carId
         })

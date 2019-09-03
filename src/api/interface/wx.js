@@ -42,7 +42,7 @@ const getOpenId = data => {
 const getWxUserinfo = data => {
   return axios({
     baseURL: config.HOST,
-    url: `/auth/wechatCommonService/getWxUserInfo?requestId=6409c01b0bcc2f400e8146e8071c99ec&token=235996b41edf417aae23677adc5d037810001201c78c023473c8dc65&appId=000101`,
+    url: `/auth/wechatCommonService/getWxUserInfo?token=235996b41edf417aae23677adc5d037810001201c78c023473c8dc65&appId=000101`,
     data: fillData(data),
     isNeedRequestId: true
   })

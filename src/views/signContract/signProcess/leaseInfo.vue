@@ -105,7 +105,7 @@ export default {
     async getInfo () {
       if (Object.keys(this.info).length === 0) {
         let res = await this.$api.getRentList({ size: 10, current: 1 })
-        let rent = res.data && res.data.find(i => i.rentState === '未租')
+        let rent = res.data && res.data.find(i => i.rentState === '未租') || {}
         this.rentId = rent.rentId
         let res2 = await this.$api.getLeaseDetail({
           rentId: rent.rentId
