@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { Button, Toast } from 'vant'
 export default {
   components: {
@@ -73,7 +73,54 @@ export default {
     }
   },
 
+  mounted () {},
+
   methods: {
+    ...mapActions([
+      'setFileData'
+    ]),
+
+    // 获取证件照ID
+    async getCertificateId () {
+      let res = await this.$api.getCarList()
+      let car = res.data && res.data.find(i => i.rentState === '1') || {}
+      let res2 = await this.$api.getVehicleInfo({
+        carId: car.carId
+      })
+      if (res2.success) {
+        this.vehicleDetail = res.data
+
+        if (res.data.traffic) {
+          this.setFileHandle(res.data.traffic, 3)
+        }
+
+        if (res.data.business) {
+          this.setFileHandle(res.data.business, 4)
+        }
+
+        if (res.data.driving) {
+          this.setFileHandle(res.data.driving, 5)
+        }
+
+        if (res.data.drivingCopy) {
+          this.setFileHandle(res.data.drivingCopy, 6)
+        }
+      }
+    },
+
+    // 获取证照url
+    setFileHandle (id, index) {
+      this.$api.getImageUrl({id: id}).then(res => {
+        let obj = Object.assign({}, this.fileData[index] || {}, {
+          url: res.data.url,
+          picType: index,
+          id: id
+        })
+        this.setFileData(obj)
+        console.log('fileData', this.fileData)
+      })
+    },
+
     paramsFilter () {
       let params = {}
       if (this.fileData[2] && this.fileData[2].id) {

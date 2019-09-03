@@ -41,7 +41,7 @@ function experienceMode (to, from, next) {
 }
 
 router.beforeEach((to, from, next) => {
-  console.log('V1.0.6')
+  console.log('V1.0.7')
   // console.log('store.state.user.isLogin', to)
   store.dispatch('setCurrentPage', to.path)
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -57,6 +57,10 @@ router.beforeEach((to, from, next) => {
             experienceMode(to, from, next)
           }
         } else {
+          // 清除车辆信息
+          lStorage.removeItem(lStorage.VEHICLE_INFO)
+          // 清除签约信息
+          lStorage.removeItem(lStorage.USER_ID)
 
           next({path: `/login?redirect=${to.path}`, replace: true})
         }

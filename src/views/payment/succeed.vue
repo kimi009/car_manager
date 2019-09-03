@@ -6,7 +6,9 @@
       <p class="words">纳税是每个国家公民 的神圣职责！</p>
     </div>
     <div class="succedd">
-      <img src="@/assets/image/payment/succeed.png"
+      <img v-if="paySuccess" src="@/assets/image/payment/succeed.png"
+           alt="">
+      <img v-else src="../../assets/image/payment/failed.png"
            alt="">
       <p v-if="paySuccess">支付成功</p>
       <p v-else>支付失败，返回重新发起支付</p>

@@ -77,6 +77,11 @@ export default {
       let res2 = await this.$api.carRentalState()
       if (res2.success) {
         if (res2.data.permit) {
+          if (res2.data.carAuditState === '3') {
+            // 清除车辆信息
+            lStorage.removeItem(lStorage.VEHICLE_INFO)
+            return
+          }
           this.active = 2
         }
         let info = JSON.parse(lStorage.getItem(lStorage.VEHICLE_INFO)) || false

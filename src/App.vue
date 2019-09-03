@@ -32,9 +32,9 @@ export default {
     return {}
   },
   created() {
-    // if (process.env.NODE_ENV !== 'development') {
-    this.initWxInfo()
-    // }
+    if (process.env.NODE_ENV !== 'development') {
+      this.initWxInfo()
+    }
   },
   computed: {
     ...mapGetters([
