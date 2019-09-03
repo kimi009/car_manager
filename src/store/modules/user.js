@@ -9,7 +9,8 @@ const user = {
     userId: '',
     enterpriseId: '', // 企业ID
     isSign: false, // 是否签约
-    openId: ''
+    openId: '',
+    wxUserinfo: ''
   },
   mutations: {
     SET_LOGIN_STATE: (state, params) => {
@@ -74,6 +75,21 @@ const user = {
           .userInfo()
           .then(res => {
             commit('SET_USER_INFO', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+
+    // 获取微信信息
+    getWxInfo ({ state }) {
+      return new Promise((resolve, reject) => {
+        Vue.prototype.$api
+          .getWxUserinfo()
+          .then(res => {
+            state.wxUserinfo = res.body
             resolve(res)
           })
           .catch(err => {

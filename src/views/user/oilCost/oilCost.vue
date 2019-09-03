@@ -3,7 +3,7 @@
     <div class="head">
       <div class="account-bar">
         <span>帐户余额 (元)</span>
-        <em>{{oilBalance}}</em>
+        <em>{{oilBalance || 0}}</em>
       </div>
     </div>
     <div class="bottom" ref="element">

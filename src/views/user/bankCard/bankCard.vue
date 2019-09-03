@@ -1,13 +1,13 @@
 <template>
   <div class="bankCard">
     <div class="card">
-      <span>浦发银行</span>
+      <span>{{receiveBank}}</span>
       <em>储蓄卡</em>
       <div class="num">
         <strong class="offset">****</strong>
         <strong class="offset">****</strong>
         <strong class="offset">****</strong>
-        <strong>3822</strong>
+        <strong>{{accountNo}}</strong>
       </div>
       <img class="icon" src="../../../assets/image/user/icon.png" alt="">
     </div>
@@ -29,7 +29,10 @@ export default {
   },
 
   data () {
-    return {}
+    return {
+      receiveBank: '',
+      accountNo: '0000' // 银行卡尾号
+    }
   },
 
   computed: {
@@ -43,6 +46,9 @@ export default {
       userId: this.userInfo.userId
     })
     if (res.success) {
+      this.receiveBank = res.data.receiveBank
+      let str = res.data.receiveAccountNo
+      this.accountNo = str.substring(str.length - 4)
       console.log(res)
     }
   }

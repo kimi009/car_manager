@@ -57,22 +57,21 @@ export default {
     [List.name]: List
   },
 
-  data() {
+  data () {
     return {
       size: 6
     }
   },
   methods: {
-    initList() {
+    initList () {
       this.$store.dispatch('initleaseList', {
         size: this.size,
         current: this.page
       })
     }
   },
-  created() {
+  created () {
     if (this.leaseList.length > 0) return
-    this.initList()
   },
   computed: {
     ...mapState({

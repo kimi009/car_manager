@@ -72,7 +72,7 @@ export default {
     }
   },
 
-  activated () {
+  created () {
     this.getInfo()
   },
 
@@ -80,8 +80,9 @@ export default {
     async getInfo () {
       if (Object.keys(this.info).length === 0) {
         let res = await this.$api.getCarList()
+        let car = res.data && res.data.find(i => i.rentState === '1')
         let res2 = await this.$api.getVehicleInfo({
-          carId: res.data && res.data[0].carId
+          carId: car.carId
         })
         if (res2.success) {
           this.info = res2.data

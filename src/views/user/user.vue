@@ -166,6 +166,7 @@ export default {
     }
   },
   mounted () {
+    if (this.$route.path !== '/user') return
     // 获取账户余额
     if (!this.availableBalance) {
       this.$store.dispatch('getAccountMsg')

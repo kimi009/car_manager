@@ -8,6 +8,7 @@ const getters = {
   leaseInfo: state => state.carRental.leaseInfo,
   fileData: state => state.certificate.fileData,
   userInfo: state => state.user.userInfo,
+  wxUserinfo: state => state.user.wxUserinfo,
   isSign: state => state.user.isSign, // 用户是否签约
   tabbarActive: state => state.tabbar.tabbarActive,
   tabbarShow: state => state.tabbar.tabbarShow,

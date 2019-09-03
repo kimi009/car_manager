@@ -17,7 +17,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import { Toast } from 'vant'
 import VConsole from 'vconsole'
 import { lStorage } from '@/utils/storage.js'
@@ -37,13 +37,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'wxUserinfo'
+    ]),
     key() {
       // 由于路由组件的复用问题, 相同路由切换, 是不会出现动画效果的, 比如从 /article/1 切换到 /article/2
       return this.$route.path.replace(/\//g, '_')
     }
   },
   mounted() {
-    console.log('V1.0.4')
+    console.log('V1.0.5')
     // this.$api.logout()
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))
@@ -62,6 +65,11 @@ export default {
       let wxOpenId = lStorage.getItem(WXOPENID)
       if (wxOpenId) {
         this.SET_USER_OPEN_ID(wxOpenId)
+
+        this.$store.dispatch('getWxInfo', { wxOpenId }).then(res => {
+          console.log('info', res)
+          console.log('info', this.wxUserinfo)
+        })
       } else {
         const code = getQueryString('code')
         if (code) {
@@ -69,6 +77,11 @@ export default {
           if (openIdInfo.head.success) {
             lStorage.setItem(WXOPENID, openIdInfo.body.openId)
             this.SET_USER_OPEN_ID(openIdInfo.body.openId)
+
+            this.$store.dispatch('getWxInfo', { wxOpenId }).then(res => {
+              console.log('info', res)
+              console.log('info', this.wxUserinfo)
+            })
           } else {
             Toast({
               message: '获取微信的openId失败',

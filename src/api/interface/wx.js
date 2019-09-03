@@ -38,8 +38,20 @@ const getOpenId = data => {
   })
 }
 
+// 获取微信用户信息
+const getWxUserinfo = data => {
+  return axios({
+    baseURL: config.HOST,
+    url: `/auth/wechatCommonService/getWxUserInfo?requestId=6409c01b0bcc2f400e8146e8071c99ec&token=235996b41edf417aae23677adc5d037810001201c78c023473c8dc65&appId=000101`,
+    data: fillData(data),
+    isNeedRequestId: true
+  })
+}
+
+
 export default {
   getJsConfigInfo,
   getOpenId,
-  wxAuth
+  wxAuth,
+  getWxUserinfo
 }

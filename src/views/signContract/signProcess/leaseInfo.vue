@@ -66,6 +66,8 @@
 <script>
 import CarAgreement from '../../../components/CarAgreement/index'
 import { Button, Row, Col, Toast } from 'vant'
+import { lStorage } from '@/utils/storage.js'
+const USER_ID = lStorage.getItem(lStorage.USER_ID)
 export default {
   components: {
     [Button.name]: Button,
@@ -90,11 +92,12 @@ export default {
         // bankOfDeposit: '', // 开户银行
         // bankAccountNum: '' // 银行账号
       },
-      show: false
+      show: false,
+      rentId: '' // 需求id
     }
   },
 
-  activated () {
+  created () {
     this.getInfo()
   },
 
@@ -102,13 +105,21 @@ export default {
     async getInfo () {
       if (Object.keys(this.info).length === 0) {
         let res = await this.$api.getRentList({ size: 10, current: 1 })
-        console.log('res1', res)
+        let rent = res.data && res.data.find(i => i.rentState === '未租')
+        this.rentId = rent.rentId
         let res2 = await this.$api.getLeaseDetail({
-          rentId: res.data[0].rentId
+          rentId: rent.rentId
         })
-        console.log('res2', res2)
+        let res3 = await this.$api.queryMyBankCard({
+          userId: USER_ID
+        })
         if (res2.success) {
-          this.info = res2.data
+          this.info = Object.assign({}, res2.data, {
+            vehicleBrand: rent.vehicleBrand,
+            vehicleModel: rent.vehicleModel,
+            bankOfDeposit: res3.data.receiveBank,
+            bankAccountNum: res3.data.receiveAccountNo
+          })
         }
       }
     },
@@ -123,7 +134,10 @@ export default {
 
     submitHandle () {
       if (this.check) {
-        this.$api.confirmLeaseInfo({platform_invoice: true}).then(res => {
+        this.$api.confirmLeaseInfo({
+          platform_invoice: true,
+          rentId: this.rentId
+        }).then(res => {
           if (res.success) {
             this.$router.push('/sign/submitted')
           }

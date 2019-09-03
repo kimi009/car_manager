@@ -13,15 +13,15 @@ function popstateHandle () {
 }
 
 // 获取用户信息
-function getUserInfo (to, next) {
+function getUserInfo (to, from, next) {
   store.dispatch('getInfo').then(res => {
     lStorage.setItem(lStorage.IS_SIGN, res.data.isSign)
-    experienceMode(to, next)
+    experienceMode(to, from, next)
   })
 }
 
 // 体验者模式
-function experienceMode (to, next) {
+function experienceMode (to, from, next) {
   let isSign = lStorage.getItem(lStorage.IS_SIGN) || false
   if (!!to.meta.experienceMode || isSign === 'true') {
     next()
@@ -32,8 +32,6 @@ function experienceMode (to, next) {
     }).then(() => {
       // 清除车辆信息
       lStorage.removeItem(lStorage.VEHICLE_INFO)
-      // 清除用户ID
-      lStorage.removeItem(lStorage.USER_ID)
       // 清除签约信息
       lStorage.removeItem(lStorage.IS_SIGN)
 
@@ -53,9 +51,9 @@ router.beforeEach((to, from, next) => {
         if (res.data.isLogin) {
           // 获取用户信息、判断体验者模式
           if (!store.state.user.userInfo) {
-            getUserInfo(to, next)
+            getUserInfo(to, from, next)
           } else {
-            experienceMode(to, next)
+            experienceMode(to, from, next)
           }
         } else {
 
@@ -65,13 +63,13 @@ router.beforeEach((to, from, next) => {
     } else {
       // 获取用户信息、判断体验者模式
       if (!store.state.user.userInfo) {
-        getUserInfo(to, next)
+        getUserInfo(to, from, next)
       } else {
-        experienceMode(to, next)
+        experienceMode(to, from, next)
       }
     }
   } else {
-    experienceMode(to, next)
+    experienceMode(to, from, next)
   }
 
   // 路由跳转动画
