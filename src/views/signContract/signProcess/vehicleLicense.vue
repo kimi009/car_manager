@@ -4,7 +4,7 @@
       <div class="nav">
         <img class="icon" src="../../../assets/image/signContract/vehicleLicense.png" alt="">
         <span class="text">上传车辆证照</span>
-        <img class="problem" src="../../../assets/image/signContract/problem.png" alt="">
+        <img @click="show = true" class="problem" src="../../../assets/image/signContract/problem.png" alt="">
       </div>
       <div class="van-hairline--bottom"></div>
     </div>
@@ -35,20 +35,27 @@
         <van-button type="default" size="large" @click="uploader">上传</van-button>
       </div>
     </div>
+
+    <van-popup v-model="show" class="popup">
+      <div class="title">1.Q:我为什么要上传保险单和车辆行驶证？</div>
+      <div class="content">A:提供真实、合法的有效证件，确保您的车辆在正常的状态下出租，平台会在您的车辆保险及年检到期前及时提醒您按时续保、参检。</div>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { Button, Toast } from 'vant'
+import { Button, Toast, Popup } from 'vant'
 export default {
   components: {
     [Button.name]: Button,
-    [Toast.name]: Toast
+    [Toast.name]: Toast,
+    [Popup.name]: Popup
   },
 
   data () {
     return {
+      show: false, // 弹出框
       imageList: [
         require('../../../assets/image/signContract/trafficInsurance.png'),
         require('../../../assets/image/signContract/commercialInsurance.png'),
@@ -73,7 +80,9 @@ export default {
     }
   },
 
-  mounted () {},
+  mounted () {
+    this.getCertificateId()
+  },
 
   methods: {
     ...mapActions([
@@ -83,27 +92,30 @@ export default {
     // 获取证件照ID
     async getCertificateId () {
       let res = await this.$api.getCarList()
-      let car = res.data && res.data.find(i => i.rentState === '1') || {}
-      let res2 = await this.$api.getVehicleInfo({
-        carId: car.carId
-      })
-      if (res2.success) {
-        this.vehicleDetail = res.data
+      let car = res.data.filter(i => i.rentState === '1')
+      if (car) {
+        let carId = car.sort((a, b) => +new Date(a.createDate) - +new Date(b.createDate))[0].carId
+        let res2 = await this.$api.getVehicleInfo({
+          carId: carId
+        })
+        if (res2.success) {
+          this.vehicleDetail = res2.data
 
-        if (res.data.traffic) {
-          this.setFileHandle(res.data.traffic, 3)
-        }
+          if (res2.data.traffic) {
+            this.setFileHandle(res2.data.traffic, 3)
+          }
 
-        if (res.data.business) {
-          this.setFileHandle(res.data.business, 4)
-        }
+          if (res2.data.business) {
+            this.setFileHandle(res2.data.business, 4)
+          }
 
-        if (res.data.driving) {
-          this.setFileHandle(res.data.driving, 5)
-        }
+          if (res2.data.driving) {
+            this.setFileHandle(res2.data.driving, 5)
+          }
 
-        if (res.data.drivingCopy) {
-          this.setFileHandle(res.data.drivingCopy, 6)
+          if (res2.data.drivingCopy) {
+            this.setFileHandle(res2.data.drivingCopy, 6)
+          }
         }
       }
     },
@@ -254,6 +266,22 @@ export default {
     .button{
       .wh(345px, 44px);
       margin: 0 auto 49px auto;
+    }
+  }
+  .popup{
+    width: 300px;
+    padding: 30px 15px;
+    border-radius: 10px;
+    font-size:12px;
+    text-align: left;
+    line-height:18px;
+    .title{
+      color: #2C2C2C;
+      font-weight: bold;
+    }
+    .content{
+      color: #666;
+      text-indent: 11px;
     }
   }
 }

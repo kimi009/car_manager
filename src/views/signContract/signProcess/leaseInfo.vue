@@ -4,7 +4,7 @@
       <div class="nav">
         <img class="icon" src="../../../assets/image/signContract/leaseInfo.png" alt="">
         <span class="text">确认租约</span>
-        <img class="problem" src="../../../assets/image/signContract/problem.png" alt="">
+        <img @click="popupShow = true" class="problem" src="../../../assets/image/signContract/problem.png" alt="">
       </div>
       <div class="van-hairline--bottom"></div>
     </div>
@@ -58,14 +58,27 @@
         <van-button type="default" size="large" @click="submitHandle">提交</van-button>
       </div>
     </div>
-
+    <!-- 租约 -->
     <car-agreement :show.sync="show"></car-agreement>
+
+    <van-popup v-model="popupShow" class="popup">
+      <div class="title">1.Q:租赁期限能不能提前终止？</div>
+      <div class="content">A:租赁期限可以提前终止，但需提前一个月向企业提出申请。</div>
+      <div class="title">2.Q:租车时长和租金如何确定？</div>
+      <div class="content">A:平台根据您的用车习惯及车辆状况，综合评估后确定租车时长和月租金额。</div>
+      <div class="title">3.Q:银行账户信息可以修改吗？</div>
+      <div class="content">A:暂不支持直接修改，如需修改，请联系客服。</div>
+      <div class="title">4.Q:为什么要平台代开发票？</div>
+      <div class="content">A:根据《中华人民共和国个人所得税法》相关规定，个人提供财产租赁需开具发票，并缴纳相关税费。为方便您开票缴税，平台提供代开发票服务，并按规定收取开票服务费。</div>
+      <div class="title">5.Q:开票需要缴多少税款？</div>
+      <div class="content">A:按照相关法律、法规，出租车辆需缴纳个人所得税、增值税及附加税。每月开票需缴税金额大概为月租金的4.72%。</div>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import CarAgreement from '../../../components/CarAgreement/index'
-import { Button, Row, Col, Toast } from 'vant'
+import { Button, Row, Col, Toast, Popup } from 'vant'
 import { lStorage } from '@/utils/storage.js'
 const USER_ID = lStorage.getItem(lStorage.USER_ID)
 export default {
@@ -74,6 +87,7 @@ export default {
     [Row.name]: Row,
     [Col.name]: Col,
     [Toast.name]: Toast,
+    [Popup.name]: Popup,
     CarAgreement
   },
 
@@ -93,6 +107,7 @@ export default {
         // bankAccountNum: '' // 银行账号
       },
       show: false,
+      popupShow: false,
       rentId: '' // 需求id
     }
   },
@@ -104,22 +119,26 @@ export default {
   methods: {
     async getInfo () {
       if (Object.keys(this.info).length === 0) {
-        let res = await this.$api.getRentList({ size: 10, current: 1 })
-        let rent = res.data && res.data.find(i => i.rentState === '未租') || {}
-        this.rentId = rent.rentId
-        let res2 = await this.$api.getLeaseDetail({
-          rentId: rent.rentId
-        })
-        let res3 = await this.$api.queryMyBankCard({
-          userId: USER_ID
-        })
-        if (res2.success) {
-          this.info = Object.assign({}, res2.data, {
-            vehicleBrand: rent.vehicleBrand,
-            vehicleModel: rent.vehicleModel,
-            bankOfDeposit: res3.data.receiveBank,
-            bankAccountNum: res3.data.receiveAccountNo
+        let res = await this.$api.getRentList({ size: 20, current: 1 })
+        let rent = res.data.filter(i => i.rentState === '未租')
+
+        if (rent) {
+          rent = rent.sort((a, b) => +new Date(a.createDate) - +new Date(b.createDate))[0]
+          this.rentId = rent.rentId
+          let res2 = await this.$api.getLeaseDetail({
+            rentId: rent.rentId
           })
+          let res3 = await this.$api.queryMyBankCard({
+            userId: USER_ID
+          })
+          if (res2.success) {
+            this.info = Object.assign({}, res2.data, {
+              vehicleBrand: rent.vehicleBrand,
+              vehicleModel: rent.vehicleModel,
+              bankOfDeposit: res3.data.receiveBank,
+              bankAccountNum: res3.data.receiveAccountNo
+            })
+          }
         }
       }
     },
@@ -227,6 +246,26 @@ export default {
     .button{
       .wh(345px, 44px);
       margin: 0 auto 34px auto;
+    }
+  }
+  .popup{
+    width: 300px;
+    padding: 30px 15px;
+    border-radius: 10px;
+    font-size:12px;
+    text-align: left;
+    line-height:18px;
+    .title{
+      color: #2C2C2C;
+      font-weight: bold;
+    }
+    .content{
+      color: #666;
+      text-indent: 11px;
+      margin-bottom: 15px;
+    }
+    .content:last-child{
+       margin-bottom: 0px;
     }
   }
 }

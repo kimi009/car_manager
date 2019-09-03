@@ -77,7 +77,9 @@ export default {
             lStorage.setItem(WXOPENID, openIdInfo.body.openId)
             this.SET_USER_OPEN_ID(openIdInfo.body.openId)
 
-            this.$store.dispatch('getWxInfo', { wxOpenId }).then(res => {
+            this.$store.dispatch('getWxInfo', {
+              wxOpenId: openIdInfo.body.openId
+            }).then(res => {
               console.log('info', res)
               console.log('info', this.wxUserinfo)
             })

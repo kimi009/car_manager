@@ -80,11 +80,12 @@ export default {
     async getInfo () {
       if (Object.keys(this.info).length === 0) {
         let res = await this.$api.getCarList()
-        let car = res.data.find(i => i.rentState === '1')
-        console.log('car', car)
+        let car = res.data.filter(i => i.rentState === '1')
+        // console.log('car', car)
         if (car) {
+          let carId = car.sort((a, b) => +new Date(a.createDate) - +new Date(b.createDate))[0].carId
           let res2 = await this.$api.getVehicleInfo({
-            carId: car.carId
+            carId: carId
           })
           if (res2.success) {
             this.info = res2.data
