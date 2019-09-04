@@ -123,6 +123,7 @@
 import { Row, Col, Button, Toast, Cell, CellGroup, Dialog } from 'vant'
 import { mapGetters, mapState } from 'vuex'
 import psbInvoice from '@/mixins/psbInvoice'
+import { lStorage } from '@/utils/storage.js'
 export default {
   name: 'user',
   mixins: [psbInvoice],
@@ -155,14 +156,15 @@ export default {
 
   computed: {
     ...mapGetters([
-      'availableBalance', 'oilBalance', 'myIncomeData', 'currentPage', 'wxUserinfo'
+      'availableBalance', 'oilBalance', 'myIncomeData', 'currentPage'
     ]),
     ...mapState({
       userInfo: state => state.user.userInfo || {},
       intergalVal: state => state.intergal.intergalVal || '0'
     }),
     headPath () {
-      return this.wxUserinfo.headimgurl ? this.wxUserinfo.headimgurl : require('../../assets/image/user/head.png')
+      let wxUserInfo = JSON.parse(lStorage.setItem(lStorage.WX_USER_INFO))
+      return wxUserinfo.headimgurl ? wxUserinfo.headimgurl : require('../../assets/image/user/head.png')
     }
   },
   mounted () {
