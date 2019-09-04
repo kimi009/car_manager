@@ -64,15 +64,23 @@ export default {
       if (wxCode) {
         // 获取微信用户信息
         this.getWxInfoHandle(wxCode)
+
+        // 微信openid
+        let WxOpenid = lStorage.getItem(lStorage.WXOPENID)
+        if (WxOpenid) {
+          this.SET_USER_OPEN_ID(WxOpenid)
+        } else {
+          this.getWxOpenidHandle(wxCode)
+        }
       } else {
         const code = getQueryString('code')
         if (code) {
           // 获取微信openid
           this.getWxOpenidHandle(code)
 
-          lStorage.setItem(lStorage.WX_CODE, code)
           // 获取微信用户信息
           this.getWxInfoHandle(code)
+          lStorage.setItem(lStorage.WX_CODE, code)
         } else {
           await this.$api.wxAuth(window.location.href)
         }

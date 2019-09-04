@@ -14,7 +14,10 @@
     </div>
     <div class="h-divide"></div>
     <div class="content-footer">
-      <span class="status">开票状态：{{rowItem.invoiceState === '1' ? '未开票' : '已开票'}}</span>
+      <span class="status" v-show="rowItem.invoiceState === '1'">开票状态：未开票</span>
+      <span class="status" v-show="rowItem.invoiceState === '2'">开票状态：已开票</span>
+      <span class="status" v-show="rowItem.invoiceState === '3'">开票状态：开票中</span>
+      <span class="status" v-show="rowItem.invoiceState === '4'">开票状态：开票失败</span>
       <span @click.stop="$emit('statusRowClick',canMakeInvoice,rowItem)"
             v-if="canShowRow"
             :class="['status', canMakeInvoice ? 'no-invoiced' : 'has-invoiced']">{{canMakeInvoice ? '开票' : '点击查看'}}</span>
