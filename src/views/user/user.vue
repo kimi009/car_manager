@@ -155,14 +155,14 @@ export default {
 
   computed: {
     ...mapGetters([
-      'availableBalance', 'oilBalance', 'myIncomeData', 'currentPage'
+      'availableBalance', 'oilBalance', 'myIncomeData', 'currentPage', 'wxUserinfo'
     ]),
     ...mapState({
       userInfo: state => state.user.userInfo || {},
       intergalVal: state => state.intergal.intergalVal || '0'
     }),
     headPath () {
-      return this.userInfo.headPath ? this.userInfo.headPath : require('../../assets/image/user/head.png')
+      return this.wxUserinfo.headimgurl ? this.wxUserinfo.headimgurl : require('../../assets/image/user/head.png')
     }
   },
   mounted () {

@@ -12,7 +12,7 @@ const fillData = data => {
 
 const wxAuth = () => {
   const redirectUrl = `${encodeURI(config.HOST)}`
-  const authUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wxAppId}&redirect_uri=${redirectUrl}&response_type=code&scope=snsapi_base&state=jchyc#wechat_redirect`
+  const authUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wxAppId}&redirect_uri=${redirectUrl}&response_type=code&scope=snsapi_userinfo&state=jchyc#wechat_redirect`
   window.location.href = authUrl
 }
 
