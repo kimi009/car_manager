@@ -3,9 +3,9 @@
     <div class="rent-header">
       <img src="@/assets/image/rent/avatar.png" />
       <div class="rent-header-right">
-        <span>{{userInfo.enterpriseName}}</span>
+        <span class="enterprise">{{userInfo.enterpriseName}}</span>
         <div>
-          <span>{{userInfo.userName}}</span>
+          <span>{{userInfo.name}}</span>
           <span>{{userInfo.idNumber ? '实名认证' : '未认证'}}</span>
         </div>
       </div>
@@ -80,6 +80,10 @@ export default {
       flex-direction: column;
       align-items: flex-start;
       color: #ffffff;
+      .enterprise{
+        .text-over();
+        max-width: 240px;
+      }
       span {
         &:nth-child(1) {
           font-size: 18px;

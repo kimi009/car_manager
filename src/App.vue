@@ -22,7 +22,6 @@ import { Toast } from 'vant'
 import VConsole from 'vconsole'
 import { lStorage } from '@/utils/storage.js'
 import { getQueryString } from '@/utils'
-const WXOPENID = 'WXOPENID'
 export default {
   name: 'App',
   components: {
@@ -61,38 +60,47 @@ export default {
   methods: {
     ...mapMutations(['SET_USER_OPEN_ID']),
     async initWxInfo() {
-      let wxOpenId = lStorage.getItem(WXOPENID)
-      if (wxOpenId) {
-        this.SET_USER_OPEN_ID(wxOpenId)
-
-        this.$store.dispatch('getWxInfo', { wxOpenId }).then(res => {
-          console.log('info', res)
-          console.log('info', this.wxUserinfo)
-        })
+      let wxCode = lStorage.getItem(lStorage.WX_CODE)
+      if (wxCode) {
+        // 获取微信用户信息
+        this.getWxInfoHandle(wxCode)
       } else {
         const code = getQueryString('code')
         if (code) {
-          let openIdInfo = await this.$api.getOpenId({ code })
-          if (openIdInfo.head.success) {
-            lStorage.setItem(WXOPENID, openIdInfo.body.openId)
-            this.SET_USER_OPEN_ID(openIdInfo.body.openId)
+          // 获取微信openid
+          this.getWxOpenidHandle(code)
 
-            this.$store.dispatch('getWxInfo', {
-              wxOpenId: openIdInfo.body.openId
-            }).then(res => {
-              console.log('info', res)
-              console.log('info', this.wxUserinfo)
-            })
-          } else {
-            Toast({
-              message: '获取微信的openId失败',
-              position: 'bottom'
-            })
-          }
+          lStorage.setItem(lStorage.WX_CODE, code)
+          // 获取微信用户信息
+          this.getWxInfoHandle(code)
         } else {
           await this.$api.wxAuth(window.location.href)
         }
       }
+    },
+
+    // 获取微信openid
+    async getWxOpenidHandle (code) {
+      let openIdInfo = await this.$api.getOpenId({ code })
+      if (openIdInfo.head.success) {
+        lStorage.setItem(lStorage.WXOPENID, openIdInfo.body.openId)
+        this.SET_USER_OPEN_ID(openIdInfo.body.openId)
+      } else {
+        Toast({
+          message: '获取微信的openId失败',
+          position: 'bottom'
+        })
+      }
+    },
+
+    // 获取微信用户信息
+    async getWxInfoHandle (code) {
+      this.$store.dispatch('getWxInfo', {
+        code: code
+      }).then(res => {
+        console.log('info', res)
+        console.log('info', this.wxUserinfo)
+      })
     }
   }
 }

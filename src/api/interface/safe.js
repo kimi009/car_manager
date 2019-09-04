@@ -1,6 +1,6 @@
 import axios from '../api' // 导入 api
 
-// 获取保险信息
+// 获取保险副本
 const getInsuranceInfo = data => {
   return axios({
     method: 'get',

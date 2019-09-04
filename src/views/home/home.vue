@@ -17,7 +17,7 @@
           <span>{{vehicleInfo.cph}}</span>
         </p>
         <div class="rent" v-if="isSign">
-          <p>本月租金（元）</p>
+          <p>本月租金预计（元）</p>
           <p class="money">
             <span>{{vehicleInfo.income || 0}}</span>
             <a href="javascript:;"
@@ -40,7 +40,7 @@
           <span class="status">{{isLimit ? '今日限行' : '今日不限行'}}</span>
         </p>
         <p class="weather">
-          {{cityInfo.weather}} {{cityInfo.temperature}} C
+          {{cityInfo.weather}} {{cityInfo.temperature}} ℃
         </p>
         <p class="status">不适宜洗车</p>
       </div>

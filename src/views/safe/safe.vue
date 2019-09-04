@@ -21,7 +21,7 @@
         <span>交强险</span>
         <p>￥{{safeInfo.traffic}}</p>
         <a href="javascript:;"
-           @click="$router.push('/carList')">查看保单</a>
+           @click="warrantyHandle">查看保单</a>
       </div>
       <div class="item">
         <span>商业险</span>
@@ -53,12 +53,26 @@
         </div>
       </div>
     </div>
+
+    <van-image-preview
+      v-model="show"
+      :showIndicators="true"
+      :images="images"
+      @change="onChange"
+    >
+      <template v-slot:index v-if="index === 0">商业险</template>
+      <template v-slot:index v-else>交强险</template>
+    </van-image-preview>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapState } from 'vuex'
-import { Dialog, Toast } from 'vant'
+import { Dialog, Toast, ImagePreview } from 'vant'
+Vue.use(ImagePreview)
+import { lStorage } from '@/utils/storage.js'
+const USER_ID = lStorage.getItem(lStorage.USER_ID)
 export default {
   components: {
     [Dialog.Component.name]: Dialog.Component,
@@ -66,14 +80,25 @@ export default {
   },
   data() {
     return {
+      show: false,
+      index: 0,
+      images: []
     }
   },
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo || {},
       safeInfo: state => state.safe.safeInfo || {},
-      safeList: state => state.safe.safeList || []
-    })
+      safeList: state => state.safe.safeList || [],
+      fileData: state => state.certificate.fileData || []
+    }),
+
+    image () {
+      return {
+        traffic: this.fileData[2] && this.fileData[2].url,
+        business: this.fileData[3] && this.fileData[3].url
+      }
+    }
   },
   created() {
     this.initData()
@@ -90,10 +115,22 @@ export default {
         this.$store.dispatch('initSafeList', {})
       }
     },
+
+    onChange(index) {
+      this.index = index
+    },
+
+    async warrantyHandle () {
+      this.images = [
+        this.safeInfo.businessPic,
+        this.safeInfo.trafficPic
+      ]
+      this.show = true
+    },
     openSuccessDialog(item) {
       Dialog.alert({
         title: '预定成功！',
-        message: '稍后我们客服会及时联系您进行确\n认，感谢！'
+        message: '感谢您对惠用车的支持！稍后我们会有专属客服与您联系，谢谢您！'
       }).then(() => {
         // on confirm
         this.saveSafe(item)

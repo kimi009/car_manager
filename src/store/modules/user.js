@@ -89,7 +89,7 @@ const user = {
         Vue.prototype.$api
           .getWxUserinfo(obj)
           .then(res => {
-            state.wxUserinfo = res.body
+            state.wxUserinfo = res.data
             resolve(res)
           })
           .catch(err => {

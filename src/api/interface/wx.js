@@ -42,9 +42,9 @@ const getOpenId = data => {
 const getWxUserinfo = data => {
   return axios({
     baseURL: config.HOST,
-    url: `/auth/wechatCommonService/getWxUserInfo?token=235996b41edf417aae23677adc5d037810001201c78c023473c8dc65&appId=000101`,
-    data: fillData(data),
-    isNeedRequestId: true
+    url: '/backend/api/weixin/getUserInfo',
+    method: 'post',
+    data
   })
 }
 
