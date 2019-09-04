@@ -99,8 +99,7 @@ class LocalStorage extends Store {
   IS_SIGN = 'IS_SIGN' // 是否签约
   CAR_ID = 'CAR_ID' // 车辆ID
   WXOPENID = 'WXOPENID' // 微信openid
-  WX_CODE = 'WX_CODE' // 微信code
-  WX_USER_INFO = 'WX_USER_INFO'
+  WX_USER_INFO = 'WX_USER_INFO' // 微信用户信息
 }
 
 class SessionStorage extends Store {
