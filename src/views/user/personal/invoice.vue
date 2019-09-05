@@ -1,27 +1,18 @@
 <template>
   <div class="invoice">
-    <ul class="invoiceUl">
-      <li>
-        <div class="title">浙江金财共享智能科技有限公司</div>
+    <ul class="invoiceUl" v-if="invoiceList.length !== 0">
+      <li v-for="(item, index) in invoiceList" :key="index">
+        <div class="title">{{item.Name}}</div>
         <div class="detail">
-          <div class="text">税号：YTY67367676735565665</div>
-          <div class="right-mark">默认</div>
-        </div>
-        <div class="icon-right">
-          <img src="@/assets/image/user/enterprise.png" alt />
-        </div>
-      </li>
-      <li>
-        <div class="title">浙江金财共享智能科技有限公司</div>
-        <div class="detail">
-          <div class="text">税号：YTY67367676735565665</div>
-          <div class="right-mark">默认</div>
+          <div class="text">税号：{{item.TaxpayerCode}}</div>
+          <div class="right-mark" v-if="false">默认</div>
         </div>
         <div class="icon-right">
           <img src="@/assets/image/user/enterprise.png" alt />
         </div>
       </li>
     </ul>
+    <div class="noData" v-else>暂无数据</div>
     <div class="button">
       <van-button type="default" size="large" @click="$router.push('/user/personal/invoice/addinvoice')">添加</van-button>
     </div>
@@ -31,13 +22,38 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { Button } from "vant";
 export default {
   components: {
     [Button.name]: Button
   },
   data() {
-    return {};
+    return {
+      invoiceList: []
+    }
+  },
+
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ])
+  },
+
+  activated () {
+    this.getInvoiceList()
+  },
+
+  methods: {
+    getInvoiceList () {
+      this.$api.getInvoiceTitles({
+        mobilePhone: this.userInfo.mobile
+      }).then(res => {
+        if (res.success) {
+          this.invoiceList = res.data.Data
+        }
+      })
+    }
   }
 };
 </script>
@@ -108,6 +124,11 @@ export default {
         }
       }
     }
+  }
+  .noData{
+    .wh(100%, 50px);
+    font-size: 16px;
+    padding-top: 20px;
   }
   .button {
     .wh(345px, 44px);

@@ -1,87 +1,157 @@
 <template>
     <div class="addinvoice">
         <div class="top">
-            <div class="row">
+            <div class="row top-li">
                 <div>
                     <span>*</span>名称：
                 </div>
-                <div>金财互联数据服务有限公司</div>
+                <input type="text" v-model="invoiceInfo.Name" placeholder="请输入企业名称">
             </div>
             <div class="row">
                 <div>默认抬头：</div>
                 <div>
-                    <van-switch class="switch" v-model="checked" active-color="#FF7324"/>
+                    <van-switch class="switch" v-model="checked" size="20px" active-color="#FF7324"/>
                 </div>
             </div>
         </div>
         <div class="from">
-            <div class="title">
+            <!-- <div class="title">
                 <div class="active">企业</div>
                 <div>个人</div>
-            </div>
+            </div> -->
             <ul>
                 <li>
                     <div>税号：</div>
                     <div>
-                        <input type="text" placeholder="请输入纳税人识别号">
+                        <input type="text" v-model="invoiceInfo.TaxpayerCode" placeholder="请输入纳税人识别号">
                     </div>
                 </li>
                 <li>
                     <div>公司地址：</div>
                     <div>
-                        <input type="text" placeholder="请输入收票公司注册地址">
+                        <input type="text" v-model="invoiceInfo.Address" placeholder="请输入收票公司注册地址">
                     </div>
                 </li>
                 <li>
                     <div>公司电话：</div>
                     <div>
-                        <input type="text" placeholder="请输入收票公司电话号码">
+                        <input type="text" v-model="invoiceInfo.TelPhone" placeholder="请输入收票公司电话号码">
                     </div>
                 </li>
                 <li>
                     <div>开户银行:</div>
                     <div>
-                        <input type="text" placeholder="请输入公司开户银行">
+                        <input type="text" v-model="invoiceInfo.BankName" placeholder="请输入公司开户银行">
                     </div>
                 </li>
                 <li>
                     <div>银行账号:</div>
                     <div>
-                        <input type="text" placeholder="请输入收票公司银行账号">
+                        <input type="text" v-model="invoiceInfo.BankAccount" placeholder="请输入收票公司银行账号">
                     </div>
                 </li>
-                <li>
+                <!-- <li>
                     <div>电子邮箱:</div>
                     <div>
                         <input type="text" placeholder="请输入电子邮箱">
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
-        <div class="tips">
+        <!-- <div class="tips">
             <span class="red">*</span>建议全部填写，以便开具增值税专用发票
         </div>
         <div>
             <textarea name="" id="textarea" cols="5" rows="5" placeholder="备注（最多30字）"></textarea>
-        </div>
+        </div> -->
         <div class="save-button">
-            <van-button type="default" size="large">保存</van-button>
+            <van-button type="default" size="large" @click="saveHandle">保存</van-button>
         </div>
     </div>
 </template>
 <script>
-import { Switch, Button } from "vant";
+import { mapGetters } from 'vuex'
+import { Switch, Toast, Button } from "vant";
 export default {
   name: "addinvoice",
   data() {
     return {
-      checked: true
+      checked: true,
+      invoiceInfo: {
+        // Name: "广州湛蓝贸易有限公司",
+        // TaxpayerCode: "91440106673484820L",
+        // Address: "aa",
+        // TelPhone: "aa",
+        // BankName: "xx",
+        // BankAccount: "123456789",
+        // MobilePhone: "15099958116",
+      }
     };
   },
   components: {
     [Switch.name]: Switch,
+    [Toast.name]: Toast,
     [Button.name]: Button
+  },
+
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ])
+  },
+
+  mounted () {
+    // createInvoiceTitle
+  },
+
+  methods: {
+    saveHandle () {
+      let tip = {
+        Name: '请输入企业名称',
+        TaxpayerCode: '请输入纳税人识别号',
+        Address: '请输入公司地址',
+        TelPhone: '请输入公司电话',
+        BankName: '请输入开户银行',
+        BankAccount: '请输入银行账号'
+      }
+      let arr = Object.keys(tip)
+      for (let i = 0; i < arr.length; i++) {
+        if (!this.invoiceInfo[arr[i]]) {
+          Toast({
+            message: tip[arr[i]],
+            position: 'bottom'
+          })
+          return
+        }
+      }
+
+      // 创建发票抬头
+      this.$api.createInvoiceTitle({
+        Name: this.invoiceInfo.Name,
+        TaxpayerCode: this.invoiceInfo.TaxpayerCode,
+        Address: this.invoiceInfo.Address,
+        TelPhone: this.invoiceInfo.TelPhone,
+        BankName: this.invoiceInfo.BankName,
+        BankAccount: this.invoiceInfo.BankAccount,
+        MobilePhone: this.userInfo.mobile
+      }).then(res => {
+        console.log('res', res)
+        if (res.success) {
+          Toast({
+            message: '创建成功',
+            position: 'bottom'
+          })
+          this.$router.back()
+        } else {
+          Toast({
+            message: '创建失败',
+            position: 'bottom'
+          })
+        }
+      })
+    }
   }
+
 };
 </script>
 <style scope lang="less">
@@ -129,12 +199,20 @@ export default {
         width: 83px;
       }
       .switch {
-        width: 51px;
-        height: 31px;
-        line-height: 31px;
         position: absolute;
-        top: 5px;
+        top: 50%;
         right: 5px;
+        transform: translateY(-50%);
+      }
+    }
+    .top-li{
+      display: flex;
+      align-items: center;
+      & > div:nth-child(1) {
+        width: 75px;
+      }
+      input{
+        height: 30px;
       }
     }
   }
@@ -192,6 +270,9 @@ export default {
     &::-webkit-placeholder {
       color: #c7c7cc;
     }
+  }
+  .save-button{
+    margin-top: 40px;
   }
 }
 </style>

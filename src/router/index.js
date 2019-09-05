@@ -55,7 +55,7 @@ const router = new Router({
               children: [
                 {
                   path:'invoice',
-                  meta: { requiresAuth: true },
+                  meta: { requiresAuth: true, keepAlive: true },
                   component: () => import('@/views/user/personal/invoice'),
                   children: [
                     {

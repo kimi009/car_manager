@@ -10,6 +10,27 @@ const getPsbAccessToken = data => {
   })
 }
 
+// 获取用户发票抬头列表
+const getInvoiceTitles = params => {
+  return axios({
+    method: 'get',
+    url: '/api/psb/getInvoiceTitles',
+    params
+  })
+}
+
+// 创建发票抬头
+const createInvoiceTitle = data => {
+  return axios({
+    method: 'post',
+    url: '/api/psb/createInvoiceTitle',
+    data
+  })
+}
+
+
 export default {
-  getPsbAccessToken
+  getPsbAccessToken,
+  getInvoiceTitles,
+  createInvoiceTitle
 }
