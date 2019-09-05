@@ -57,7 +57,9 @@
 
 <script>
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE, DAIKUAN, LICAI, XINYONGKA, XINCHETUANGOU, ERSHOUCHEJIAOYI, PINPAICHEYOUHUI, ZIXUN } from './thirdLink.js'
+import psbInvoice from '@/mixins/psbInvoice'
 export default {
+  mixins: [psbInvoice],
   data() {
     return {
       car: [
@@ -150,6 +152,9 @@ export default {
       switch (item.id) {
         case 1:
           this.$router.push('/stationList')
+          break
+        case 2:
+          this.openPsbInvoiceList()
           break
         case 3:
           window.location.href = ETC

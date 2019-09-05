@@ -64,7 +64,7 @@
                alt="">
         </van-row>
         <van-row class="text">本月租金收入(元）</van-row>
-        <van-row class="num">{{myIncomeData.nextMonthIncome}}</van-row>
+        <van-row class="num">{{myIncomeData.currentMonthIncome}}</van-row>
         <van-row class="cash-button">
           <div @click="$router.push('/rent')">账单</div>
         </van-row>

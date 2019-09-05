@@ -34,7 +34,6 @@ import InComeList from './inComeList'
 import LeaseList from './leaseList'
 import { lStorage } from '@/utils/storage.js'
 export default {
-  name: 'index',
   components: { InComeList, LeaseList },
   data() {
     return {

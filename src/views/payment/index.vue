@@ -28,7 +28,6 @@
 import { mapState } from 'vuex'
 import { Toast } from 'vant'
 export default {
-  name: 'index',
   components: {
     [Toast.name]: Toast
   },
