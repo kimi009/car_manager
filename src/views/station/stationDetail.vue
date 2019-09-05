@@ -153,7 +153,7 @@ export default {
             longitude: position[0],
             name: this.stationDetail.name,
             address: this.stationDetail.address,
-            scale: 1
+            scale: 25
           })
         })
       }

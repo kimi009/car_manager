@@ -44,7 +44,7 @@
           <!-- <span class="custom">¥{{item.price.e93}}</span> -->
         </p>
         <p class="distance">
-          <span class="">距离{{item.distance}}km</span>
+          <span class="">距离{{item.distance / 1000}}km</span>
           <!-- <span class="count">
             <van-icon name="like"
                       :color="'#FF9656'"
