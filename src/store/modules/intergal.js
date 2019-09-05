@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const intergal = {
   state: {
-    intergalVal: '000',
+    intergalVal: '0',
     intergalValString: '',
     intergalArr: [],
     page: 1,

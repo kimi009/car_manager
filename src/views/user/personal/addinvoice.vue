@@ -65,7 +65,7 @@
             <textarea name="" id="textarea" cols="5" rows="5" placeholder="备注（最多30字）"></textarea>
         </div>
         <div class="save-button">
-            <van-button type="default" size="large" @click>保存</van-button>
+            <van-button type="default" size="large">保存</van-button>
         </div>
     </div>
 </template>

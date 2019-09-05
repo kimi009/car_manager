@@ -15,6 +15,8 @@ function popstateHandle () {
 // 获取用户信息
 function getUserInfo (to, from, next) {
   store.dispatch('getInfo').then(res => {
+    // 用户ID
+    lStorage.setItem(lStorage.USER_ID, res.data.userId)
     lStorage.setItem(lStorage.IS_SIGN, res.data.isSign)
     experienceMode(to, from, next)
   })

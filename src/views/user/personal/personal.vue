@@ -73,6 +73,7 @@
 <script>
 import { Row, Col, Button, Toast, Image, Dialog } from 'vant'
 import { mapGetters } from 'vuex'
+import { lStorage } from '@/utils/storage.js'
 export default {
   name: 'personal',
 
@@ -95,7 +96,8 @@ export default {
     ]),
 
     headPath () {
-      return this.userInfo.headPath ? this.userInfo.headPath : require('../../../assets/image/user/head.png')
+      let wxUserInfo = JSON.parse(lStorage.getItem(lStorage.WX_USER_INFO))
+      return wxUserInfo ? wxUserInfo.headimgurl : require('../../../assets/image/user/head.png')
     }
   },
 
@@ -145,6 +147,7 @@ export default {
           transform: translateY(-50%);
           background: url('../../../assets/image/user/head.png') 0 0 no-repeat;
           background-size: cover;
+          border-radius: 50%;
         }
       }
     }

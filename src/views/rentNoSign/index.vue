@@ -1,7 +1,8 @@
 <template>
   <div class='rent'>
     <div class="rent-header">
-      <img src="@/assets/image/rent/avatar.png" />
+      <!-- <img src="@/assets/image/rent/avatar.png" /> -->
+      <div class="avater-icon" :style="{backgroundImage: `url(${headPath})`}"></div>
       <div class="rent-header-right">
         <span class="enterprise">{{userInfo.enterpriseName}}</span>
         <div>
@@ -31,6 +32,7 @@
 import { mapState } from 'vuex'
 import InComeList from './inComeList'
 import LeaseList from './leaseList'
+import { lStorage } from '@/utils/storage.js'
 export default {
   name: 'index',
   components: { InComeList, LeaseList },
@@ -46,7 +48,11 @@ export default {
     ...mapState({
       userInfo: state => state.user.userInfo,
       myIncomeData: state => state.rent.myIncomeData || {}
-    })
+    }),
+    headPath () {
+      let wxUserInfo = JSON.parse(lStorage.getItem(lStorage.WX_USER_INFO))
+      return wxUserInfo ? wxUserInfo.headimgurl : require('../../assets/image/rent/avatar.png')
+    }
   },
   methods: {
     initData() {
@@ -67,12 +73,14 @@ export default {
     background-size: contain;
     display: flex;
     justify-content: flex-start;
-    img {
+    .avater-icon {
       margin-top: 22px;
       margin-left: 15px;
       width: 60px;
       height: 60px;
       border-radius: 50%;
+      background: url('../../assets/image/rent/avatar.png') 0 0 no-repeat;
+      background-size: cover;
     }
     .rent-header-right {
       margin: 29px 0 11px 18px;

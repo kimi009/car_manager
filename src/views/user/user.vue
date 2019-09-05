@@ -163,10 +163,9 @@ export default {
       intergalVal: state => state.intergal.intergalVal || '0'
     }),
     headPath () {
-      console.log('WX_USER_INFO', lStorage.getItem(lStorage.WX_USER_INFO))
       let wxUserInfo = JSON.parse(lStorage.getItem(lStorage.WX_USER_INFO))
       console.log('wxUserInfo', wxUserInfo)
-      return wxUserInfo.headimgurl ? wxUserInfo.headimgurl : require('../../assets/image/user/head.png')
+      return wxUserInfo ? wxUserInfo.headimgurl : require('../../assets/image/user/head.png')
     }
   },
   mounted () {
@@ -195,7 +194,7 @@ export default {
     },
     async addIntergal() {
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
-      if(res.sucess){
+      if(res.success){
         this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
       }
       Toast({
