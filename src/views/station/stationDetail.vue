@@ -106,6 +106,7 @@ export default {
     }
   },
   created() {
+    console.log('query', JSON.parse(this.$route.query.item))
     this.stationDetail = JSON.parse(this.$route.query.item)
     this.stationDetail.price.showPrice = this.stationDetail.price.e93
   },
@@ -127,14 +128,35 @@ export default {
           break
       }
     },
-    toLocation() {
-      window.location.href = `https://m.amap.com/navi/?start=116.403124,39.940693&dest=${this.stationDetail.position}&destName=${this.stationDetail.name}&naviBy=car&key=6b04810a078afef84e3a302955848c43`
-      // this.$router.push({
-      //   path: '/preview',
-      //   query: {
-      //     url: `https://m.amap.com/navi/?start=116.403124,39.940693&dest=${this.stationDetail.position}&destName=${this.stationDetail.name}&naviBy=car&key=6b04810a078afef84e3a302955848c43`
-      //   }
-      // })
+    async toLocation() {
+      // window.location.href = `https://m.amap.com/navi/?start=116.403124,39.940693&dest=${this.stationDetail.position}&destName=${this.stationDetail.name}&naviBy=car&key=6b04810a078afef84e3a302955848c43`
+      let res = await this.$api.getJsConfigInfo({
+        url: window.location.href.split('#')[0]
+      })
+      if (res.success) {
+        console.log(res)
+        const { appId, nonceStr, signature, timestamp } = res.data
+        // eslint-disable-next-line
+        wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId, // 必填，公众号的唯一标识
+          timestamp, // 必填，生成签名的时间戳
+          nonceStr, // 必填，生成签名的随机串
+          signature, // 必填，签名
+          jsApiList: ['openLocation'] // 必填，需要使用的JS接口列表
+        })
+        // eslint-disable-next-line
+        wx.ready(() => {
+          let position = this.stationDetail.position.split(',')
+          wx.openLocation({
+            latitude: position[0],
+            longitude: position[1],
+            name: this.stationDetail.name,
+            address: this.stationDetail.address,
+            scale: 1
+          })
+        })
+      }
     }
   }
 }
