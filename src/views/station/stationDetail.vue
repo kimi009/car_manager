@@ -149,8 +149,8 @@ export default {
         wx.ready(() => {
           let position = this.stationDetail.position.split(',')
           wx.openLocation({
-            latitude: position[0],
-            longitude: position[1],
+            latitude: position[1],
+            longitude: position[0],
             name: this.stationDetail.name,
             address: this.stationDetail.address,
             scale: 1
