@@ -1,7 +1,7 @@
 <template>
   <div class="waitingCash">
     <img class="icon" src="../../../assets/image/user/cash-success.png" alt="">
-    <div class="text">您好！您的提现申请已成功</div>
+    <div class="text">您好！您的提现申请已通过</div>
     <div class="describe">在1-3各工作日内到账。感谢您对惠用车的支持！</div>
     <div class="button">
       <van-button type="default" size="large" @click="$router.back()">返回</van-button>

@@ -150,6 +150,10 @@ export default {
     this.tabHeight = this.$refs.element.offsetHeight
   },
 
+  activated () {
+    this.$store.dispatch('getAccountMsg')
+  },
+
   methods: {
     toTime (str) {
       return timestampToTime(str)

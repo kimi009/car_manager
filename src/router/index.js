@@ -33,7 +33,7 @@ const router = new Router({
           children: [
             {
               path: 'account',
-              meta: { requiresAuth: true },
+              meta: { requiresAuth: true, keepAlive: true },
               component: () => import('@/views/user/account/account'),
               children: [
                 {
