@@ -47,7 +47,7 @@
       <p class="title">油站地址</p>
       <span>{{stationDetail.address}}</span>
       <p class="distance">
-        <span>距离{{stationDetail.distance}}km</span>
+        <span>距离{{stationDetail.distance / 1000}}km</span>
         <a href="javascript:;"
            @click="toLocation">
           <van-icon name="location-o"

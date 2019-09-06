@@ -3,7 +3,7 @@
     <!-- <div class="title">欢迎使用惠用车</div> -->
     <div class="title">
       <img src="@/assets/image/common/logo.png" alt="">
-      <div class="text">惠用车，享生活</div>
+      <!-- <div class="text">惠用车，享生活</div> -->
     </div>
     <div class="mobile">
       <van-row type="flex">
@@ -202,14 +202,16 @@ export default {
 
 <style scoped lang="less">
 .login{
-  height: 100%;
-  background-color: #FFF;
+  .fs;
+  background: url('../../assets/image/login-bg.png') 0 0 no-repeat;
+  background-size: 100% auto;
+  padding-top: 214px;
   .title{
     font-size:26px;
-    margin: 49px auto 45px auto;
+    margin: 0 auto 40px auto;
     color: #333;
     img{
-      width:183px;
+      width:155px;
     }
     .text{
       font-size: 16px;

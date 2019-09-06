@@ -84,8 +84,22 @@ export default {
           })
           return
         }
-        window.location.href = item.invoiceUrl
-        // this.$router.push({ path: '/previewPdf', query: { url: item.invoiceUrl } })
+        console.log('invoiceUrl', item.invoiceUrl)
+        if (item.invoiceUrl.indexOf('.pdf') === -1) {
+          // Toast({
+          //   message: '该链接不是pdf格式',
+          //   position: 'bottom'
+          // })
+          window.location.href = item.invoiceUrl
+          return
+        }
+        // http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf
+        this.$router.push({
+          path: '/pdfView',
+          query: {
+            url: encodeURIComponent(item.invoiceUrl)
+          }
+        })
       }
     }
   }

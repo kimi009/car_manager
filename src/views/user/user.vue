@@ -186,15 +186,19 @@ export default {
       this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
     }
   },
+
   methods: {
     // 积分
     integral() {
-      // console.log(111)
       this.$router.push({ path: '/integral' })
     },
     async addIntergal() {
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
       if(res.success){
+        Toast({
+          message: '签到成功',
+          position: 'bottom'
+        })
         this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
       }
       Toast({
@@ -202,6 +206,13 @@ export default {
         position: 'bottom'
       })
     }
+  },
+
+  beforeRouteUpdate (to, from, next) {
+    // if (from.path === '/user/account') {
+    //   this.$store.dispatch('getAccountMsg')
+    // }
+    next()
   }
 }
 </script>

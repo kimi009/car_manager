@@ -1,5 +1,18 @@
 <template>
   <div class="more">
+    <div class="swipe-container">
+      <van-swipe :autoplay="3000" indicator-color="white">
+        <van-swipe-item>
+          <img src="../../assets/image/home/banner1.png" alt="">
+        </van-swipe-item>
+        <van-swipe-item>
+          <img src="../../assets/image/home/banner2.png" alt="">
+        </van-swipe-item>
+        <van-swipe-item>
+          <img src="../../assets/image/home/banner3.png" alt="">
+        </van-swipe-item>
+      </van-swipe>
+    </div>
     <div class="car item">
       <p class="title">用车</p>
       <div>
@@ -58,8 +71,13 @@
 <script>
 import { ETC, WEIZHANG, BAOYANG, HUANCHE, TINGCHE, DAIKUAN, LICAI, XINYONGKA, XINCHETUANGOU, ERSHOUCHEJIAOYI, PINPAICHEYOUHUI, ZIXUN } from './thirdLink.js'
 import psbInvoice from '@/mixins/psbInvoice'
+import { Swipe, SwipeItem } from 'vant'
 export default {
   mixins: [psbInvoice],
+  components: {
+    [Swipe.name]: Swipe,
+    [SwipeItem.name]: SwipeItem
+  },
   data() {
     return {
       car: [
@@ -202,6 +220,14 @@ export default {
 <style lang="less" scoped>
 .more {
   background-color: #f5f5f5;
+  .swipe-container{
+    .wh(100%, 150px);
+    padding: 10px 16px 0 16px;
+    background-color: #fff;
+    img{
+      width: 100%;
+    }
+  }
   > .item {
     padding: 20px 16px;
     text-align: left;

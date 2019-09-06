@@ -4,7 +4,7 @@
     <div class="text">您好！您的提现申请已通过</div>
     <div class="describe">在1-3各工作日内到账。感谢您对惠用车的支持！</div>
     <div class="button">
-      <van-button type="default" size="large" @click="$router.back()">返回</van-button>
+      <van-button type="default" size="large" @click="backHandle">返回</van-button>
     </div>
   </div>
 </template>
@@ -23,6 +23,13 @@ export default {
 
   data () {
     return {}
+  },
+
+  methods: {
+    backHandle () {
+      this.$router.back()
+      this.$router.back()
+    }
   }
 }
 </script>

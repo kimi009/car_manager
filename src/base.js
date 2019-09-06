@@ -1,4 +1,5 @@
 import Vue from 'vue'
+
 let base = {}
 base.install = function (Vue) {
   // 路由跳转动画
@@ -8,5 +9,6 @@ base.install = function (Vue) {
     configurable: true
   })
 }
+
 Vue.use(base)
 export default base

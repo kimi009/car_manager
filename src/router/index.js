@@ -139,6 +139,10 @@ const router = new Router({
       ]
     },
     {
+      path: '/pdfView',
+      component: () => import('@/views/pdf/index')
+    },
+    {
       path: '/more',
       component: () => import('@/views/home/more')
     },

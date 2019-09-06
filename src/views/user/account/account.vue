@@ -152,6 +152,7 @@ export default {
 
   activated () {
     this.$store.dispatch('getAccountMsg')
+    this.account = ''
   },
 
   methods: {
