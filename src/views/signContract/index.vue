@@ -41,8 +41,15 @@ export default {
   },
 
   methods: {
-    goHandle () {
-      this.$router.push('/sign/process')
+    async goHandle () {
+      let res = await this.$api.getCarList()
+      let noRent = res.data.filter(i => i.rentState === '1')
+      let waitRent = res.data.filter(i => i.rentState === '2')
+      if (noRent.length === 0 && waitRent.length === 0) {
+        this.$router.push('/home')
+      } else {
+        this.$router.push('/sign/process')
+      }
     }
   }
 }
