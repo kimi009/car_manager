@@ -1,3 +1,7 @@
+import Vue from 'vue'
+import { resolve } from "url";
+import { rejects } from "assert";
+
 const carRental = {
   state: {
     barActive: -1, // 环节选中状态 (-1未选中 1 2 3 4 5 6)
@@ -6,7 +10,8 @@ const carRental = {
     anomaly: [], // 1 行驶证年检过期、2 保险过期、3 平台审核不通过、4 租车失败
     bill: 0, // 是否产生结账单（ 0 未产生、1 等待、 2 已产生）
     showAgreement: false, // 租车协议
-    leaseInfo: '' // 租约信息
+    leaseInfo: '', // 租约信息
+    submitLease: '' // 是否已提交租约
   },
   mutations: {
     SET_BAR_ACTIVE: (state, num) => {
@@ -37,6 +42,9 @@ const carRental = {
     },
     SET_LEASE_INFO: (state, obj) => {
       state.leaseInfo = obj
+    },
+    SET_SUBMIT_LEASE: (state, bol) => {
+      state.submitLease = bol
     }
   },
   actions: {
@@ -51,6 +59,21 @@ const carRental = {
     },
     setLeaseInfo ({ commit }, obj) {
       commit('SET_LEASE_INFO', obj)
+    },
+    isSubmitLease ({ state }) {
+      return new Promise( async (resolve, reject) => {
+        if (state.submitLease === '') {
+          console.log(55666)
+          let res = await Vue.prototype.$api.carRentalState()
+          if (res.success) {
+            state.submitLease = res.data.lease
+            resolve(res.data.lease)
+          }
+        } else{
+          console.log(577788)
+          resolve(state.submitLease)
+        }
+      })
     }
   }
 }

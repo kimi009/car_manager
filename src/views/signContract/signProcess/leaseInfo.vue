@@ -79,6 +79,7 @@
 <script>
 import CarAgreement from '../../../components/CarAgreement/index'
 import { Button, Row, Col, Toast, Popup } from 'vant'
+import { mapMutations } from 'vuex'
 import { lStorage } from '@/utils/storage.js'
 const USER_ID = lStorage.getItem(lStorage.USER_ID)
 export default {
@@ -117,12 +118,15 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'SET_SUBMIT_LEASE'
+    ]),
     async getInfo () {
       if (Object.keys(this.info).length === 0) {
         let res = await this.$api.getRentList({ size: 20, current: 1 })
         let rent = res.data.filter(i => i.rentState === '未租')
 
-        if (rent) {
+        if (rent.length !== 0) {
           rent = rent.sort((a, b) => +new Date(a.createDate) - +new Date(b.createDate))[0]
           this.rentId = rent.rentId
           let res2 = await this.$api.getLeaseDetail({
@@ -158,6 +162,8 @@ export default {
           rentId: this.rentId
         }).then(res => {
           if (res.success) {
+            // 更改租约提交状态
+            this.SET_SUBMIT_LEASE(true)
             this.$router.push('/sign/submitted')
           }
         })

@@ -11,11 +11,14 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
+# build for testing with minification
+npm run build:test
 
-# build for production and view the bundle analyzer report
-npm run build --report
+# build for presentation with minification
+npm run build:pre
+
+# build for production with minification
+npm run build:prod
 ```
 
 1. 添加less: yarn add less less-loader

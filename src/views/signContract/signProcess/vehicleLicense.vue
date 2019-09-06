@@ -93,7 +93,8 @@ export default {
     async getCertificateId () {
       let res = await this.$api.getCarList()
       let car = res.data.filter(i => i.rentState === '1')
-      if (car) {
+      console.log('car', car)
+      if (car.length !== 0) {
         let carId = car.sort((a, b) => +new Date(a.createDate) - +new Date(b.createDate))[0].carId
         let res2 = await this.$api.getVehicleInfo({
           carId: carId

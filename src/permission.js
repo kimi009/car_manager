@@ -12,6 +12,21 @@ function popstateHandle () {
   if (el) el.setAttribute('transition-direction', 'back')
 }
 
+// 未签约弹窗提示
+function dialogHandle (text) {
+  Dialog.confirm({
+    title: '提示',
+    message: text
+  }).then(() => {
+    // 清除车辆信息
+    lStorage.removeItem(lStorage.VEHICLE_INFO)
+    // 清除签约信息
+    lStorage.removeItem(lStorage.IS_SIGN)
+
+    next({path: `/sign?redirect=${to.path}`, replace: true})
+  }).catch(() => {})
+}
+
 // 获取用户信息
 function getUserInfo (to, from, next) {
   store.dispatch('getInfo').then(res => {
@@ -28,17 +43,13 @@ function experienceMode (to, from, next) {
   if (!!to.meta.experienceMode || isSign === 'true') {
     next()
   } else {
-    Dialog.confirm({
-      title: '提示',
-      message: '请先完成签约后解锁所有功能'
-    }).then(() => {
-      // 清除车辆信息
-      lStorage.removeItem(lStorage.VEHICLE_INFO)
-      // 清除签约信息
-      lStorage.removeItem(lStorage.IS_SIGN)
-
-      next({path: `/sign?redirect=${to.path}`, replace: true})
-    }).catch(() => {})
+    store.dispatch('isSubmitLease').then(res => {
+      if (res) {
+        dialogHandle('惠用车平台工作人员将在1-2个工作日内完成审核，请耐心等待。如有疑问请联系400-99-12366，感谢您对惠用车的支持！')
+      } else {
+        dialogHandle('请先完成签约后解锁所有功能')
+      }
+    })
   }
 }
 

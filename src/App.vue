@@ -45,7 +45,6 @@ export default {
     }
   },
   mounted() {
-    // this.$showPDF('http://storage.xuetangx.com/public_assets/xuetangx/PDF/PlayerAPI_v1.0.6.pdf')
     // this.$api.logout()
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))
