@@ -20,7 +20,7 @@ import Vue from 'vue'
 import { mapMutations, mapGetters } from 'vuex'
 import { Toast } from 'vant'
 import VConsole from 'vconsole'
-import { lStorage } from '@/utils/storage.js'
+import { lStorage, sStorage } from '@/utils/storage.js'
 import { getQueryString } from '@/utils'
 export default {
   name: 'App',
@@ -60,20 +60,24 @@ export default {
   methods: {
     ...mapMutations(['SET_USER_OPEN_ID']),
     async initWxInfo() {
-      const code = getQueryString('code')
-      if (code) {
-        let res = await this.$api.getWxUserinfo({
-          code: code
-        })
-        if (res.success) {
-          lStorage.setItem(lStorage.WX_USER_INFO, res.data)
-          console.log('info', res)
+      let sessionCode = sStorage.getItem(sStorage.WX_CODE)
+      if (!sessionCode) {
+        const code = getQueryString('code')
+        if (code) {
+          sStorage.setItem(sStorage.WX_CODE, code)
+          let res = await this.$api.getWxUserinfo({
+            code: code
+          })
+          if (res.success) {
+            lStorage.setItem(lStorage.WX_USER_INFO, res.data)
+            console.log('info', res)
 
-          lStorage.setItem(lStorage.WXOPENID, res.data.openid)
-          this.SET_USER_OPEN_ID(res.data.openid)
+            lStorage.setItem(lStorage.WXOPENID, res.data.openid)
+            this.SET_USER_OPEN_ID(res.data.openid)
+          }
+        } else {
+          await this.$api.wxAuth(window.location.href)
         }
-      } else {
-        await this.$api.wxAuth(window.location.href)
       }
     }
   }

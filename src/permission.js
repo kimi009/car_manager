@@ -52,7 +52,7 @@ function experienceMode (to, from, next) {
 router.beforeEach((to, from, next) => {
   console.log('V1.0.9')
   // console.log('store.state.user.isLogin', to)
-  store.dispatch('setCurrentPage', to.path)
+  // store.dispatch('setCurrentPage', to.path)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.state.user.isLogin) {
       console.log(to.path)

@@ -106,7 +106,7 @@ class SessionStorage extends Store {
   constructor (store) { // eslint-disable-line
     super(store)
   }
-  WX_SSO_TITLE = 'WX_SSO_TITLE'
+  WX_CODE = 'WX_CODE'
 }
 
 const lStorage = new LocalStorage(window.localStorage || localStorage)

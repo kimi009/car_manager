@@ -119,12 +119,16 @@ export default {
   },
 
   created () {
-    this.$api.rentAgreement().then(res => {
-      this.info = res.data
-    })
+    this.initHandle()
   },
 
   methods:{
+    initHandle () {
+      this.$api.rentAgreement().then(res => {
+        this.info = res.data
+      })
+    },
+
     closeHandle () {
       this.$emit('update:show', false)
     },

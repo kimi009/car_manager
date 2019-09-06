@@ -59,7 +59,7 @@
       </div>
     </div>
     <!-- 租约 -->
-    <car-agreement :show.sync="show"></car-agreement>
+    <car-agreement :show.sync="show" ref="carAgreement"></car-agreement>
 
     <van-popup v-model="popupShow" class="popup">
       <div class="title">1.Q:租赁期限能不能提前终止？</div>
@@ -83,6 +83,11 @@ import { mapMutations } from 'vuex'
 import { lStorage } from '@/utils/storage.js'
 const USER_ID = lStorage.getItem(lStorage.USER_ID)
 export default {
+  props:{
+    active: {
+      type: Number
+    }
+  },
   components: {
     [Button.name]: Button,
     [Row.name]: Row,
@@ -172,6 +177,14 @@ export default {
           message: '请先同意租车协议',
           position: 'bottom'
         })
+      }
+    }
+  },
+
+  watch: {
+    active (newValue, oldValue) {
+      if (newValue === 3) {
+        this.$refs.carAgreement.initHandle()
       }
     }
   }
