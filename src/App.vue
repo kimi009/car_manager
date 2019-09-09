@@ -45,6 +45,7 @@ export default {
     }
   },
   mounted() {
+    // 测试
     // this.$api.logout()
     // this.$api.test().then(res => {
     //   console.log(JSON.parse(res))
