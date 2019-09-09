@@ -195,16 +195,18 @@ export default {
     async addIntergal() {
       let res = await this.$api.addIntergal({ userId: this.userInfo.userId })
       if(res.success){
+        this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
         Toast({
           message: '签到成功',
           position: 'bottom'
         })
-        this.$store.dispatch('initIntergalInfo',{ userId: this.userInfo.userId })
       }
-      Toast({
-        message: res.message,
-        position: 'bottom'
-      })
+      if (res.code === '2') {
+        Toast({
+          message: res.message,
+          position: 'bottom'
+        })
+      }
     }
   },
 

@@ -25,8 +25,9 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import { Toast } from 'vant'
+import { lStorage } from '@/utils/storage.js'
+const WXOPENID = lStorage.getItem(lStorage.WXOPENID) || false
 export default {
   components: {
     [Toast.name]: Toast
@@ -41,14 +42,9 @@ export default {
   created() {
     this.initData()
   },
-  computed: {
-    ...mapState({
-      openId: state => state.user.openId
-    })
-  },
   methods: {
     async initData() {
-      if (!this.openId) {
+      if (!WXOPENID) {
         Toast({
           message: '获取微信的openId失败',
           position: 'bottom'
@@ -56,7 +52,7 @@ export default {
         return
       }
       const billId = this.$route.query.billId
-      let res = await this.$api.payTax({ employeeBillId: billId, openId: this.openId })
+      let res = await this.$api.payTax({ employeeBillId: billId, openId: WXOPENID })
       if (res.success) {
         this.amount = res.data.insteadAmount
         this.payUrl = res.data.payUrl
@@ -86,6 +82,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .payment {
+  .fs;
+  background-color: #fff;
   .banner {
     margin: 15px;
     width: 100%;
@@ -119,7 +117,7 @@ export default {
         font-weight: bold;
       }
       &:last-child {
-        margin-left: -10px;
+        margin-left: -5px;
         font-size: 16px;
       }
     }
