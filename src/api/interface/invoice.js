@@ -28,9 +28,28 @@ const createInvoiceTitle = data => {
   })
 }
 
+// 获取公司列表
+const searchInvoiceTitles = data => {
+  return axios({
+    method: 'post',
+    url: '/api/psb/searchInvoiceTitles',
+    data
+  })
+}
+
+// 获取公司的详情信息
+const searchInvoiceTitleDetail = data => {
+  return axios({
+    method: 'post',
+    url: '/api/psb/searchInvoiceTitleDetail',
+    data
+  })
+}
 
 export default {
   getPsbAccessToken,
   getInvoiceTitles,
-  createInvoiceTitle
+  createInvoiceTitle,
+  searchInvoiceTitles,
+  searchInvoiceTitleDetail
 }

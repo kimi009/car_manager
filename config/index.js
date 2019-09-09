@@ -6,6 +6,7 @@ const path = require('path')
 const address = require('address')
 // const localhost = address.ip() || 'localhost'
 const localhost = 'localhost'
+// const localhost = '10.10.14.186'
 
 module.exports = {
   dev: {

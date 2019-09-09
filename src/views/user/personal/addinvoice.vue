@@ -5,7 +5,10 @@
                 <div>
                     <span>*</span>名称：
                 </div>
-                <input type="text" v-model="invoiceInfo.Name" placeholder="请输入企业名称">
+                <input type="text" v-model="invoiceInfo.Name" @input="componyName" placeholder="请输入企业名称">
+                <ul class="componyList" v-show="flag">
+                  <li v-for="item in componyList" :key="item.Code" @click="getComponyName">{{item.Name}}</li>
+                </ul>
             </div>
             <div class="row">
                 <div>默认抬头：</div>
@@ -72,6 +75,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Switch, Toast, Button } from "vant";
+import axios from 'axios';
+import debounce from '../../../utils/invoice';
 export default {
   name: "addinvoice",
   data() {
@@ -85,7 +90,17 @@ export default {
         // BankName: "xx",
         // BankAccount: "123456789",
         // MobilePhone: "15099958116",
-      }
+        Name: "",
+        TaxpayerCode: "",
+        Address: "",
+        TelPhone: "",
+        BankName: "",
+        BankAccount: "",
+        MobilePhone: "",
+      },
+      info:[],
+      componyList:[],
+      flag:false
     };
   },
   components: {
@@ -97,11 +112,17 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo'
-    ])
+    ]),
+
   },
 
   mounted () {
     // createInvoiceTitle
+    // this.$api.getCompany({
+    //   PartialName:"广州品高软件"
+    // }).then(res => {
+    //   console.log(res);
+    // })
   },
 
   methods: {
@@ -149,7 +170,36 @@ export default {
           })
         }
       })
-    }
+    },
+
+    // 获取公司列表
+    componyName(event){
+      this.flag = true;
+      var that = this;
+      debounce(() => {
+        that.$api.searchInvoiceTitles({
+          PartialName:event.target.value
+        }).then(res => {
+          that.componyList = res.data.Items;
+        })
+      },300)
+    },
+
+    // 获取公司名字
+    getComponyName(event){
+      this.invoiceInfo.Name = event.target.innerText;
+      this.flag = false;
+      this.$api.searchInvoiceTitleDetail({
+        "Code":event.target.innerText
+      }).then(res => {
+        this.invoiceInfo.TaxpayerCode = res.data.TaxpayerCode;
+        this.invoiceInfo.Address = res.data.Address;
+        this.invoiceInfo.TelPhone = res.data.TelPhone;
+        this.invoiceInfo.BankName = res.data.BankName;
+        this.invoiceInfo.BankAccount = res.data.BankAccount;
+        this.invoiceInfo.MobilePhone = res.data.MobilePhone;
+      })
+    },
   }
 
 };
@@ -208,11 +258,29 @@ export default {
     .top-li{
       display: flex;
       align-items: center;
+      position: relative;
       & > div:nth-child(1) {
         width: 75px;
       }
       input{
         height: 30px;
+      }
+      .componyList{
+        position: absolute;
+        left: 70px;
+        top: 46px;
+        width: 260px;
+        max-height: 200px;
+        overflow: auto;
+        background: #fff;
+        border-left: 1px solid #e6e6e6;
+        border-bottom: 1px solid #e6e6e6;
+        border-right: 1px solid #e6e6e6;
+        padding: 0 5px;
+        z-index: 1;
+        li{
+          border-bottom: 1px solid #e6e6e6;
+        }
       }
     }
   }
