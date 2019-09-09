@@ -1,5 +1,5 @@
 <template>
-    <div class="addinvoice">
+    <div class="addinvoice" @click="flag = false">
         <div class="top">
             <div class="row top-li">
                 <div>
@@ -174,6 +174,7 @@ export default {
 
     // 获取公司列表
     componyName(event){
+      if (event.target.value === '') return
       this.flag = true;
       var that = this;
       debounce(() => {

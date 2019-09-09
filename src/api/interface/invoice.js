@@ -33,7 +33,8 @@ const searchInvoiceTitles = data => {
   return axios({
     method: 'post',
     url: '/api/psb/searchInvoiceTitles',
-    data
+    data,
+    noShowLoading: true
   })
 }
 
