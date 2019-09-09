@@ -1,7 +1,7 @@
 import axios from '../api'
 import config from '@/api/config'
 
-const wxAppId = process.env.NODE_ENV === 'production' ? 'wx4991079e39df7177' : 'wx78b4edeac7161cb0'
+const wxAppId = 'wx78b4edeac7161cb0'
 // http://wx.jchl.com/gateway/wechat/thirdparty/ocsp/getWechatWebJs?
 // requestId=6409c01b0bcc2f400e8146e8071c99ec&token=235996b41edf417aae23677adc5d037810001201c78c023473c8dc65
 // &appId=000101
