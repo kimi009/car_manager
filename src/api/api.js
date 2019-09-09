@@ -22,6 +22,8 @@ export default function $axios(options) {
     // request 拦截器
     instance.interceptors.request.use(
       config => {
+        console.log('options', options)
+        console.log('config', config)
         // 等待框
         if (!options.noShowLoading) {
           Toast.loading({

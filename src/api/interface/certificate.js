@@ -16,7 +16,8 @@ export const singleUpload = data => {
     url: '/api/file/singleUpload',
     method: 'post',
     data,
-    headers: {'Content-Type': 'multipart/form-data'}
+    headers: {'Content-Type': 'multipart/form-data'},
+    noShowLoading: true
   })
 }
 

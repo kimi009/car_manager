@@ -56,7 +56,7 @@ export default {
     }
   },
 
-  activated () {
+  mounted () {
     this.initProcess()
   },
 
@@ -83,6 +83,9 @@ export default {
             return
           }
           this.active = 2
+        } else {
+          // 清除车辆信息
+          lStorage.removeItem(lStorage.VEHICLE_INFO)
         }
         let info = JSON.parse(lStorage.getItem(lStorage.VEHICLE_INFO)) || false
         if (info) {

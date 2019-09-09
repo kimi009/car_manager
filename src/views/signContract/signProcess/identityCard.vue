@@ -41,13 +41,15 @@ export default {
 
   computed: {
     ...mapGetters([
-      'fileData'
+      'fileData', 'userInfo'
     ]),
 
     imgFile () {
+      let frontUrl = this.userInfo.idFront || false
+      let backUrl = this.userInfo.idBackend || false
       return {
-        front: (this.fileData[0] && this.fileData[0].copyDataURL) || this.imageList[0],
-        back: (this.fileData[1] && this.fileData[1].copyDataURL) || this.imageList[1]
+        front: frontUrl || (this.fileData[0] && this.fileData[0].copyDataURL) || this.imageList[0],
+        back: backUrl || (this.fileData[1] && this.fileData[1].copyDataURL) || this.imageList[1]
       }
     }
   },
