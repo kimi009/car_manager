@@ -384,8 +384,5 @@ export default {
       margin-right: 15px;
     }
   }
-  /deep/ .van-cell::after{
-    z-index: 1;
-  }
 }
 </style>
